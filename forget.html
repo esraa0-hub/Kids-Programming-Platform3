@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استعادة كلمة المرور السحرية!</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', Arial, sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+            padding: 20px;
+            color: #5E35B1;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #FF7043;
+        }
+        .method {
+            background-color: #E3F2FD;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .method:hover {
+            transform: scale(1.02);
+            background-color: #BBDEFB;
+        }
+        button {
+            background-color: #3949AB;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        input {
+            padding: 10px;
+            width: 80%;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .hidden {
+            display: none;
+        }
+        .success-message {
+            color: #4CAF50;
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://example.com/magic-key.png" width="100" alt="مفتاح سحري">
+        <h1>لقد نسيت كلمة المرور؟ لا مشكلة!</h1>
+        
+        <!-- اختيار الطريقة -->
+        <div class="method" onclick="showMethod('magic-link')">
+            <h2>🎩 الرابط البرمجي</h2>
+            <p>  اضغط هنا سأرسل لك رابطًا برمجياً إلى بريدك الإلكتروني!</p>
+        </div>
+
+
+        <!-- نموذج الرابط السحري -->
+        <div id="magic-link-form" class="hidden">
+            <h3> 🧙‍♂️أدخل بريدك الإلكتروني للحصول على الرابط البرمجي:</h3>
+            <input type="email" id="email-link" placeholder="بريدك الإلكتروني">
+            <button onclick="sendMagicLink()">إرسال الرابط البرمجي</button>
+        </div>
+
+
+      
+    </div>
+
+    <p> اضغط رجوع للرجوع الي صفحه تسجيل الدخول وكتابه كلمه السر الجديده</p>
+    <button onclick="window.location.href='tsjel.html'"> رجوع</button>
+      
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"> </script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"> </script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"> </script>
+
+    <script>
+      
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBSGd2kr71zV0UG2i5IwlMs9UmJB0anH8k",
+            authDomain: "code-kids-800d9.firebaseapp.com",
+            databaseURL: "https://code-kids-800d9-default-rtdb.firebaseio.com",
+            projectId: "code-kids-800d9",
+            storageBucket: "code-kids-800d9.firebasestorage.app",
+            messagingSenderId: "616970170049",
+            appId: "1:616970170049:web:b5b756e5ec642627c4ae40"
+          };
+
+           firebase.initializeApp(firebaseConfig);
+           const auth = firebase.auth();
+          const db = firebase.firestore();
+   
+
+
+          function showMethod(method) {
+            document.getElementById('magic-link-form').classList.add('hidden');
+            document.getElementById(method + '-form').classList.remove('hidden');
+          }  
+
+          // عرض الطريقة المختارة
+ // تعريف الدوال في النطاق العام
+
+// في صفحة الاستعادة
+ 
+   
+  function sendMagicLink() {
+    const email = document.getElementById('email-link').value;
+    firebase.auth().sendPasswordResetEmail(email)
+      .then(() => alert("تم إرسال الرابط السحري إلى بريدك!"))
+      .catch(error => alert("Error: " + error.message));
+  }
+
+
+  
+        </script>
+</body>
+</html>

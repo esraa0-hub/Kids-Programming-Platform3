@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+
+
+        <style>
+           body {
+            font-family: 'Tajawal', Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4f1fe 100%);
+        }
+        
+        h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+        
+        .question {
+            background-color: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .question:hover {
+            transform: translateY(-5px);
+        }
+        
+        h3 {
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 20px;
+            margin: 8px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+        
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            font-weight: bold;
+        }
+        
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+            border-left: 5px solid #28a745;
+        }
+        
+        .wrong {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 5px solid #dc3545;
+        }
+        
+        #score-container {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-size: 18px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+        
+        #score {
+            font-weight: bold;
+            font-size: 24px;
+            margin: 0 5px;
+        }
+        
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin: 20px 0;
+            height: 10px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 5px;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            button {
+                padding: 10px 15px;
+                font-size: 14px;
+                min-width: 100px;
+            }
+            
+            #score-container {
+                top: 10px;
+                left: 10px;
+                padding: 10px 15px;
+                font-size: 16px;
+            }
+        }
+.feedback.saved {
+  background-color: #f0f8ff;
+  border-left: 3px solid #4682b4;
+  color: #4682b4;
+}
+
+ .back-btn {
+            background-color: #ff8787;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            width: 200px;
+           margin-left:95%  ;
+            margin-right: auto;
+        }
+        
+        .back-btn:hover {
+            background-color: #ff6b6b;
+            transform: scale(1.05);
+        }
+     </style>
+
+    </head>
+    <body>
+        <button class="back-btn" onclick="window.location.href='qut.html'">
+                <i class="fas fa-arrow-right"></i>
+                العودة للسابق
+            </button>
+
+        <div id="score-container" style="
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 18px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        z-index: 1000;
+    ">
+        النقاط: <span id="score">0</span>/<span id="total-questions">0</span>
+    </div>
+
+<button onclick="resetScore()">إعادة النقاط</button>
+       
+            <h2> أسئله صعبه</h2>
+            <div class="question">
+                <h3> 1/ ؟html ما العنصر الذي يستخدم لإنشاء نموذج إدخال بيانات في لغه  </h3>
+                <button onclick="checkAnswer('form',1,this)">input</button>
+                <button onclick="checkAnswer('form',1,this)">button</button>
+                <button onclick="checkAnswer('form',1,this)">form</button>
+            <div id="feedback1" class="feedback"></div>
+            </div>
+
+
+             <div class="question"> 
+                <h3>2/ ما الخاصية التي تضيف مسافة داخلية حول محتوى العنصر؟</h3>
+                <button onclick="checkAnswer('padding',2,this)">margin</button>
+                <button onclick="checkAnswer('padding',2,this)">padding</button>
+                <button onclick="checkAnswer('padding',2,this)">space</button>
+            <div id="feedback2" class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <h3>3/ما القيمة التي تجعل النص يظهر بخط مائل؟ </h3>
+                <button onclick="checkAnswer('italic',3,this)">normal</button>
+                <button onclick="checkAnswer('italic',3,this)">bold</button>
+                <button onclick="checkAnswer('italic',3,this)">italic</button>
+            <div id="feedback3" class="feedback"></div>
+            </div>
+
+
+            <div class="question">
+                <h3>4/ ما نوع البيانات الذي يمكنه تخزين عدة قيم في متغير واحد؟</h3>
+                <button onclick="checkAnswer('مصفوفة',4,this)">رقم</button>
+                <button onclick="checkAnswer('مصفوفة',4,this)">مصفوفة</button>
+                <button onclick="checkAnswer('مصفوفة',4,this)">نص</button>
+            <div id="feedback4" class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <h3>5/ ما العامل الذي يستخدم للمقارنة بين قيمتين لمعرفة إذا كانتا متساويتين في القيمة والنوع ؟  </h3>
+                <button onclick="checkAnswer('===',5,this)"> == </button>
+                <button onclick="checkAnswer('===',5,this)">===</button>
+                <button onclick="checkAnswer('===',5,this)">!=</button>
+            <div id="feedback5" class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <h3>6/ما الدالة التي تستخدم لطباعة شيء في وحدة التحكم؟ </h3>
+                <button onclick="checkAnswer('console.log',6,this)">log</button>
+                <button onclick="checkAnswer('console.log',6,this)">console.log</button>
+                <button onclick="checkAnswer('console.log',6,this)">print</button>
+            <div id="feedback6" class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <h3>7/ما الكتلة التي تجعل الشخصية تتحرك 10 خطوات؟</h3>
+                <button onclick="checkAnswer('تحرك 10 خطوات',7,this)">تحرك 10 خطوات</button>
+                <button onclick="checkAnswer('تحرك 10 خطوات',7,this)">استدر 15 درجة</button>
+                <button onclick="checkAnswer('تحرك 10 خطوات',7,this)"> قل مرحباً</button>
+            <div id="feedback7" class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <h3>8/ ما الكتلة التي تستخدم لتكرار الأوامر عدة مرات في سكراتش؟</h3>
+                <button onclick="checkAnswer('كرر',8,this)">إذا</button>
+                <button onclick="checkAnswer('كرر',8,this)">كرر</button>
+                <button onclick="checkAnswer('كرر',8,this)">إلى الأبد</button>
+            <div id="feedback8" class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <h3>9/  ما الكتلة التي تستخدم للتحقق من شرط معين في سكراتش ؟</h3>
+                <button onclick="checkAnswer('إذا',9,this)">عندما</button>
+                <button onclick="checkAnswer('إذا',9,this)">كرر حتى</button>
+                <button onclick="checkAnswer('إذا',9,this)">إذا</button>
+            <div id="feedback9" class="feedback"></div>
+            </div>
+            
+            <div class="question">
+                <h3>10/ ما الكتلة التي تجعل الشخصية تقول "مرحباً" لمدة ثانيتين في سكراتش ؟</h3>
+                <button onclick="checkAnswer('قل مرحباً لمدة ثانيتين',10,this)">قل مرحباً</button>
+                <button onclick="checkAnswer('قل مرحباً لمدة ثانيتين',10,this)">فكر مرحباً</button>
+                <button onclick="checkAnswer('قل مرحباً لمدة ثانيتين',10,this)">قل مرحباً لمدة ثانيتين</button>
+            <div id="feedback10" class="feedback"></div>
+            </div>
+
+            
+              <div class="question">
+                <h3>11/ ما الذي يحدث عندما تضع شرطاً داخل شرط؟ </h3>
+                <button onclick="checkAnswer( 'شرط متداخل',11,this)">شرط متداخل</button>
+                <button onclick="checkAnswer('شرط متداخل',11,this)">حلقة متداخلة</button>
+                <button onclick="checkAnswer('شرط متداخل',11,this)">دالة متداخلة</button>
+            <div id="feedback11" class="feedback"></div>
+            </div>
+
+               <div class="question">
+                <h3>12/ ماذا يسمى الخطأ في الكود البرمجي الذي يمنع البرنامج من العمل بشكل صحيح؟ </h3>
+                <button onclick="checkAnswer( 'Bug (علة)',12,this)">Bug (علة)</button>
+                <button onclick="checkAnswer('Bug (علة)',12,this)">تحذير</button>
+                <button onclick="checkAnswer('Bug (علة)',12,this)">خطأ إملائي</button>
+            <div id="feedback12" class="feedback"></div>
+            </div>
+
+               <div class="question">
+                <h3>13/  ما الذي يسمح للعنصر بالتحرك في صفحة الويب ؟ </h3>
+                <button onclick="checkAnswer( 'جافا سكربت',13,this)">HTML</button>
+                <button onclick="checkAnswer('جافا سكربت',13,this)">CSS</button>
+                <button onclick="checkAnswer('جافا سكربت',13,this)">جافا سكربت</button>
+            <div id="feedback13" class="feedback"></div>
+            </div>
+
+               <div class="question">
+                <h3>14/  ما الذي يتحكم في ترتيب ظهور العناصر فوق بعضها في صفحة الويب ؟</h3>
+                <button onclick="checkAnswer( 'z-index',14,this)">margin</button>
+                <button onclick="checkAnswer('z-index',14,this)">z-index</button>
+                <button onclick="checkAnswer('z-index',14,this)">border</button>
+            <div id="feedback14" class="feedback"></div>
+            </div>
+
+               <div class="question">
+                <h3>15/ "ما الذي يحدث عندما تريد جمع القيمة 5 مع النص "5</h3>
+                <button onclick="checkAnswer( '55',15,this)">55</button>
+                <button onclick="checkAnswer('55',15,this)">5</button>
+                <button onclick="checkAnswer('55',15,this)">10</button>
+            <div id="feedback15" class="feedback"></div>
+            </div>
+
+               <div class="question">
+                <h3>16/ دائريا بالكامل ؟div  كيف يمكن جعل عنصر </h3>
+                <button onclick="checkAnswer( 'border-radius: 50%;',16,this)">border-radius: 50%;</button>
+                <button onclick="checkAnswer('border-radius: 50%;',16,this)">shape: circle;</button>
+                <button onclick="checkAnswer('border-radius: 50%;',16,this)">circle: true;</button>
+            <div id="feedback16" class="feedback"></div>
+            </div>
+
+               <div class="question">
+                <h3>17/ ؟CSS في visibility: hidden; وdisplay: none; ما الفرق بين</h3>
+                <button onclick="checkAnswer( 'الأول يزيل العنصر كلياً، الثاني يخفي مع الحفاظ على مساحته',17,this)">الأول يزيل العنصر كلياً، الثاني يخفي مع الحفاظ على مساحته</button>
+                <button onclick="checkAnswer('الأول يزيل العنصر كلياً، الثاني يخفي مع الحفاظ على مساحته',17,this)"> لا فرق بينهما</button>
+                <button onclick="checkAnswer('الأول يزيل العنصر كلياً، الثاني يخفي مع الحفاظ على مساحته',17,this)">الأول للصور، الثاني للنصوص</button>
+            <div id="feedback17" class="feedback"></div>
+            </div>
+
+               <div class="question">
+                <h3>18/ ؟[كتلة: اجعل x = 10، كرر 3 مرات: غير x بمقدار -2] ما نتيجة هذا الكتلة في سكراتش </h3>
+                <button onclick="checkAnswer( '4',18,this)">4</button>
+                <button onclick="checkAnswer('4',18,this)">6</button>
+                <button onclick="checkAnswer('4',18,this)">10</button>
+            <div id="feedback18" class="feedback"></div>
+            </div>
+
+               <div class="question">
+                <h3>19/؟ HTML  كيف يمكن منع نسخ النص من صفحة الويب في لغه </h3>
+                <button onclick="checkAnswer( 'user-select: none;',19,this)">user-select: none;</button>
+                <button onclick="checkAnswer('user-select: none;',19,this)">copy: disabled;</button>
+                <button onclick="checkAnswer('user-select: none;',19,this)">text-protect: true;</button>
+            <div id="feedback19" class="feedback"></div>
+            </div>
+
+               <div class="question">
+                <h3>20/ إذا كان لديك كائن يتحرك بسرعة 10 خطوات/ثانية، فكم ثانية يحتاج لقطع 50 خطوة؟</h3>
+                <button onclick="checkAnswer( '5ثوان',20,this)">5ثوان</button>
+                <button onclick="checkAnswer('5ثوان',20,this)">10ثوان</button>
+                <button onclick="checkAnswer('5ثوان',20,this)">15ثانيه</button>
+            <div id="feedback20" class="feedback"></div>
+            </div>
+      
+
+           
+<script>
+// تعريف الأصوات
+const sounds = {
+  correct: new Audio('success.mp3'),
+  wrong: new Audio('wrong.mp3')
+};
+
+
+// في الصفحة الأولى (page1.html)
+let score = localStorage.getItem('quizScore_page3') ? parseInt(localStorage.getItem('quizScore_page3')) : 0;
+
+// الحل الآمن لإنشاء Set
+let answeredQuestions;
+try {
+  const storedQuestions = localStorage.getItem('answeredQuestions_page3');
+  answeredQuestions = new Set(
+    storedQuestions ? JSON.parse(storedQuestions) : []
+  );
+} catch (e) {
+  console.error('خطأ في تحويل البيانات إلى Set:', e);
+  answeredQuestions = new Set(); // استخدم Set فارغاً كبديل
+}
+
+
+
+function updateScoreDisplay() {
+  const scoreElement = document.getElementById('score');
+  const totalQuestionsElement = document.getElementById('total-questions');
+  
+  if (scoreElement && totalQuestionsElement) {
+    scoreElement.textContent = score;
+    totalQuestionsElement.textContent = totalQuestions;
+    localStorage.setItem('quizScore_page3', score.toString());
+    localStorage.setItem('answeredQuestions_page3', JSON.stringify([...answeredQuestions]));
+  }
+}
+
+// دالة حساب الأسئلة مع التحقق من وجود العناصر
+function countTotalQuestions() {
+  try {
+    const questions = document.querySelectorAll('.question');
+    totalQuestions = questions.length;
+    updateScoreDisplay();
+  } catch (error) {
+    console.error('حدث خطأ أثناء عد الأسئلة:', error);
+  }
+}
+
+
+// دالة checkAnswer محسنة مع معالجة الأخطاء
+function checkAnswer(correctAnswer, questionNumber, button) {
+  try {
+    let userAnswer = button.textContent;
+    let feedback = document.getElementById(`feedback${questionNumber}`);
+
+    if (!feedback) {
+      console.error(`عنصر التغذية الراجعة feedback${questionNumber} غير موجود`);
+      return;
+    }
+
+    if (userAnswer == correctAnswer) {
+      feedback.innerHTML = "أحسنت أيها المبرمج الصغير";
+      feedback.className = "feedback correct";
+      sounds.correct.play();
+      
+      if (!answeredQuestions.has(questionNumber)) {
+        score++;
+        answeredQuestions.add(questionNumber);
+        updateScoreDisplay();
+        
+        const scoreElement = document.getElementById('score');
+        if (scoreElement) {
+          scoreElement.classList.add('animate__animated', 'animate__bounce');
+          setTimeout(() => {
+            scoreElement.classList.remove('animate__animated', 'animate__bounce');
+          }, 1000);
+        }
+      }
+    } else {
+      feedback.innerHTML = "الإجابة خاطئة. الإجابة الصحيحة هي: " + correctAnswer;
+      feedback.className = "feedback wrong";
+      sounds.wrong.play();
+    }
+    feedback.style.display = "block";
+  } catch (error) {
+    console.error('حدث خطأ أثناء التحقق من الإجابة:', error);
+  }
+}
+
+
+
+function loadSavedAnswers() {
+  const savedAnswers = JSON.parse(localStorage.getItem('answeredQuestions_page3')) || [];
+  savedAnswers.forEach(questionNum => {
+    const feedback = document.getElementById(`feedback${questionNum}`);
+    if (feedback) {
+      feedback.style.display = "block";
+      feedback.innerHTML = "إجابة محفوظة"; // أو يمكنك استعادة النص الأصلي
+      feedback.className = "feedback saved";
+    }
+  });
+}
+// تهيئة الصفحة عند التحميل
+document.addEventListener('DOMContentLoaded', function() {
+  // تأخير التنفيذ قليلاً لضمان تحميل كل العناصر
+  setTimeout(() => {
+    countTotalQuestions();
+    loadSavedAnswers(); 
+    
+    // اختبار وجود العناصر الأساسية
+    if (!document.getElementById('score') || !document.getElementById('total-questions')) {
+      console.error('عناصر عرض النقاط غير موجودة! تأكد من وجود:');
+      console.error('- عنصر ب id "score" لعرض النقاط');
+      console.error('- عنصر ب id "total-questions" لعرض عدد الأسئلة');
+    }
+  }, 100);
+});
+
+// دالة إعادة التعيين (اختيارية)
+function resetScore() {
+  score = 0;
+  answeredQuestions = new Set();
+  localStorage.removeItem('quizScore');
+  localStorage.removeItem('answeredQuestions');
+  updateScoreDisplay();
+  loadSavedAnswers();
+  alert('تم إعادة النقاط إلى الصفر!');
+  // إعادة تحميل بعد 5000 مللي ثانية (5 ثواني)
+setTimeout(() => {
+  location.reload();
+});
+}
+</script>
+  </body>
+
+</html>

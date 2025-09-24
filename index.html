@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كود كيدز | أكاديمية البرمجة للأطفال</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@700;900&family=Source+Code+Pro:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4cc9f0;
+            --accent: #f72585;
+            --yellow: #ffd166;
+            --white: #ffffff;
+            --dark: #2b2d42;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #83d9f3, #4cc9f0);
+            color: var(--dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            z-index: 1;
+        }
+        
+        .code-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            opacity: 0.25;
+        }
+        
+        .code-snippet {
+            position: absolute;
+            font-family: 'Source Code Pro', monospace;
+            color: rgba(255,255,255,0.8);
+            white-space: pre;
+            pointer-events: none;
+            font-weight: 300;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .bracket {
+            position: absolute;
+            font-family: 'Source Code Pro', monospace;
+            color: rgba(255,255,255,0.9);
+            font-size: 3rem;
+            pointer-events: none;
+            font-weight: 400;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .lang-name {
+            position: absolute;
+            font-family: 'Source Code Pro', monospace;
+            color: rgba(255,255,255,0.7);
+            font-size: 1.5rem;
+            pointer-events: none;
+            font-weight: 400;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .logo {
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 900;
+            font-size: 5rem;
+            margin-bottom: 20px;
+            color: var(--white);
+            text-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+            position: relative;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+        
+        .logo::after {
+            content: "";
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: var(--yellow);
+            z-index: -1;
+            opacity: 0.7;
+            border-radius: 5px;
+        }
+        
+        .tagline {
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            color: var(--white);
+            max-width: 800px;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn-primary {
+            background: var(--white);
+            color: var(--primary);
+        }
+        
+        .btn-secondary {
+            background: var(--yellow);
+            color: var(--dark);
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .floating-icon {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.7;
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        /* تأثيرات العائمة */
+        .floating-icon:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-duration: 7s;
+        }
+        
+        .floating-icon:nth-child(2) {
+            top: 60%;
+            left: 15%;
+            animation-duration: 8s;
+        }
+        
+        .floating-icon:nth-child(3) {
+            top: 30%;
+            right: 10%;
+            animation-duration: 6s;
+        }
+        
+        .floating-icon:nth-child(4) {
+            top: 70%;
+            right: 15%;
+            animation-duration: 9s;
+        }
+        
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 3.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.3rem;
+            }
+            
+            .btn {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="code-bg" id="codeBackground"></div>
+    
+    <div class="hero">
+        <div class="logo">كود كيدز</div>
+        <p class="tagline">مكان يتعلم الأطفال البرمجة بلغة بسيطة وممتعة</p>
+        
+        <div class="buttons">
+            <a href="tsjel.html" class="btn btn-primary">
+                <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+            </a>
+            <a href="creat.html" class="btn btn-secondary">
+                <i class="fas fa-user-plus"></i> إنشاء حساب
+            </a>
+        </div>
+    </div>
+    
+    <div class="floating-elements">
+        <div class="floating-icon">💻</div>
+        <div class="floating-icon">👾</div>
+        <div class="floating-icon">🧩</div>
+        <div class="floating-icon">🎮</div>
+    </div>
+
+
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeBg = document.getElementById('codeBackground');
+            const languages = ['Python', 'JavaScript', 'HTML', 'CSS', 'Java', 'C++', 'PHP', 'Swift', 'Kotlin'];
+            const brackets = ['{', '}', '[', ']', '(', ')', '<', '>'];
+            const codeSnippets = [
+                'function hello() {\n  return "مرحبا";\n}',
+                'for i in range(5):\n    print(i)',
+                'const x = 5;\nconsole.log(x);',
+                '<div class="box">\n  <p>محتوى</p>\n</div>',
+                'public class Main {\n  public static void main() {}\n}',
+                '#include <iostream>\nusing namespace std;',
+                'let arr = [1, 2, 3];\narr.map(x => x*2);',
+                '@IBOutlet weak var label: UILabel!',
+                'fun main() {\n  println("Hello")\n}'
+            ];
+            
+            // إضافة أسماء لغات البرمجة
+            for (let i = 0; i < 12; i++) {
+                const langElement = document.createElement('div');
+                langElement.className = 'lang-name';
+                langElement.textContent = languages[Math.floor(Math.random() * languages.length)];
+                langElement.style.fontSize = `${Math.random() * 20 + 16}px`;
+                langElement.style.left = `${Math.random() * 90}%`;
+                langElement.style.top = `${Math.random() * 90}%`;
+                langElement.style.transform = `rotate(${Math.random() * 15 - 7.5}deg)`;
+                
+                codeBg.appendChild(langElement);
+            }
+            
+            // إضافة الأقواس
+            for (let i = 0; i < 18; i++) {
+                const bracketElement = document.createElement('div');
+                bracketElement.className = 'bracket';
+                bracketElement.textContent = brackets[Math.floor(Math.random() * brackets.length)];
+                bracketElement.style.fontSize = `${Math.random() * 80 + 40}px`;
+                bracketElement.style.left = `${Math.random() * 90}%`;
+                bracketElement.style.top = `${Math.random() * 90}%`;
+                bracketElement.style.transform = `rotate(${Math.random() * 360}deg)`;
+                
+                codeBg.appendChild(bracketElement);
+            }
+            
+            // إضافة الأكواد البرمجية
+            for (let i = 0; i < 15; i++) {
+                const codeElement = document.createElement('div');
+                codeElement.className = 'code-snippet';
+                codeElement.textContent = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+                codeElement.style.fontSize = `${Math.random() * 12 + 10}px`;
+                codeElement.style.left = `${Math.random() * 85}%`;
+                codeElement.style.top = `${Math.random() * 85}%`;
+                codeElement.style.transform = `rotate(${Math.random() * 10 - 5}deg)`;
+                codeElement.style.opacity = `${Math.random() * 0.4 + 0.6}`;
+                
+                codeBg.appendChild(codeElement);
+            }
+        });
+
+
+
+
+
+ 
+    </script>
+</body>
+</html>

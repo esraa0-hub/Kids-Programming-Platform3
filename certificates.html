@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>كود كيدز - شهاداتي</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #3498db;
+      --secondary-color: #f8d56b;
+      --success-color: #27ae60;
+      --danger-color: #e74c3c;
+      --dark-color: #2c3e50;
+      --light-color: #f5f5f5;
+    }
+    
+    body {
+      font-family: 'Tajawal', Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    
+    .header {
+      background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .header h1 {
+      margin: 0;
+      font-size: 2.2rem;
+    }
+    
+    .header p {
+      margin: 0.5rem 0 0;
+      opacity: 0.9;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    
+    .certificates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .certificate-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      border-top: 4px solid var(--secondary-color);
+    }
+    
+    .certificate-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 20px rgba(0,0,0,0.12);
+    }
+    
+    .certificate-header {
+      padding: 1.2rem;
+      background: white;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .certificate-header h3 {
+      margin: 0;
+      color: var(--dark-color);
+      font-size: 1.3rem;
+    }
+    
+    .certificate-body {
+      padding: 1.2rem;
+    }
+    
+    .certificate-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    
+    .certificate-actions {
+      display: flex;
+      gap: 0.8rem;
+      margin-top: 1.2rem;
+    }
+    
+    .btn {
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.95rem;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: #2980b9;
+    }
+    
+    .btn-secondary {
+      background-color: var(--light-color);
+      color: var(--dark-color);
+    }
+    
+    .btn-secondary:hover {
+      background-color: #e0e0e0;
+    }
+    
+    .certificate-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+    
+    .certificate-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .certificate-modal {
+      background: white;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 900px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transform: scale(0.9);
+      transition: transform 0.3s;
+    }
+    
+    .certificate-overlay.active .certificate-modal {
+      transform: scale(1);
+    }
+    
+    /* تصميم الشهادة الجديد */
+    .certificate-content {
+      position: relative;
+      width: 100%;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(to bottom, #1a1a1a 0%, #000000 100%);
+      border: 15px solid #D4AF37;
+      padding: 40px;
+      color: white;
+    }
+    
+    .tech-pattern {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      opacity: 0.1;
+      z-index: 1;
+      background-image: 
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="10" y="20" font-family="Arial" font-size="12" fill="%23D4AF37">{ }</text></svg>'),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="10" y="20" font-family="Arial" font-size="12" fill="%23D4AF37">< ></text></svg>'),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="10" y="20" font-family="Arial" font-size="12" fill="%23D4AF37">( )</text></svg>'),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="10" y="20" font-family="Arial" font-size="12" fill="%23D4AF37">[ ]</text></svg>');
+      background-size: 100px 100px;
+      background-repeat: repeat;
+    }
+    
+    .corner {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background-color: #D4AF37;
+      z-index: 2;
+      opacity: 0.7;
+    }
+    
+    .corner-1 { top: 0; right: 0; clip-path: polygon(0 0, 100% 0, 100% 100%); }
+    .corner-2 { top: 0; left: 0; clip-path: polygon(0 0, 100% 0, 0 100%); }
+    .corner-3 { bottom: 0; right: 0; clip-path: polygon(0 100%, 100% 0, 100% 100%); }
+    .corner-4 { bottom: 0; left: 0; clip-path: polygon(0 0, 0 100%, 100% 100%); }
+    
+    .certificate-title {
+      color: #D4AF37;
+      font-size: 2.5rem;
+      margin: 20px 0;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      position: relative;
+      z-index: 3;
+    }
+    
+    .student-name {
+      font-size: 2.5rem;
+      color: #FFD700;
+      margin: 1.5rem 0;
+      font-weight: bold;
+      position: relative;
+      z-index: 3;
+    }
+    
+    .course-name {
+      font-size: 2rem;
+      color: #27ae60;
+      margin: 1rem 0;
+      position: relative;
+      z-index: 3;
+    }
+    
+    .completion-date {
+      font-size: 1.2rem;
+      color: #ddd;
+      margin: 1rem 0;
+      position: relative;
+      z-index: 3;
+    }
+    
+    .certificate-text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 3;
+      color: #eee;
+    }
+    
+    .computer-img {
+      width: 150px;
+      height: 150px;
+      margin: 20px auto;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%23D4AF37" d="M464 96H48a48 48 0 0 0-48 48v288a48 48 0 0 0 48 48h416a48 48 0 0 0 48-48V144a48 48 0 0 0-48-48zm-16 240H64v-32h384v32zm0-80H64v-32h384v32zm0-80H64v-32h384v32z"/></svg>');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.7));
+      position: relative;
+      z-index: 3;
+    }
+    
+    .stars {
+      margin: 20px 0;
+      position: relative;
+      z-index: 3;
+    }
+    
+    .star {
+      color: #D4AF37;
+      font-size: 28px;
+      margin: 0 5px;
+      text-shadow: 0 0 8px rgba(212, 175, 55, 0.7);
+    }
+    
+    .coding-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+      position: relative;
+      z-index: 3;
+    }
+    
+    .coding-icon {
+      width: 40px;
+      height: 40px;
+      background-color: rgba(212, 175, 55, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #D4AF37;
+      font-size: 18px;
+      border: 1px solid #D4AF37;
+    }
+    
+    .modal-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      padding: 1.5rem;
+      background: #f9f9f9;
+      border-top: 1px solid #eee;
+    }
+    
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 200px;
+    }
+    
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid var(--primary-color);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    @media (max-width: 768px) {
+      .certificates-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .certificate-content {
+        padding: 2rem 1rem;
+        min-height: auto;
+      }
+      
+      .certificate-title {
+        font-size: 2rem;
+      }
+      
+      .student-name {
+        font-size: 1.8rem;
+      }
+      
+      .course-name {
+        font-size: 1.5rem;
+      }
+      
+    
+    }
+
+    @media print {
+      * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      body * {
+        visibility: hidden;
+      }
+      .certificate-modal, .certificate-modal * {
+        visibility: visible;
+      }
+      .certificate-modal {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+      }
+      .modal-actions {
+        display: none !important;
+      }
+    }
+
+
+ .back-btn {
+            background-color: #ff8787;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            width: 200px;
+           margin-right:95%  ;
+            margin-right: auto;
+        }
+        
+        .back-btn:hover {
+            background-color: #ff6b6b;
+            transform: scale(1.05);
+        }
+ 
+
+  </style>
+</head>
+<body>
+ 
+  <div class="header">
+  
+    <h1><i class="fas fa-certificate"></i> شهاداتي</h1>
+    <p>إنجازاتك التعليمية مع أكاديمية كود كيدز</p>
+  </div>
+      <button class="back-btn" onclick="window.location.href='profile.html'">
+           العودة  للملف الشخصي <i class="fas fa-arrow-left"></i> 
+          
+        </button>
+  <div class="container">
+    <div id="loading" class="loading">
+      <div class="spinner"></div>
+    </div>
+    
+    <div id="certificates-container" class="certificates-grid"></div>
+  </div>
+  
+  <div id="certificate-overlay" class="certificate-overlay">
+    <div class="certificate-modal">
+      <div class="certificate-content" id="certificate-content">
+        <div class="tech-pattern"></div>
+        
+        <div class="corner corner-1"></div>
+        <div class="corner corner-2"></div>
+        <div class="corner corner-3"></div>
+        <div class="corner corner-4"></div>
+        
+        <h1 class="certificate-title">شهادة إتمام الدورة</h1>
+        
+        <div class="stars">
+          <i class="fas fa-star star"></i>
+          <i class="fas fa-star star"></i>
+          <i class="fas fa-star star"></i>
+          <i class="fas fa-star star"></i>
+          <i class="fas fa-star star"></i>
+        </div>
+        
+        <p class="certificate-text">يعلن موقع <strong>كود كيدز</strong> بأن المبرمج/ة</p>
+        <p class="student-name" id="cert-student-name">أحمد محمد</p>
+        
+       
+        
+        <p class="certificate-text">قد أتم بنجاح دورة</p>
+        <p class="course-name" id="cert-course-name">برمجة الألعاب</p>
+        
+
+        <p class="certificate-text" style="max-width:600px; margin-top:1.5rem;">
+          لقد أظهرت تفانياً وإبداعاً رائعاً خلال رحلتك التعليمية.<br>
+          هذه الشهادة تقديراً لجهودك وإثباتاً لإتقانك المهارات المطلوبة.
+        </p>
+        
+        <div class="coding-icons">
+          <div class="coding-icon">{ }</div>
+          <div class="coding-icon">< ></div>
+          <div class="coding-icon">( )</div>
+          <div class="coding-icon">[ ]</div>
+          <div class="coding-icon">;</div>
+        </div>
+      </div>
+      
+      <div class="modal-actions">
+        <button id="print-btn" class="btn btn-primary">
+          <i class="fas fa-print"></i> طباعة الشهادة
+        </button>
+        <button id="download-btn" class="btn btn-primary">
+          <i class="fas fa-download"></i> تحميل PDF
+        </button>
+        <button id="close-btn" class="btn btn-secondary">
+          <i class="fas fa-times"></i> إغلاق
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="pdf-certificate" style="position: fixed; left: -9999px; top: 0; width: 297mm; height: 210mm;"></div>
+  
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  
+  <script>
+    // التهيئة والتطبيق
+    const firebaseConfig = {
+      apiKey: "AIzaSyBSGd2kr71zV0UG2i5IwlMs9UmJB0anH8k",
+      authDomain: "code-kids-800d9.firebaseapp.com",
+      projectId: "code-kids-800d9",
+      storageBucket: "code-kids-800d9.appspot.com",
+      messagingSenderId: "616970170049",
+      appId: "1:616970170049:web:b5b756e5ec642627c4ae40"
+    };
+    
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    const { jsPDF } = window.jspdf;
+    
+    // عناصر DOM
+    const certificatesContainer = document.getElementById('certificates-container');
+    const loadingElement = document.getElementById('loading');
+    const overlay = document.getElementById('certificate-overlay');
+    const printBtn = document.getElementById('print-btn');
+    const downloadBtn = document.getElementById('download-btn');
+    const closeBtn = document.getElementById('close-btn');
+    
+    // متغيرات التطبيق
+    let currentCertificate = null;
+    
+    // تحميل الشهادات عند دخول الصفحة
+    document.addEventListener('DOMContentLoaded', () => {
+      auth.onAuthStateChanged(user => {
+        if (user) {
+          loadCertificates();
+        } else {
+          window.location.href = 'login.html';
+        }
+      });
+    });
+
+    // دالة مساعدة لتحميل الصور
+    async function loadImageAsBlob(url) {
+      try {
+        const absoluteUrl = url.startsWith('http') ? url : new URL(url, window.location.href).href;
+        const response = await fetch(absoluteUrl);
+        if (!response.ok) throw new Error('فشل تحميل الصورة');
+        return await response.blob();
+      } catch (error) {
+        console.error('خطأ في تحميل الصورة:', error);
+        throw error;
+      }
+    }
+
+
+
+
+
+
+
+
+
+
+
+    function formatArabicDate(dateInput) {
+  try {
+    // إذا كان التاريخ من Firebase Timestamp
+    if (dateInput && typeof dateInput.toDate === 'function') {
+      return dateInput.toDate().toLocaleDateString('ar-EG', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    }
+    
+    // إذا كان التاريخ كائن Date مباشرة
+    if (dateInput instanceof Date) {
+      return dateInput.toLocaleDateString('ar-EG', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    }
+    
+    // إذا كان التاريخ نصياً (مثل "July 2, 2025 at 1:06:54 AM UTC-7")
+    if (typeof dateInput === 'string') {
+      // إزالة جزء التوقيت إذا كان موجوداً
+      const datePart = dateInput.split(' at ')[0];
+      const dateObj = new Date(datePart);
+      
+      if (!isNaN(dateObj.getTime())) {
+        return dateObj.toLocaleDateString('ar-EG', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+      }
+    }
+    
+    // إذا لم ينجح أي من التحويلات السابقة
+    return 'تاريخ غير معروف';
+    
+  } catch (e) {
+    console.error('خطأ في تحويل التاريخ:', e);
+    return 'تاريخ غير صالح';
+  }
+}
+
+
+
+
+
+
+
+
+    // دالة تحميل الشهادات من Firestore
+   async function loadCertificates() {
+  try {
+    const user = auth.currentUser;
+    if (!user) {
+      window.location.href = 'login.html';
+      return;
+    }
+    
+    const [userDoc, coursesDoc] = await Promise.all([
+      db.collection('users').doc(user.uid).get(),
+      db.collection('userCourses').doc(user.uid).get()
+    ]);
+    
+    if (!coursesDoc.exists) {
+      showNoCertificates();
+      return;
+    }
+    
+    const userData = userDoc.data();
+    const coursesData = coursesDoc.data();
+    
+    // تحويل البيانات إلى مصفوفة وتصفية الدورات المكتملة
+    const completedCourses = Object.entries(coursesData)
+      .filter(([_, course]) => course.completed)
+      .map(([courseName, course]) => {
+        // إضافة معالجة خاصة لتاريخ lastUpdated
+        return [
+          courseName,
+          {
+            ...course,
+            // إذا كان lastUpdated موجوداً نستخدمه، وإلا نستخدم completionDate
+            displayDate: course.lastUpdated || course.completionDate
+          }
+        ];
+      });
+    
+    if (completedCourses.length === 0) {
+      showNoCertificates();
+      return;
+    }
+    
+    renderCertificates(completedCourses, userData);
+    
+  } catch (error) {
+    console.error('حدث خطأ في تحميل الشهادات:', error);
+    showError();
+  } finally {
+    loadingElement.style.display = 'none';
+  }
+}
+
+    // دالة عرض الشهادات في الصفحة
+ function renderCertificates(courses, userData) {
+  certificatesContainer.innerHTML = '';
+  
+  courses.forEach(([courseName, course]) => {
+    const card = document.createElement('div');
+    card.className = 'certificate-card';
+    
+    card.innerHTML = `
+      <div class="certificate-header">
+        <h3>${courseName}</h3>
+      </div>
+      <div class="certificate-body">
+        <div class="certificate-meta">
+          <span><i class="fas fa-user-graduate"></i> ${userData.name}</span>
+        </div>
+        <div class="certificate-actions">
+          <button class="btn btn-primary view-btn" 
+                  data-name="${userData.name}" 
+                  data-course="${courseName}">
+            <i class="fas fa-eye"></i> معاينة
+          </button>
+          <button class="btn btn-secondary download-btn" 
+                  data-name="${userData.name}" 
+                  data-course="${courseName}">
+            <i class="fas fa-download"></i> تحميل
+          </button>
+        </div>
+      </div>
+    `;
+    
+    certificatesContainer.appendChild(card);
+  });
+
+  // تعديل event listeners
+  document.querySelectorAll('.view-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      viewCertificate(
+        e.target.dataset.name,
+        e.target.dataset.course
+      );
+    });
+  });
+
+  document.querySelectorAll('.download-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      downloadCertificate(
+        e.target.dataset.name,
+        e.target.dataset.course
+      );
+    });
+  });
+}
+
+function viewCertificate(name, course) { // تمت إزالة date من المعاملات
+  const studentNameEl = document.getElementById('cert-student-name');
+  const courseNameEl = document.getElementById('cert-course-name');
+  
+  if (!studentNameEl || !courseNameEl) {
+    console.error('عناصر الشهادة غير موجودة');
+    return;
+  }
+
+  studentNameEl.textContent = name;
+  courseNameEl.textContent = course;
+  
+  document.getElementById('certificate-overlay').classList.add('active');
+  currentCertificate = { name, course }; // إزالة التاريخ
+}
+async function downloadCertificate(name, course) { // إزالة date من المعاملات
+  try {
+    const tempDiv = document.createElement('div');
+    tempDiv.id = 'temp-certificate';
+    tempDiv.style.position = 'fixed';
+    tempDiv.style.left = '-9999px';
+    tempDiv.style.width = '210mm';
+    tempDiv.style.height = 'auto';
+    tempDiv.style.padding = '15mm';
+    tempDiv.style.backgroundColor = '#fff';
+    document.body.appendChild(tempDiv);
+
+    const original = document.getElementById('certificate-content');
+    const clone = original.cloneNode(true);
+    
+    // تعبئة البيانات بدون التاريخ
+    clone.querySelector('#cert-student-name').textContent = name;
+    clone.querySelector('#cert-course-name').textContent = course;
+
+    tempDiv.appendChild(clone);
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    const pdf = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'a4'
+    });
+
+    const canvas = await html2canvas(tempDiv, {
+      scale: 2,
+      logging: false,
+      useCORS: true,
+      backgroundColor: '#fff'
+    });
+
+    pdf.addImage(canvas, 'PNG', 10, 10, 190, (canvas.height * 190) / canvas.width);
+    pdf.save(`شهادة_${course}_${name}.pdf`);
+
+    document.body.removeChild(tempDiv);
+  } catch (error) {
+    console.error('Error:', error);
+    alert('⚠️ فشل في إنشاء PDF! يرجى المحاولة لاحقاً');
+  }
+}
+    // دالة عند عدم وجود شهادات
+    function showNoCertificates() {
+      certificatesContainer.innerHTML = `
+        <div style="grid-column:1/-1; text-align:center; padding:40px;">
+          <i class="far fa-folder-open" style="font-size:60px; color:#ccc; margin-bottom:20px;"></i>
+          <h3 style="color:#666;">لا توجد شهادات متاحة حالياً</h3>
+          <p>بعد إكمال الدورات، ستظهر شهاداتك هنا</p>
+          <a href="courses.html" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#3498db; color:white; border-radius:5px; text-decoration:none;">
+            استكشف الدورات
+          </a>
+        </div>
+      `;
+    }
+    
+    // دالة طباعة الشهادة
+    function printCertificate() {
+      try {
+        if (!currentCertificate) {
+          throw new Error("لا يوجد شهادة معروضة للطباعة");
+        }
+
+        // إنشاء عنصر طباعة مؤقت
+        const printContainer = document.createElement('div');
+        printContainer.style.position = 'fixed';
+        printContainer.style.left = '-9999px';
+        printContainer.style.top = '0';
+        printContainer.id = 'print-container';
+        
+        // استنساخ محتوى الشهادة
+        const contentToPrint = document.getElementById('certificate-content').cloneNode(true);
+        
+        // إضافة أنماط الطباعة المخصصة
+        const printStyles = `
+          <style>
+            @media print {
+              body * {
+                visibility: hidden;
+              }
+              #print-content, #print-content * {
+                visibility: visible;
+              }
+              #print-content {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+              }
+              .no-print {
+                display: none !important;
+              }
+            }
+            @page {
+              size: landscape;
+              margin: 0;
+            }
+          </style>
+        `;
+
+        contentToPrint.id = 'print-content';
+        printContainer.innerHTML = printStyles;
+        printContainer.appendChild(contentToPrint);
+        document.body.appendChild(printContainer);
+
+        // تأخير بسيط لضمان تحميل العناصر
+        setTimeout(() => {
+          window.print();
+          
+          // تنظيف العناصر المؤقتة بعد الطباعة
+          setTimeout(() => {
+            const container = document.getElementById('print-container');
+            if (container) {
+              document.body.removeChild(container);
+            }
+          }, 500);
+        }, 300);
+        
+      } catch (error) {
+        console.error('فشل الطباعة:', error);
+        alert(`خطأ في الطباعة: ${error.message}`);
+      }
+    }
+
+    // دالة عند حدوث خطأ
+    function showError() {
+      certificatesContainer.innerHTML = `
+        <div style="grid-column:1/-1; text-align:center; padding:40px;">
+          <i class="fas fa-exclamation-triangle" style="font-size:60px; color:#e74c3c; margin-bottom:20px;"></i>
+          <h3 style="color:#666;">حدث خطأ في تحميل الشهادات</h3>
+          <p>يرجى المحاولة مرة أخرى لاحقاً</p>
+          <button onclick="location.reload()" style="padding:10px 20px; background:#3498db; color:white; border:none; border-radius:5px; margin-top:20px; cursor:pointer;">
+            إعادة المحاولة
+          </button>
+        </div>
+      `;
+    }
+    
+    // Event Listeners للنافذة المنبثقة
+    printBtn.addEventListener('click', printCertificate);
+    downloadBtn.addEventListener('click', () => {
+      if (currentCertificate) {
+        downloadCertificate(
+          currentCertificate.name,
+          currentCertificate.course,
+          currentCertificate.date
+        );
+      }
+    });
+    closeBtn.addEventListener('click', () => {
+      overlay.classList.remove('active');
+    });
+  </script>
+</body>
+</html>

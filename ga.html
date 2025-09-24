@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أكاديمية البرمجة للأطفال</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-hover: #3a56d4;
+            --secondary: #3f37c9;
+            --accent: #f72585;
+            --accent-hover: #e5177b;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --text: #2b2d42;
+            --success: #4cc9f0;
+        }
+        
+        body {
+            font-family: 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color:#83d9f385;
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-top: 20px;
+        }
+        
+        .back-btn {
+            background: linear-gradient(135deg, var(--accent), #f75a96);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 12px 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(247, 37, 133, 0.2);
+            z-index: 10;
+            text-decoration: none;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, var(--accent-hover), #e64a8a);
+            box-shadow: 0 6px 12px rgba(247, 37, 133, 0.3);
+        }
+        
+        h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 30px 0 50px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 50%;
+            transform: translateX(50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--success));
+            border-radius: 2px;
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+            margin-right: 250px; /* مساحة للروبوت */
+        }
+        
+        .game-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+        }
+        
+        .game-icon {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--primary);
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.1), rgba(76, 201, 240, 0.1));
+            transition: all 0.3s ease;
+        }
+        
+        .game-card:hover .game-icon {
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.2), rgba(76, 201, 240, 0.2));
+        }
+        
+        .game-info {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .game-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .game-card:hover .game-title {
+            color: var(--secondary);
+        }
+        
+        .game-desc {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        /* الروبوت مع مساحة كافية */
+        .robot-container {
+            width: 250px;
+            position: fixed;
+            right: -15px;
+            top: 260px;
+            animation: float 3s ease-in-out infinite;
+            z-index: 100;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
+        }
+        
+        .robot {
+            width: 80%;
+            transition: all 0.6s ease;
+        }
+        
+        .robot:hover {
+            transform: scale(1.05) rotate(-360deg);
+            filter: drop-shadow(0 0 15px rgba(67, 97, 238, 0.3));
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        /* فقاعات محسنة مع مساحة كافية */
+        .speech-bubble {
+            position: absolute;
+            right:177px;
+            top: -70px; /* أقرب لرأس الروبوت */
+            width: 220px;
+            padding: 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            line-height: 1.6;
+            text-align: right;
+            color: var(--text);
+            z-index: 10;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
+        }
+        
+        .speech-bubble.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .speech-bubble::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: -10px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 10px solid white;
+            transform: translateY(-50%);
+        }
+        
+        .close-bubble {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            transition: all 0.3s;
+        }
+        
+        .close-bubble:hover {
+            background: var(--primary);
+            transform: rotate(90deg);
+        }
+        
+        /* الفقاعات الصغيرة بالقرب من الرأس */
+        .bubbles-container {
+            position: absolute;
+            right: 70px;
+            top: 20px;
+            width: 100px;
+            height: 60px;
+            z-index: 9;
+        }
+        
+        .bubble {
+            position: absolute;
+            background: var(--success);
+            border-radius: 50%;
+            animation: floatBubble 1.5s ease-in-out infinite;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        
+        .bubble.show {
+            opacity: 0.8;
+        }
+        
+        .bubble:nth-child(1) {
+            width: 10px;
+            height: 10px;
+            right: 60px;
+            top: -5px;
+            animation-delay: 0s;
+        }
+        
+        .bubble:nth-child(2) {
+            width: 14px;
+            height: 14px;
+            right: 69px;
+            top: -17px;
+            animation-delay: 0.4s;
+        }
+        
+        .bubble:nth-child(3) {
+            width: 18px;
+            height: 18px;
+            right: 77px;
+            top: -27px;
+            animation-delay: 0.8s;
+        }
+        
+        @keyframes floatBubble {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-5px, -5px); }
+        }
+        
+        /* تأثيرات الظهور */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* التأثير على البطاقات */
+        .game-card {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s forwards;
+        }
+        
+        .game-card:nth-child(1) { animation-delay: 0.1s; }
+        .game-card:nth-child(2) { animation-delay: 0.2s; }
+        .game-card:nth-child(3) { animation-delay: 0.3s; }
+        .game-card:nth-child(4) { animation-delay: 0.4s; }
+        .game-card:nth-child(5) { animation-delay: 0.5s; }
+        
+        @media (max-width: 1024px) {
+            .games-grid {
+                margin-right: 0;
+                padding-right: 20px;
+            }
+            
+            .robot-container {
+                position: static;
+                width: 180px;
+                margin: 30px auto;
+                display: block;
+                animation: none;
+            }
+            
+            .speech-bubble {
+                position: relative;
+                right: auto;
+                top: auto;
+                margin: 20px auto;
+                width: 85%;
+            }
+            
+            .speech-bubble::after {
+                display: none;
+            }
+            
+            .bubbles-container {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column-reverse;
+                gap: 20px;
+            }
+            
+            .back-btn {
+                margin: 0 auto;
+            }
+            
+            h1 {
+                font-size: 2rem;
+                margin: 20px 0 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎮  الالعاب البرمجيه  🎮</h1>
+            <button class="back-btn" onclick="window.location.href='f1.html'">
+                العودة للرئيسية <i class="fas fa-arrow-left"></i>
+               
+            </button>
+        </div>
+        
+        <div class="games-grid">
+            <div class="game-card" onclick="window.location.href='asas.html'">
+                <div class="game-icon">
+                    <i class="fas fa-puzzle-piece"></i>
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">أساسيات البرمجة</h3>
+                    <p class="game-desc">ابدأ رحلتك البرمجية مع هذه اللعبة التعليمية</p>
+                </div>
+            </div>
+            
+            <div class="game-card" onclick="window.location.href='hlgat.html'">
+                <div class="game-icon">
+                    <i class="fas fa-redo-alt"></i>
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">الحلقات التكرارية</h3>
+                    <p class="game-desc">تعلم قوة التكرار في البرمجة</p>
+                </div>
+            </div>
+            
+            <div class="game-card" onclick="window.location.href='shroot.html'">
+                <div class="game-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">الشروط والتحكم</h3>
+                    <p class="game-desc">اتخذ القرارات البرمجية الصحيحة</p>
+                </div>
+            </div>
+            
+            <div class="game-card" onclick="window.location.href='dual.html'">
+                <div class="game-icon">
+                    <i class="fas fa-cubes"></i>
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">الدوال والإجراءات</h3>
+                    <p class="game-desc">ابنِ أدواتك البرمجية الخاصة</p>
+                </div>
+            </div>
+            
+            <div class="game-card" onclick="window.location.href='app.html'">
+                <div class="game-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">ألعاب للهاتف</h3>
+                    <p class="game-desc">حمل الألعاب وتعلم في أي مكان</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- الروبوت مع الفقاعات -->
+    <div class="robot-container">
+        <img src="6.png" alt="روبوت تعليمي" class="robot" id="robot">
+        
+        <div class="speech-bubble" id="speechBubble">
+            <button class="close-bubble" id="closeBubble">×</button>
+            مرحباً صديقي المبرمج! 👋<br><br>
+            <strong>لنبدأ رحلة البرمجة معاً</strong><br>
+            اختر اللعبة التي تفضلها لتبدأ المغامرة!
+        </div>
+        
+        <div class="bubbles-container" id="bubblesContainer">
+            <div class="bubble" id="bubble1"></div>
+            <div class="bubble" id="bubble2"></div>
+            <div class="bubble" id="bubble3"></div>
+        </div>
+    </div>
+    
+    <script>
+        let bubbleTimer;
+        
+        // إظهار العناصر
+        function showBubbleElements() {
+            const bubble = document.getElementById('speechBubble');
+            const bubbles = [
+                document.getElementById('bubble1'),
+                document.getElementById('bubble2'),
+                document.getElementById('bubble3')
+            ];
+            
+            bubble.classList.add('show');
+            
+            bubbles.forEach((bubble, index) => {
+                setTimeout(() => {
+                    bubble.classList.add('show');
+                }, index * 200);
+            });
+            
+            if (bubbleTimer) clearTimeout(bubbleTimer);
+            bubbleTimer = setTimeout(hideBubbleElements, 10000);
+        }
+        
+        // إخفاء العناصر
+        function hideBubbleElements() {
+            const bubble = document.getElementById('speechBubble');
+            const bubbles = [
+                document.getElementById('bubble1'),
+                document.getElementById('bubble2'),
+                document.getElementById('bubble3')
+            ];
+            
+            bubble.classList.remove('show');
+            
+            bubbles.forEach(bubble => {
+                bubble.classList.remove('show');
+            });
+        }
+        
+        // عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            // إظهار الفقاعات بعد ثانية واحدة
+            setTimeout(showBubbleElements, 1000);
+            
+            // النقر على الروبوت
+            document.getElementById('robot').addEventListener('click', function() {
+                const bubble = document.getElementById('speechBubble');
+                if (bubble.classList.contains('show')) {
+                    hideBubbleElements();
+                } else {
+                    showBubbleElements();
+                }
+            });
+            
+            // النقر على زر الإغلاق
+            document.getElementById('closeBubble').addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                hideBubbleElements();
+            });
+        });
+    </script>
+</body>
+</html>

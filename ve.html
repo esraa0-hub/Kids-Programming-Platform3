@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعلم البرمجة مع الروبوت!</title>
+
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Arial Rounded MT Bold', 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 0;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        .header {
+          
+            color: white;
+            padding: 20px;
+            text-align: center;
+         color: #2b6cb0;
+         
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.2em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }   
+        
+        .container {
+            display: flex;
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            position: relative;
+            margin-right: 60px;
+        }
+        
+        .robot-container {
+            width: 250px;
+            position: fixed;
+            right: 0px;
+            top: 260px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .robot {
+            width: 80%;
+            transition: transform 0.6s;
+        }
+        
+        .robot:hover {
+            transform: scale(1.05) rotate(-363deg);
+        }
+        
+        .buttons-container {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 35px;
+            margin-right: 350px;
+        }
+        
+        .button {
+            background: white;
+            border: none;
+            border-radius: 50px;
+            padding: 25px 15px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 10px rgba(0,0,0,0.1);
+            color: #333;
+            text-align: center;
+        }
+        
+        .button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+        
+        /* ألوان الأزرار */
+        #basics { background: #2386C8; color: white; }
+        #scratch { background: #FFAA19 ; color: white; }
+        #html { background: #E44D26; color: white; }
+        #css { background: #3799D8; color: white; }
+        #js { background: #FFFFFF; color: #333; }
+        
+              .back-btn {
+            background-color: #ff8787;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            width: 200px;
+           margin-right:95%  ;
+            margin-right: auto;
+        }
+        
+        .back-btn:hover {
+            background-color: #ff6b6b;
+            transform: scale(1.05);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        @media (max-width: 1000px) {
+            .robot-container {
+                position: static;
+                width: 150px;
+                margin: 0 auto 30px;
+                left: auto;
+                bottom: auto;
+            }
+            
+            .buttons-container {
+                margin-right: 0;
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                flex-direction: column;
+            }
+        }
+
+
+/* مسار الفقاعات */
+#bubblepath {
+    position: absolute;
+    right: 180px;
+    top: 100px;
+    z-index: 9;
+    width: 100px;
+    height: 50px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* الفقاعات الصغيرة */
+.bubble {
+    position: absolute;
+    background: #339af0;
+    border-radius: 50%;
+    animation: floatBubble 1.5s ease-in-out infinite;
+    opacity: 0.8;
+    filter: blur(0.8px);
+}
+
+.bubble:nth-child(1) {
+    width: 10px;
+    height: 10px;
+   right: -25px;
+    top: -80px;
+    animation-delay: 0s;
+}
+
+.bubble:nth-child(2) {
+    width: 14px;
+    height: 14px;
+     right: -18px;
+    top: -90px;
+    animation-delay: 0.4s;
+}
+
+.bubble:nth-child(3) {
+    width: 18px;
+    height: 18px;
+  right: -10px;
+    top: -100px;
+    animation-delay: 0.8s;
+}
+
+@keyframes floatBubble {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-10px, -5px); }
+}
+
+/* الفقاعة الرئيسية */
+.speech-bubble {
+    position: absolute;
+   right: 200px;
+    top: -50px;
+    width: 200px;
+    padding: 15px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: right;
+    animation: fadeIn 1s ease-in;
+    z-index: 10;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+.speech-bubble.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+    </style>
+     
+
+</head>
+<body>
+      <button class="back-btn" onclick="window.location.href='f1.html'">
+           العودة للصفحة الرئيسية <i class="fas fa-arrow-left"></i> 
+          
+        </button>
+    <div class="header">
+        <h1>مرحباً بكم في عالم البرمجة!</h1>
+        <p>لنبدأ رحلة التعلم الممتعة مع الروبوت!</p>
+    </div>
+    
+    <div class="container">
+        <div class="buttons-container">
+            <button id="basics" class="button" onclick="window.location.href='as.html'">
+                 دوره أساسيات البرمجة<img src="as1.png" width="80px" >
+            </button>
+            
+            <button id="scratch" class="button" onclick="window.location.href='scratch.html'">
+               دوره لغة سكراتش <img src="sc2.jpg" width="50px" style="border-radius: 50px;">
+            </button>
+            
+            <button id="html" class="button" onclick="window.location.href='ht.html'">
+                 دوره لغة HTML<img src="html1.png" width="70px" >
+            </button>
+            
+            <button id="css" class="button" onclick="window.location.href='cs.html'">
+               دوره لغة CSS  <img src="css1.png" width="70px" >
+            </button>
+            
+            <button id="js" class="button" onclick="window.location.href='js.html'">
+               دوره جافا سكريبت <img src="js4.png" width="70px" style="border-radius: 40px;">
+            </button>
+
+
+<div class="robot-container">
+    <img src="6.png" alt="روبوت تعليمي" class="robot" style="cursor: pointer;">
+    
+    <!-- الفقاعة الرئيسية -->
+    <div class="speech-bubble hidden" id="speechBubble">
+        <button class="close-bubble">×</button>
+        مرحباً صديقي الصغير! 🌟<br><br>
+              ملاحظات مهمه يجب ان تعرفها :<br>
+        1. اضغط على زر <strong>المشاهدة</strong>  لحفظ الفيديو كتمت المشاهده<br>
+        2. اضغط على زر <strong>المفضلة</strong> ❤️ لإضافته لقائمتك الخاصة<br><br>
+        هيا بنا نبدأ التعلم!
+    </div>
+    
+    <!-- مسار الفقاعات (بدون خطوط الوصل) -->
+    <div class="bubble-path" id="bubblepath">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+</div>
+    
+    
+ 
+
+</div>
+<script>
+  let bubbleTimer;
+
+// دالة لإخفاء كل العناصر
+function hideAllBubbleElements() {
+    // إخفاء الفقاعة الرئيسية
+    document.getElementById('speechBubble').classList.add('hidden');
+    
+    // إخفاء الفقاعات الصغيرة
+    document.getElementById('bubblepath').style.opacity = '0';
+    
+    // إلغاء المؤقت
+    if(bubbleTimer) {
+        clearTimeout(bubbleTimer);
+        bubbleTimer = null;
+    }
+}
+
+// دالة لإظهار كل العناصر
+function showAllBubbleElements() {
+    // إظهار الفقاعة الرئيسية
+    document.getElementById('speechBubble').classList.remove('hidden');
+    
+    // إظهار الفقاعات الصغيرة
+    document.getElementById('bubblepath').style.opacity = '1';
+    
+    // إلغاء أي مؤقت سابق
+    if(bubbleTimer) {
+        clearTimeout(bubbleTimer);
+    }
+    
+    // بدء مؤقت جديد لمدة 10 ثوان
+    bubbleTimer = setTimeout(hideAllBubbleElements, 10000);
+}
+
+// عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', function() {
+    showAllBubbleElements();
+    
+    // حدث النقر على الروبوت
+    document.querySelector('.robot').addEventListener('click', function() {
+        const bubble = document.getElementById('speechBubble');
+        if(bubble.classList.contains('hidden')) {
+            showAllBubbleElements();
+        } else {
+            hideAllBubbleElements();
+        }
+    });
+    
+    // حدث النقر على زر الإغلاق
+    document.querySelector('.close-bubble').addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        hideAllBubbleElements();
+    });
+});
+</script>
+</body>
+</html>

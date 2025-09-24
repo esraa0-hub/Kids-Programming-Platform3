@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+<head>
+    <title>مساعد البرمجة للأطفال</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+    --primary: #ff6b6b;
+    --secondary: #4dabf7;
+    --light: #f0f8ff;
+    --dark: #292F36;
+    --accent: #FFE66D;
+    --shadow: 0 4px 8px rgba(0,0,0,0.1);
+    --code-bg: #1e1e1e;
+    --code-text: #f8f8f2;
+}
+
+body {
+    font-family: 'Tajawal', sans-serif;
+    background-color: var(--light);
+    margin: 0;
+    padding: 20px;
+    color: var(--dark);
+    min-height: 100vh;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.5s ease-in-out;
+    transform: translateX(0);
+}
+
+h1 {
+    color: var(--primary);
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 0;
+}
+
+.back-btn {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    width: 200px;
+    box-shadow: var(--shadow);
+    margin-right: auto;
+}
+
+.back-btn:hover {
+    background-color: #ff5252;
+    transform: scale(1.05);
+}
+
+.main-container {
+    display: flex;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    gap: 40px;
+}
+
+.intro-section {
+    flex: 1;
+    text-align: center;
+    animation: fadeIn 1s ease;
+    padding-top: 50px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.intro-section p {
+    font-size: 1.2rem;
+    color: var(--dark);
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.robot-img {
+    width: 250px;
+    height: 250px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+    filter: drop-shadow(var(--shadow));
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.robot-img:hover {
+    transform: scale(1.05) rotate(-5deg);
+}
+
+.chat-container {
+    width: 800px;
+    height: 900px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--accent);
+    transition: all 0.3s ease;
+}
+
+.chat-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.chat-header {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 700;
+    border-bottom: 2px solid var(--accent);
+}
+
+/* تخصيص واجهة Dialogflow */
+df-messenger {
+    --df-messenger-button-titlebar-color: var(--primary);
+    --df-messenger-chat-background: white;
+    --df-messenger-input-box-color: white;
+    --df-messenger-send-icon: white;
+    --df-messenger-user-message: var(--primary);
+    --df-messenger-bot-message: var(--secondary);
+    --df-messenger-font-color: var(--dark);
+    --df-messenger-input-font-color: var(--dark);
+    
+    flex-grow: 1;
+    border: none !important;
+    height: 100% !important;
+}
+
+/* تحسين عرض الأكواد في الرسائل */
+df-messenger df-message:not([is-user]) {
+    background-color: #f0f8ff !important;
+    border-radius: 15px 15px 15px 0 !important;
+    margin-left: 10px !important;
+    border: 1px solid #d0e3ff !important;
+    max-width: 90% !important;
+    word-wrap: break-word !important;
+}
+
+df-messenger df-message[is-user] {
+    background-color: var(--primary) !important;
+    color: white !important;
+    border-radius: 15px 15px 0 15px !important;
+    margin-right: 10px !important;
+    max-width: 90% !important;
+}
+
+/* تنسيق خاص للكود داخل الرسائل */
+df-messenger df-message:not([is-user]) pre,
+df-messenger df-message:not([is-user]) code {
+    background: var(--code-bg) !important;
+    color: var(--code-text) !important;
+    padding: 12px !important;
+    border-radius: 8px !important;
+    margin: 8px 0 !important;
+    display: block !important;
+    overflow-x: auto !important;
+    font-family: 'Courier New', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+    border-left: 4px solid var(--primary) !important;
+}
+
+/* تحسين المسافات بين الأسطر في النص العادي */
+df-messenger df-message:not([is-user]) .message-text {
+    line-height: 1.6 !important;
+    padding: 8px 12px !important;
+}
+
+/* تعديل صندوق الإدخال */
+df-messenger #input {
+    border-radius: 20px !important;
+    margin: 10px !important;
+    border: 1px solid #ddd !important;
+    min-height: 50px !important;
+}
+
+/* تعديل زر الإرسال */
+df-messenger #send-button {
+    background-color: var(--primary) !important;
+    border-radius: 50% !important;
+    margin-right: 15px !important;
+}
+
+/* تحسين المساحة الداخلية للشات */
+df-messenger #chat-wrapper {
+    padding: 10px !important;
+}
+
+/* تحسين scrollbar */
+df-messenger #chat-wrapper::-webkit-scrollbar {
+    width: 8px;
+}
+
+df-messenger #chat-wrapper::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+df-messenger #chat-wrapper::-webkit-scrollbar-thumb {
+    background: var(--secondary);
+    border-radius: 10px;
+}
+
+df-messenger #chat-wrapper::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+/* إضافة غلاف للنص والروبوت */
+.intro-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.5s ease-in-out;
+    transform: translateX(700px);
+}
+
+.chat-opened .intro-content {
+    transform: translateX(330px);
+}
+
+/* تعديلات للهاتف المحمول */
+@media (max-width: 992px) {
+    .main-container {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .chat-container {
+        width: 100%;
+        max-width: 500px;
+        height: 600px;
+    }
+    
+    .intro-section {
+        order: -1;
+        padding-top: 0;
+    }
+    
+    .robot-img {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .chat-opened .intro-content {
+        transform: translateX(-50px);
+    }
+    
+    /* تحسين الأكواد في الجوال */
+    df-messenger df-message:not([is-user]) pre,
+    df-messenger df-message:not([is-user]) code {
+        font-size: 12px !important;
+        padding: 8px !important;
+        margin: 6px 0 !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .header-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .chat-header {
+        padding: 15px;
+        font-size: 1.1rem;
+    }
+    
+    .chat-container {
+        height: 500px;
+    }
+    
+    /* تحسين إضافي للأكواد في الشاشات الصغيرة */
+    df-messenger df-message:not([is-user]) {
+        max-width: 95% !important;
+        margin-left: 5px !important;
+    }
+    
+    df-messenger df-message[is-user] {
+        max-width: 95% !important;
+        margin-right: 5px !important;
+    }
+}
+
+/* تحسينات إضافية للقراءة */
+df-messenger .message-body {
+    font-size: 15px !important;
+    line-height: 1.5 !important;
+}
+
+/* فصل الكود عن النص العادي */
+df-messenger .code-block {
+    background: var(--code-bg) !important;
+    color: var(--code-text) !important;
+    padding: 15px !important;
+    margin: 10px 0 !important;
+    border-radius: 10px !important;
+    border-left: 4px solid var(--accent) !important;
+    font-family: 'Courier New', monospace !important;
+    overflow-x: auto !important;
+}
+    </style>
+</head>
+<body>
+        <button class="back-btn" onclick="window.location.href='f1.html'">
+            <i class="fas fa-arrow-left"></i> 
+            العودة للصفحة الرئيسية
+        </button>
+    <div class="header-container">
+        <h1>مساعد البرمجة للأطفال</h1>
+       
+
+    </div>
+
+    <div class="main-container">
+        <div class="intro-content"> <!-- الغلاف الجديد للنص والروبوت -->
+                <p><strong> تعلم البرمجة بطريقة ممتعة وسهلة مع مساعدنا الذكي! </strong></p>
+                <p> <strong>إضغط علي الايقونه في يمين أسفل الشاشه وإساله اي شئ في عالم البرمجه   </strong></p>
+                <img src="6.png" alt="روبوت البرمجة" class="robot-img"/>
+            </div>
+        </div>
+      <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+            <df-messenger
+                intent="WELCOME"
+                chat-title="مساعد البرمجة"
+                agent-id="49f4e9ba-6592-46ce-960e-ebb79cd461b2"
+                language-code="ar"
+                 width="900px"
+            height= "700px"
+            ></df-messenger>
+        </div>
+    
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+            const chat = document.querySelector('df-messenger');
+            const body = document.body;
+            
+            if (chat) {
+                chat.addEventListener('df-messenger-loaded', function() {
+                    body.classList.add('chat-opened');
+                    
+                    setTimeout(() => {
+                        const shadowRoot = chat.shadowRoot;
+                        if (shadowRoot) {
+                            const chatButton = shadowRoot.querySelector('button[aria-label*="chat"]');
+                            if (chatButton) chatButton.style.display = 'none';
+                            chat.expand = true;
+                        }
+                    }, 1000);
+                });
+                
+                function closeChat() {
+                    body.classList.remove('chat-opened');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

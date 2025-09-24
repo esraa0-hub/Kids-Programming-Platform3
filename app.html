@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيقات تعليم البرمجة للأطفال</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4dabf7;
+            --secondary: #ff6b6b;
+            --bg-color: #f0f8ff;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            color: var(--secondary);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #5a3d8a;
+            font-size: 1.1em;
+        }
+        
+        .age-section {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .app-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+        
+        .app-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .app-content {
+            padding: 15px;
+        }
+        
+        .app-title {
+            font-size: 1.3em;
+            margin: 10px 0;
+            color: #2c3e50;
+        }
+        
+        .app-rating {
+            color: #f39c12;
+            margin-bottom: 10px;
+        }
+        
+        .app-description {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .download-btn {
+            display: block;
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .download-btn:hover {
+            background-color: #339af0;
+        }
+        
+        .back-btn {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            margin: 30px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background-color: #ff5252;
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+            .apps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+  <button class="back-btn" onclick="window.location.href='ga.html'">
+        العودة لقائمة الألعاب <i class="fas fa-arrow-left"></i> 
+     
+    </button>
+    
+    <div class="header">
+        <h1>📱 تطبيقات تعليم البرمجة للأطفال</h1>
+        <p>اختر التطبيق المناسب لعمر طفلك ليتعلم البرمجة بطريقة ممتعة</p>
+    </div>
+    
+    <!-- القسم الأول: 5-8 سنوات -->
+    <div class="age-section">
+        <h2 class="section-title"><i class="fas fa-child"></i> الصغار (5-8 سنوات)</h2>
+        <div class="apps-grid">
+            
+            <!-- تطبيق 1 -->
+            <div class="app-card">
+                <img src="https://play-lh.googleusercontent.com/MiPKPdknHPI3BbGVT3aSGJpKS3Zc6W2eGzk-2tWiduW8G0WD76QuAu9KzhzckQrgHdY=s48-rw" alt="مهارات البرمجة للأطفال" class="app-image">
+                <div class="app-content">
+                    <h3 class="app-title">مهارات البرمجة للأطفال</h3>
+                    <div class="app-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span> 4.5 (10K+)</span>
+                    </div>
+                    <p class="app-description">
+                   لعبة عربية تعلم البرمجة عبر مغامرات كرتونية تفاعلية!
+                    </p>
+                    <a href="https://play.google.com/store/apps/details?id=com.edujoy.coding&hl=ar" 
+                       class="download-btn" target="_blank">
+                       <i class="fas fa-download"></i> حمل التطبيق
+                    </a>
+                </div>
+            </div>
+            
+            <!-- تطبيق 2 -->
+            <div class="app-card">
+                <img src="https://play-lh.googleusercontent.com/9yzlHK7Cd7f3MJrnwLsUDz3rPEzqMCYACJNfL24GEcjh_nxZD3xju8fIr0eOkfKIb18=w240-h480-rw" alt="CodeSpark" class="app-image">
+                <div class="app-content">
+                    <h3 class="app-title">CodeSpark Academy</h3>
+                    <div class="app-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span> 5.0 (50K+)</span>
+                    </div>
+                    <p class="app-description">
+                        يعلم التفكير الحسابي ومفاهيم البرمجة الأساسية عبر شخصيات كرتونية محببة.
+                        لا يحتوي على نصوص مما يجعله مناسبًا للصغار.
+                    </p>
+                    <a href="https://play.google.com/store/apps/details?id=org.codespark.thefoos" 
+                       class="download-btn" target="_blank">
+                       <i class="fas fa-download"></i> حمل التطبيق
+                    </a>
+                </div>
+            </div>
+            
+            <!-- تطبيق 3 -->
+            <div class="app-card">
+                <img src="https://play-lh.googleusercontent.com/nOENSGPH-uiRqcss5mcGeyAN5nSa_2tpdt5m3SluwFTDooz2HjXHb5OugTtD75JdLuY=s48-rw" alt="bekids Coding" class="app-image">
+                <div class="app-content">
+                    <h3 class="app-title">bekids Coding</h3>
+                    <div class="app-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span> 4.5 (5K+)</span>
+                    </div>
+                    <p class="app-description">
+                        Bekids Coding هي لعبة تعليمية ممتعة مصممة لتعليم الأطفال أساسيات البرمجة والتفكير المنطقي من خلال سلسلة من التحديات والألغاز البرمجية الملونة. تستخدم اللعبة نظام سحب وإسقاط الكتل البرمجية (مشابه لـ ScratchJr) لمساعدة الأطفال على:
+                    </p>
+                    <a href="https://play.google.com/store/apps/details?id=com.bekids.kaka&hl=ar" 
+                       class="download-btn" target="_blank">
+                       <i class="fas fa-download"></i> حمل التطبيق
+                    </a>
+                </div>
+            </div>
+            
+            <!-- تطبيق 4 -->
+            <div class="app-card">
+                <img src="https://play-lh.googleusercontent.com/uGJzFVVT9b2_R8Uk1OH_GDlKZNz2eNk1T7KFVAxdIO-viGSA-45LpEnGR0jCEscGRnY=w240-h480-rw" alt="C4K - Coding for Kids" class="app-image">
+                <div class="app-content">
+                    <h3 class="app-title">C4K - Coding for Kids</h3>
+                    <div class="app-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span> 4.3 (20K+)</span>
+                    </div>
+                    <p class="app-description">
+                       لعبة C4K (Coding for Kids) مصممة لتعليم الأطفال أساسيات البرمجة بلغة بسيطة، من خلال مغامرات تفاعلية وتحديات برمجية ممتعة. تعتمد على نظام الكتل البرمجية (مثل سكراتش) لتعليم المفاهيم الأساسية مثل:
+                    </p>
+                    <a href="https://play.google.com/store/apps/details?id=com.HCMUS.Coding4Kids&hl=ar" 
+                       class="download-btn" target="_blank">
+                       <i class="fas fa-download"></i> حمل التطبيق
+                    </a>
+                </div>
+            </div>
+            
+            <!-- تطبيق 5 -->
+            <div class="app-card">
+                <img src="https://play-lh.googleusercontent.com/v6t5--gJQ5vsUec6ojQ1srg9MZ1Fd2QYCvf2r-cMJtTdl8c7a1jVmEouRVzwqG1Q0XI=s48-rw" alt="Coding Games Kids: Glitch Hero" class="app-image">
+                <div class="app-content">
+                    <h3 class="app-title">Coding Games Kids: Glitch Hero</h3>
+                    <div class="app-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span> 4.2 (8K+)</span>
+                    </div>
+                    <p class="app-description">
+         لعبة ممتعة لتعلم البرمجة أثناء إصلاح الأجهزة!
+                    </p>
+                    <a href="https://play.google.com/store/apps/details?id=com.didactoons.glitchhero&hl=ar" 
+                       class="download-btn" target="_blank">
+                       <i class="fas fa-download"></i> حمل التطبيق
+                    </a>
+                </div>
+            </div>
+            
+            <!-- تطبيق 6 -->
+            <div class="app-card">
+                <img src="https://play-lh.googleusercontent.com/eCHOkwbWgYXqXmJnGBBUSQ5pjJyBeB4qjDd08S0Q6SQmpt8q03QcAaL_4Sz7Rw69fQ=w240-h480-rw" alt="Rodocodo: Code Hour" class="app-image">
+                <div class="app-content">
+                    <h3 class="app-title">Rodocodo: Code Hour</h3>
+                    <div class="app-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span> 4.2 (3K+)</span>
+                    </div>
+                    <p class="app-description">
+                      لعبة Rodocodo تقدم تجربة تعليمية ممتعة للأطفال الصغار لتعلم أساسيات البرمجة من خلال
+مغامرات قط لطيف 
+                    </p>
+                    <a href="https://play.google.com/store/apps/details?id=com.rodocodo.codehour&hl=ar" 
+                       class="download-btn" target="_blank">
+                       <i class="fas fa-download"></i> حمل التطبيق
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- القسم الثاني: 9-12 سنة -->
+    <div class="age-section">
+        <h2 class="section-title"><i class="fas fa-user-graduate"></i> المتوسطون (9-12 سنة)</h2>
+        <div class="apps-grid">
+            
+            <!-- تطبيق 1 -->
+            <div class="app-card">
+                <img src="https://play-lh.googleusercontent.com/AmzHCh6UEelYfh9AfWXh1WIOC0Z_Z69N9bTvEi-hbRhDe7XL04xuuQfvQXCKLHSHcgVk=s48-rw" alt="Scratch" class="app-image">
+                <div class="app-content">
+                    <h3 class="app-title">Scratch</h3>
+                    <div class="app-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span> 4.6 (100K+)</span>
+                    </div>
+                    <p class="app-description">
+                        أشهر منصة لتعليم البرمجة للأطفال عبر إنشاء ألعاب وقصص تفاعلية.
+                        يدعم اللغة العربية بشكل كامل.
+                    </p>
+                    <a href="https://play.google.com/store/search?q=Scratch&c=apps&hl=ar" 
+                       class="download-btn" target="_blank">
+                       <i class="fas fa-download"></i> حمل التطبيق
+                    </a>
+                </div>
+            </div>
+            
+            <!-- تطبيق 2 -->
+            <div class="app-card">
+                <img src="https://play-lh.googleusercontent.com/l8Zdkh5b4bK-33RwTBp2EYtS4g490EfTUsUOOtMlv2RHICUtbtQOK5oBnGIF8Na1sxkv=s48-rw" alt="Tynker" class="app-image">
+                <div class="app-content">
+                    <h3 class="app-title">Tynker</h3>
+                    <div class="app-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span> 4.3 (50K+)</span>
+                    </div>
+                    <p class="app-description">
+                        منصة متكاملة لتعليم البرمجة عبر إنشاء الألعاب وتعديلها.
+                        يحتوي على دورات تعليمية متدرجة الصعوبة.
+                    </p>
+                    <a href="https://play.google.com/store/search?q=Tynker&c=apps&hl=ar" 
+                       class="download-btn" target="_blank">
+                       <i class="fas fa-download"></i> حمل التطبيق
+                    </a>
+                </div>
+            </div>
+            
+            <!-- تطبيق 3 -->
+            <div class="app-card">
+                <img src="https://play-lh.googleusercontent.com/KmNuXYNbovhxjODwtElYspnCsXGAbuZasRhHlXRJgfs9xk-y9U3Vc3kU_sYB4Uh9NQ=w240-h480-rw" alt="Code Teens: Coding for Kids" class="app-image">
+                <div class="app-content">
+                    <h3 class="app-title">Code Teens: Coding for Kids</h3>
+                    <div class="app-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span> 4.3 (30K+)</span>
+                    </div>
+                    <p class="app-description">
+              ابدأ رحلة البرمجة مع تحديات إبداعية ممتعة!
+                    </p>
+                    <a href="https://play.google.com/store/apps/details?id=com.learnyland.codelandteens&hl=ar" 
+                       class="download-btn" target="_blank">
+                       <i class="fas fa-download"></i> حمل التطبيق
+                    </a>
+                </div>
+            </div>
+            
+            <!-- تطبيق 4 -->
+     <div class="app-card">
+                <img src="https://play-lh.googleusercontent.com/NouPsU6n6HCtRt1ullX-F6KIY7tc3QsXpr4-5H44d-JJZrqKdRpT0HH29q10_XSZdRQ=s48-rw" alt="AlgoRun : Coding game" class="app-image">
+                <div class="app-content">
+                    <h3 class="app-title">AlgoRun : Coding game</h3>
+                    <div class="app-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span> 4.4 (1M+)</span>
+                    </div>
+                    <p class="app-description">
+                      مغامرة برمجية ممتعة لتعليم الخوارزميات للأطفال!
+                    </p>
+                    <a href="https://play.google.com/store/apps/details?id=com.bitcrumbs.AlgoRunFree&hl=ar" 
+                       class="download-btn" target="_blank">
+                       <i class="fas fa-download"></i> حمل التطبيق
+                    </a>
+                </div>
+            </div>
+
+            <!-- تطبيق 5 -->
+            <div class="app-card">
+                <img src="https://play-lh.googleusercontent.com/ru86UB6ZOotJY0qMQY5FmsXCAhA2xnwzvH1B6EgboqZj71e0fDY1kqVSj43jQkjmPAE=s48-rw" alt="Code Karts" class="app-image">
+                <div class="app-content">
+                    <h3 class="app-title">Code Karts</h3>
+                    <div class="app-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span> 4.0 (10K+)</span>
+                    </div>
+                    <p class="app-description">
+                        سباق سيارات تعليمي يعلم البرمجة عبر حل الألغاز البرمجية.
+                        يحتوي على أكثر من 70 مستوى تعليمي.
+                    </p>
+                    <a href="https://play.google.com/store/search?q=Code%20Karts&c=apps&hl=ar" 
+                       class="download-btn" target="_blank">
+                       <i class="fas fa-download"></i> حمل التطبيق
+                    </a>
+                </div>
+            </div>
+            
+       
+            
+        </div>
+    </div>
+    
+    <!-- القسم الثالث: 13+ سنة -->
+    <div class="age-section">
+        <h2 class="section-title"><i class="fas fa-laptop-code"></i> المراهقون (13+ سنة)</h2>
+        <div class="apps-grid">
+            
+            <!-- تطبيق 1 -->
+              <div class="app-card">
+                <img src="https://play-lh.googleusercontent.com/qPfmmEDFhGVmIXIKpmfbQeH6vXygXotzj6ied-j2el0YIB36fApN32XoVDrGoMQZ11Q=s48-rw" alt="Mimo" class="app-image">
+                <div class="app-content">
+                    <h3 class="app-title">Mimo: Learn to Code</h3>
+                    <div class="app-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span> 4.9 (200K+)</span>
+                    </div>
+                    <p class="app-description">
+                        تطبيق تفاعلي لتعليم لغات البرمجة الحقيقية مثل Python وJavaScript.
+                        مناسب للمرحلة العمرية المتوسطة.
+                    </p>
+                    <a href="https://play.google.com/store/apps/details?id=com.getmimo&hl=ar" 
+                       class="download-btn" target="_blank">
+                       <i class="fas fa-download"></i> حمل التطبيق
+                    </a>
+                </div>
+            </div>
+            
+            <!-- تطبيق 2 -->
+        <div class="app-card">
+                <img src="https://play-lh.googleusercontent.com/P6Ixu0T8hx2x80aCURUdcMW8poVuA4J0JQf8fw-XEa_NgzNSGUC1SNLkbT2ioo0lXfkC=w240-h480-rw" alt="SoloLearn" class="app-image">
+                <div class="app-content">
+                    <h3 class="app-title">SoloLearn</h3>
+                    <div class="app-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span> 4.8 (1M+)</span>
+                    </div>
+                    <p class="app-description">
+                        أشهر تطبيق لتعليم البرمجة بلغات متعددة مثل Python وJava وC++.
+                        يحتوي على مجتمع نشط للمساعدة.
+                    </p>
+                    <a href="https://play.google.com/store/apps/details?id=com.sololearn" 
+                       class="download-btn" target="_blank">
+                       <i class="fas fa-download"></i> حمل التطبيق
+                    </a>
+                </div>
+            </div>
+            
+            <!-- تطبيق 3 -->
+            <div class="app-card">
+                <img src="https://play-lh.googleusercontent.com/25JhpZOpGjeylyi48h01bfre0mwmgjx-oAZ07H46SM1kFsfPNXdJwAQRaS4Fgj8xV98g=w240-h480-rw" alt="Learn Web Development" class="app-image">
+                <div class="app-content">
+                    <h3 class="app-title">Learn Web Development</h3>
+                    <div class="app-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span> 4.7 (100K+)</span>
+                    </div>
+                    <p class="app-description">
+ابدأ رحلتك في تطوير الويب بطريقة ممتعة!
+                    </p>
+                    <a href="https://play.google.com/store/apps/details?id=web.webdev.webdevelopment.createwebsite.makewebsite.learnwebsite.learnweb.html" 
+                       class="download-btn" target="_blank">
+                       <i class="fas fa-download"></i> حمل التطبيق
+                    </a>
+                </div>
+            </div>
+            
+            <!-- تطبيق 4 -->
+            <div class="app-card">
+                <img src="https://play-lh.googleusercontent.com/3E-AjwKJC4YA0_bXkQSW2KzGQeIZWh-8qeaeJ5kYdvHA8rz29KJ1-rCD6QX3vYKAGKj0=s48-rw" alt="Programming Hub" class="app-image">
+                <div class="app-content">
+                    <h3 class="app-title">Programming Hub</h3>
+                    <div class="app-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span> 4.7 (800K+)</span>
+                    </div>
+                    <p class="app-description">
+                        يعلم البرمجة عبر أمثلة عملية واختبارات تفاعلية.
+                        يدعم أكثر من 20 لغة برمجة مختلفة.
+                    </p>
+                    <a href="https://play.google.com/store/apps/details?id=com.freeit.java" 
+                       class="download-btn" target="_blank">
+                       <i class="fas fa-download"></i> حمل التطبيق
+                    </a>
+                </div>
+            </div>
+            
+            <!-- تطبيق 5 -->
+            <div class="app-card">
+                <img src="https://play-lh.googleusercontent.com/sfcMEVWE3eIUF5uQ2fo4MeLBFNDGaftbN_t6_i6zbvE6XC0dOcizOMA9cfigSXq7_92b=w240-h480-rw" alt="Codecademy Go" class="app-image">
+                <div class="app-content">
+                    <h3 class="app-title">Codecademy Go</h3>
+                    <div class="app-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span> 4.3 (50K+)</span>
+                    </div>
+                    <p class="app-description">
+                        تكملة لتجربة Codecademy الشهيرة، تتيح ممارسة البرمجة في أي وقت.
+                        مناسب للمتعلمين المستمرين.
+                    </p>
+                    <a href="https://play.google.com/store/search?q=Codecademy%20Go&c=apps&hl=ar" 
+                       class="download-btn" target="_blank">
+                       <i class="fas fa-download"></i> حمل التطبيق
+                    </a>
+                </div>
+            </div>
+            
+          
+        </div>
+    </div>
+    
+   
+</body>
+</html>

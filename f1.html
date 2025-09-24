@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@700;900&family=Source+Code+Pro:wght@300;400&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title> Code Kids - تعلم البرمجه للاطفال</title>
+    <style>
+        /* الخلفية الزرقاء الافتراضية */
+        body.default {
+            background: linear-gradient(135deg, #83d9f3, #4cc9f0);
+            color: #2b2d42;
+        }
+        
+        /* خلفية العالم الرقمي */
+        body.digital {
+            background: linear-gradient(135deg, #0e0e18, #16213e);
+            color: white;
+        }
+        
+        /* خلفية الذكاء الاصطناعي */
+        body.ai {
+         background: linear-gradient(135deg, #311b92, #4527a0, #5e35b1);
+    color: #b39ddb;
+        }
+        
+        /* خلفية الألعاب البرمجية */
+      body.gaming {
+   background: linear-gradient(135deg, #1b5e20, #2e7d32, #388e3c);
+    color: #ccff90;
+}
+
+        
+        /* عناصر الخلفية الزرقاء */
+        .default-elements {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: -1;
+            opacity: 0.9;
+        }
+     
+        .code-snippet {
+            position: absolute;
+            font-family: 'Courier New', monospace;
+            white-space: pre;
+            pointer-events: none;
+            font-weight: 300;
+             color: rgba(255, 255, 255, 0.2);
+              text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .bracket {
+            position: absolute;
+            font-family: 'Courier New', monospace;
+            font-size: 3rem;
+            pointer-events: none;
+            font-weight: 400;
+          color: rgba(255,255,255,0.2);
+           text-shadow: 2px 2px 4px rgba(0,0,0,0.03);
+        }
+
+        .lang-name {
+            position: absolute;
+            font-family: 'Courier New', monospace;
+            font-size: 1.5rem;
+            pointer-events: none;
+            font-weight: 400;
+        color: rgba(255,255,255,0.2);
+         text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .floating-icon {
+            position: absolute;
+            font-size: 2rem;
+            
+            animation: float 6s infinite ease-in-out;
+             opacity: 0.9;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        /* عناصر العالم الرقمي */
+        .digital-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .pixel {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: rgba(58, 134, 255, 0.7);
+            border-radius: 2px;
+            pointer-events: none;
+        }
+        
+        .robot {
+            position: absolute;
+            font-size: 2rem;
+            animation: float2 5s infinite ease-in-out;
+        }
+        
+        @keyframes float2 {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        /* عناصر خلفية الذكاء الاصطناعي */
+        .ai-elements {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .ai-icon {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 7s infinite ease-in-out;
+            opacity: 0.7;
+        }
+
+        .neural-path {
+            position: absolute;
+            height: 2px;
+            background: rgba(255,255,255,0.9);
+            transform-origin: 0 0;
+            pointer-events: none;
+        }
+.code-char {
+    position: absolute;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.7);
+    pointer-events: none;
+    animation: float 3s infinite ease-in-out;
+
+}
+        /* عناصر خلفية الألعاب البرمجية */
+        .gaming-elements {
+        position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: -1;
+    opacity: 0.4;
+        }
+
+        .game-controller {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 6s infinite ease-in-out;
+            opacity: 0.7;
+        }
+
+        .pixel-grid {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(0,255,255,0.3);
+            pointer-events: none;
+        }
+
+        .maze-path {
+    position: absolute;
+    background: rgba(100, 255, 218, 0.15);
+    border-radius: 3px;
+    pointer-events: none;
+}
+
+.code-character {
+    position: absolute;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    color: rgba(255, 215, 0, 0.7);
+    pointer-events: none;
+    animation: float 3s infinite ease-in-out;
+}
+
+.game-token {
+    position: absolute;
+    font-size: 1.5rem;
+    animation: bounce 2s infinite ease-in-out;
+    opacity: 0.8;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-10px) scale(1.1); }
+}
+
+.game-portal {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border: 3px dashed rgba(0, 255, 255, 0.5);
+    border-radius: 50%;
+    animation: spin 15s infinite linear;
+    opacity: 0.6;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+        /* إخفاء العناصر غير المرغوبة حسب الخلفية */
+        body.default .digital-elements,
+        body.digital .default-elements,
+        body.ai .default-elements,
+        body.ai .digital-elements,
+        body.gaming .default-elements,
+        body.gaming .digital-elements,
+        body.gaming .ai-elements,
+        body.default .ai-elements,
+        body.default .gaming-elements,
+        body.digital .ai-elements,
+        body.digital .gaming-elements,
+        body.ai .gaming-elements {
+            display: none;
+        }
+
+        /* بقية أنماط الصفحة الأصلية */
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-family: 'Tajawal', sans-serif;
+            transition: all 0.5s ease;
+        }
+
+        header {
+            width: 100%;
+            height: 55px;
+            margin-top: -5px;
+            background-color: #ffffff;
+            box-shadow: 0px 0px 12px rgba(0,0,0,0.1);
+        }
+
+        .i11 { width: 55px; float: left; }
+        .i22 { width: 50px; float: left; }
+        .i33 { width: 55px; float: right; }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .main-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            width: 65%;
+            max-width: 1000px;
+            margin: 2rem auto;
+        }
+
+        .main-btn {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 250px;
+            border-radius: 20px;
+            cursor: pointer;
+            overflow: hidden;
+            text-decoration: none;
+            color: white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            z-index: 1;
+        }
+
+        .main-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0,0,0,0.1));
+            z-index: -1;
+        }
+
+        .main-btn:hover {
+            transform: translateY(-40px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .main-btn img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+            transition: all 0.3s;
+        }
+
+        .main-btn:hover img {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .main-btn h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .main-btn p {
+            font-size: 0.9rem;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .btn1 { background-color: #f72585; }
+        .btn2 { background-color: #4361ee; }
+        .btn3 { background-color: #4cc9f0; }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .header-btn {
+            display: flex;
+            margin-top: 12px;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            border: none;
+            background-color: rgba(59,138,243,0.3);
+            color: rgb(59, 138, 243);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
+        }
+
+        .header-btn:hover {
+            background-color: rgba(59,138,243,0.1);
+            transform: translateY(-7px);
+        }
+
+        .bg-selector {
+            margin-right: 1106px;
+            margin-top: 10px;
+            height: 40px;
+            width: 70%;
+            max-width: 180px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 15px;
+            padding: 0.8rem;
+            box-shadow: 0 0px 0px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .bg-selector:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 3px 24px rgba(0,0,0,0.15);
+        }
+
+        .bg-selector select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: 30px;
+            border: 2px solid #4361ee;
+            font-size: 1rem;
+            box-shadow: 0 0px 0px rgba(255,255,255,0.9);
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%234361ee' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 16px;
+        }
+
+        .download-app {
+            grid-column: 1 / -1;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            margin-bottom:30px ;
+            gap: .5rem;
+            padding: 1rem 2rem;
+            margin-top: 20px;
+            background: #3aa8d1;
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            z-index: 1;
+        }
+        .download-btn:hover{
+            transform: translateY(-5px);
+        }
+        #comments-list{
+            background:rgba(97, 218, 240, 0.8);
+            max-width: 350px;
+            max-height:320px;
+            margin-right: 900px;
+            padding: 0px;
+            border-radius: 40px;
+            box-shadow: 0 4px 6px rgba(255,255,255,0.5); 
+            overflow-y: auto;
+            z-index: 1;
+        }
+
+        .success-message {
+            color: #4CAF50;
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+        .comment-form{
+            max-width: 350px;
+            height: 320px;
+            background:rgba(255,255,255,0.8);
+            margin: 15px;
+            padding: 8px;
+            border-radius: 40px;
+            box-shadow: 0 4px 6px rgba(168,218,220,0.6);
+            border: 2px solid #3aa8d1;
+            z-index: 1;
+        }
+
+        #name{
+            width: 75%; 
+            padding: 12px;
+            border: 2px solid #a8dadc;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Comic Sans MS', cursive;
+        }
+
+        #comment{
+            width: 75%; 
+            height: 50px;
+            padding: 12px;
+            border: 2px solid #a8dadc;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Comic Sans MS', cursive;
+        }
+
+        footer #rating {
+            color:#4361ee;
+            width: 75%;
+            height: 28px;
+            border: 2px solid #a8dadc;
+            border-radius: 8px;
+            margin: 5px;
+        }
+        footer button {
+            background:rgb(3, 154, 255);
+            color: #9bd7ec;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            width: 50%;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        footer button:hover{
+            background:rgba(3, 154, 255, 0.8);
+            transform: scale(1.05);
+        }
+
+        header, .main-content, footer, .bg-selector {
+            position: relative;
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .bg-selector {
+                margin-right: 20px;
+                width: 90%;
+                max-width: none;
+            }
+            
+            #comments-list {
+                margin-right: 20px;
+                max-width: 90%;
+            }
+        }
+
+        
+
+
+        .chatbot-btn {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    z-index: 100;
+    background: #4a148c;
+    color: white;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: all 0.3s;
+    animation: pulse 2s infinite;
+    margin-left: 90%;
+    margin-right:auto;
+
+}
+
+.chatbot-btn:hover {
+    transform: scale(1.1) rotate(10deg);
+    background: #7b1fa2;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(123, 31, 162, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(123, 31, 162, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(123, 31, 162, 0); }
+}
+    </style>
+</head>
+<body class="default">
+    <!-- عناصر الخلفية الزرقاء -->
+    <div class="default-elements" id="defaultBackground">
+        <div class="floating-icon" style="top: 20%; left: 10%; animation-duration: 7s; color: #e74c3c;">💻</div>
+        <div class="floating-icon" style="top: 60%; left: 15%; animation-duration: 8s; color: #f39c12;">👾</div>
+        <div class="floating-icon" style="top: 30%; right: 10%; animation-duration: 6s; color: #3498db;">🧩</div>
+        <div class="floating-icon" style="top: 70%; right: 15%; animation-duration: 9s; color: #9b59b6;">🎮</div>
+    </div>
+    
+    <!-- عناصر العالم الرقمي -->
+    <div class="digital-elements" id="digitalWorld"></div>
+    
+    <!-- عناصر خلفية الذكاء الاصطناعي -->
+    <div class="ai-elements" id="aiBackground"></div>
+
+    <!-- عناصر خلفية الألعاب البرمجية -->
+    <div class="gaming-elements" id="gamingBackground"></div>
+    
+    <!-- المحتوى الرئيسي -->
+    <header> 
+        <img class="i11" src="(3).png" alt="logo">
+        <img class="i22" src="(2).png" width="30">
+        <img class="i33" src="6.png" width="33"> 
+
+        <div class="profile-section">
+            <button class="header-btn" onclick="window.location.href='favorites.html'">
+                <i class="fas fa-heart"></i> المفضلة
+            </button>
+            <button class="header-btn" onclick="window.location.href='profile.html'">
+                <i class="fas fa-user"></i> الملف الشخصي
+            </button>
+         
+        </div>
+    </header>
+
+    <div class="bg-selector">
+        <select id="bgSelect" onchange="setTheme(this.value)">
+            <option value="default">الخلفية الزرقاء (الافتراضية)</option>
+            <option value="digital">العالم الرقمي</option>
+            <option value="ai">الذكاء الاصطناعي</option>
+            <option value="gaming">الألعاب البرمجية</option>
+        </select>
+    </div>
+    
+    <main class="main-content">
+        <div class="main-buttons">
+            <a href="ve.html" class="main-btn btn1">
+                <img src="download (3).png" width="30px" alt="فيديوهات تعليمية">
+                <h2>الفيديوهات التعليمية</h2>
+                <p>تعلم بالصور والفيديوهات المشوقة</p>
+            </a>
+            <a href="ga.html" class="main-btn btn2">
+                <img src="download (1).png" alt="ألعاب تعليمية">
+                <h2>ألعاب مشوقة</h2>
+                <p>تعلم البرمجة أثناء اللعب</p>
+            </a>
+            <a href="qut.html" class="main-btn btn3">
+                <img src="download (4).png" alt="أسئلة برمجية">
+                <h2>أسئلة برمجية</h2>
+                <p>اختبر معلوماتك وحل الألغاز</p>
+            </a>
+        </div>
+    </main>
+<a href="chat.html" class="chatbot-btn">
+    <i class="fas fa-robot"></i>
+</a>
+    <footer>
+        <center>
+            <div class="comment-form">
+                <h3>شاركنا رأيك</h3>
+                <input type="text" id="name" placeholder="إسمك">
+                <textarea id="comment" placeholder="تعليقك..." rows="4"></textarea>
+                <select id="rating" required>
+                    <option value="" disabled selected>قيم منصتنا</option>
+                    <option value="ممتاز">ممتاز ⭐⭐⭐⭐⭐</option>
+                    <option value="جيد جدا">جيد جدا ⭐⭐⭐⭐</option>
+                    <option value="جيد">جيد ⭐⭐⭐</option>
+                    <option value="مقبول">مقبول ⭐⭐</option>
+                    <option value="لم يعجبني">لم يعجبني ⭐</option>
+                </select>
+                <button onclick="saveComment()"> إرسال</button>
+            </div>
+
+           
+                <div class="comments-section" style="display: none;">
+    <div id="comments-list"></div>
+
+            </div>
+        </center>
+
+       
+    </footer>
+    
+    <div class="download-app">
+        <a href="#" class="download-btn" onclick="alert('نعتذر، التطبيق قيد التطوير وسيكون متاحًا قريبًا!')">
+            <i class="fas fa-download"></i> حمل تطبيق Code Kids الآن
+        </a>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script>
+        // تهيئة Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBSGd2kr71zV0UG2i5IwlMs9UmJB0anH8k",
+            authDomain: "code-kids-800d9.firebaseapp.com",
+            databaseURL: "https://code-kids-800d9-default-rtdb.firebaseio.com",
+            projectId: "code-kids-800d9",
+            storageBucket: "code-kids-800d9.firebasestorage.app",
+            messagingSenderId: "616970170049",
+            appId: "1:616970170049:web:b5b756e5ec642627c4ae40"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // إنشاء عناصر الخلفية
+        document.addEventListener('DOMContentLoaded', function() {
+            const defaultBg = document.getElementById('defaultBackground');
+            const digitalWorld = document.getElementById('digitalWorld');
+            const aiBackground = document.getElementById('aiBackground');
+            const gamingBackground = document.getElementById('gamingBackground');
+            
+            const languages = ['Python', 'JavaScript', 'HTML', 'CSS', 'Java', 'C++', 'PHP', 'Swift', 'Kotlin'];
+            const brackets = ['{', '}', '[', ']', '(', ')', '<', '>'];
+            const codeSnippets = [
+                'function hello() {\n  return "مرحبا";\n}',
+                'for i in range(5):\n    print(i)',
+                'const x = 5;\nconsole.log(x);',
+                '<div class="box">\n  <p>محتوى</p>\n</div>',
+                'public class Main {\n  public static void main() {}\n}',
+                '#include <iostream>\nusing namespace std;',
+                'let arr = [1, 2, 3];\narr.map(x => x*2);',
+                '@IBOutlet weak var label: UILabel!',
+                'fun main() {\n  println("Hello")\n}'
+            ];
+            
+            // إضافة عناصر الخلفية الزرقاء
+            for (let i = 0; i < 12; i++) {
+                const langElement = document.createElement('div');
+                langElement.className = 'lang-name';
+                langElement.textContent = languages[Math.floor(Math.random() * languages.length)];
+                langElement.style.fontSize = `${Math.random() * 20 + 16}px`;
+                langElement.style.left = `${Math.random() * 90}%`;
+                langElement.style.top = `${Math.random() * 90}%`;
+                langElement.style.transform = `rotate(${Math.random() * 15 - 7.5}deg)`;
+                defaultBg.appendChild(langElement);
+            }
+            
+            for (let i = 0; i < 18; i++) {
+                const bracketElement = document.createElement('div');
+                bracketElement.className = 'bracket';
+                bracketElement.textContent = brackets[Math.floor(Math.random() * brackets.length)];
+                bracketElement.style.fontSize = `${Math.random() * 80 + 40}px`;
+                bracketElement.style.left = `${Math.random() * 90}%`;
+                bracketElement.style.top = `${Math.random() * 90}%`;
+                bracketElement.style.transform = `rotate(${Math.random() * 360}deg)`;
+                defaultBg.appendChild(bracketElement);
+            }
+            
+            for (let i = 0; i < 15; i++) {
+                const codeElement = document.createElement('div');
+                codeElement.className = 'code-snippet';
+                codeElement.textContent = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+                codeElement.style.fontSize = `${Math.random() * 12 + 10}px`;
+                codeElement.style.left = `${Math.random() * 85}%`;
+                codeElement.style.top = `${Math.random() * 85}%`;
+                codeElement.style.transform = `rotate(${Math.random() * 10 - 5}deg)`;
+                codeElement.style.opacity = `${Math.random() * 0.4 + 0.6}`;
+                defaultBg.appendChild(codeElement);
+            }
+            
+            // إنشاء عناصر العالم الرقمي
+            for (let i = 0; i < 200; i++) {
+                const pixel = document.createElement('div');
+                pixel.className = 'pixel';
+                pixel.style.width = `${Math.random() * 15 + 5}px`;
+                pixel.style.height = `${Math.random() * 15 + 5}px`;
+                pixel.style.left = `${Math.random() * 100}%`;
+                pixel.style.top = `${Math.random() * 100}%`;
+                pixel.style.backgroundColor = `rgba(${Math.floor(Math.random() * 100 + 50)}, ${Math.floor(Math.random() * 100 + 50)}, 255, ${Math.random() * 0.5 + 0.3})`;
+                pixel.style.animation = `float ${Math.random() * 10 + 5}s infinite ease-in-out`;
+                pixel.style.animationDelay = `${Math.random() * 5}s`;
+                digitalWorld.appendChild(pixel);
+            }
+            
+            const robots = ['🤖', '👾', '🦾', '🧩', '🎮', '👽', '🛸', '🔌','👾','🤖'];
+            for (let i = 0; i < 8; i++) {
+                const robot = document.createElement('div');
+                robot.className = 'robot';
+                robot.textContent = robots[i]
+                robot.style.left = `${Math.random() * 90}%`;
+                robot.style.top = `${Math.random() * 90}%`;
+                robot.style.fontSize = `${Math.random() * 30 + 20}px`;
+                robot.style.animationDuration = `${Math.random
+                () * 8 + 5}s`;
+                digitalWorld.appendChild(robot);
+            }
+            
+            // إنشاء عناصر الذكاء الاصطناعي
+                      
+const Chars = ['{', '}', '[', ']', '(', ')', '<', '>', ';', '=', , '&','!', '?',];
+
+            const aiIcons = ['🧠', '🤖', '🔍', '📊', '🧮', '⚙️', '🔬', '📈','⚙️','🧠', '🤖'];
+            
+            for (let i = 0; i < 12; i++) {
+                const aiIcon = document.createElement('div');
+                aiIcon.className = 'ai-icon';
+                aiIcon.textContent = aiIcons[Math.floor(Math.random() * aiIcons.length)];
+                aiIcon.style.left = `${Math.random() * 90}%`;
+                aiIcon.style.top = `${Math.random() * 90}%`;
+                aiIcon.style.fontSize = `${Math.random() * 30 + 20}px`;
+                aiIcon.style.animationDuration = `${Math.random() * 8 + 4}s`;
+                aiBackground.appendChild(aiIcon);
+            }
+            
+            for (let i = 0; i < 18; i++) {
+                const path = document.createElement('div');
+                path.className = 'neural-path';
+                const length = Math.random() * 200 + 50;
+                const angle = Math.random() * 360;
+                path.style.width = `${length}px`;
+                path.style.left = `${Math.random() * 90}%`;
+                path.style.top = `${Math.random() * 90}%`;
+                path.style.transform = `rotate(${angle}deg)`;
+                path.style.opacity = `${Math.random() * 0.5 + 0.2}`;
+                aiBackground.appendChild(path);
+            }
+            // إنشاء أحرف برمجية عائمة
+for (let i = 0; i < 30; i++) {
+    const char = document.createElement('div');
+    char.className = 'code-char';
+    char.textContent = Chars[Math.floor(Math.random() * Chars.length)];
+    char.style.fontSize = `${Math.random() * 20 + 12}px`;
+    char.style.left = `${Math.random() * 95}%`;
+    char.style.top = `${Math.random() * 95}%`;
+    char.style.animationDuration = `${Math.random() * 5 + 2}s`;
+    aiBackground.appendChild(char);
+}
+   
+// إنشاء عناصر الألعاب البرمجية
+           
+const gameChars = ['{', '}', '[', ']', '(', ')', '<', '>' ];
+
+const gameTokens = ['🎯', '🏆', '✨', '💎', '🔑', '🌟',  '👾', '🕹️'];
+
+// إنشاء مسارات المتاهة
+for (let i = 0; i < 50; i++) {
+    const path = document.createElement('div');
+    path.className = 'maze-path';
+    const isVertical = Math.random() > 0.5;
+    path.style.width = isVertical ? `${Math.random() * 10 + 5}px` : `${Math.random() * 200 + 50}px`;
+    path.style.height = isVertical ? `${Math.random() * 200 + 50}px` : `${Math.random() * 10 + 5}px`;
+    path.style.left = `${Math.random() * 95}%`;
+    path.style.top = `${Math.random() * 95}%`;
+    path.style.backgroundColor = `rgba(0, ${Math.floor(Math.random() * 155 + 100)}, ${Math.floor(Math.random() * 155 + 100)}, ${Math.random() * 0.3 + 0.1})`;
+    gamingBackground.appendChild(path);
+}
+
+// إنشاء أحرف برمجية عائمة
+for (let i = 0; i < 20; i++) {
+    const char = document.createElement('div');
+    char.className = 'code-character';
+    char.textContent = gameChars[Math.floor(Math.random() * gameChars.length)];
+    char.style.fontSize = `${Math.random() * 20 + 12}px`;
+    char.style.left = `${Math.random() * 95}%`;
+    char.style.top = `${Math.random() * 95}%`;
+    char.style.animationDuration = `${Math.random() * 5 + 2}s`;
+    gamingBackground.appendChild(char);
+}
+
+// إنشاء عناصر اللعبة
+for (let i = 0; i < 12; i++) {
+    const token = document.createElement('div');
+    token.className = 'game-token';
+    token.textContent = gameTokens[Math.floor(Math.random() * gameTokens.length)];
+    token.style.left = `${Math.random() * 90}%`;
+    token.style.top = `${Math.random() * 90}%`;
+    token.style.fontSize = `${Math.random() * 30 + 20}px`;
+    token.style.animationDuration = `${Math.random() * 3 + 1}s`;
+    gamingBackground.appendChild(token);
+}
+
+// إنشاء بوابات اللعبة
+for (let i = 0; i < 10; i++) {
+    const portal = document.createElement('div');
+    portal.className = 'game-portal';
+    portal.style.left = `${Math.random() * 85}%`;
+    portal.style.top = `${Math.random() * 85}%`;
+    portal.style.width = `${Math.random() * 100 + 50}px`;
+    portal.style.height = `${Math.random() * 100 + 50}px`;
+    gamingBackground.appendChild(portal);
+}
+            // تحميل الخلفية المحفوظة
+            const savedTheme = localStorage.getItem('codeKidsTheme');
+            if (savedTheme) {
+                document.body.className = savedTheme;
+                document.getElementById('bgSelect').value = savedTheme;
+            }
+        });
+
+        // تغيير الخلفية
+        function setTheme(theme) {
+            document.body.className = theme;
+            localStorage.setItem('codeKidsTheme', theme);
+        }
+
+
+
+        // نظام التعليقات
+      // نظام التعليقات المعدل
+let commentsLoaded = false;
+
+function saveComment(){
+    const name = document.getElementById('name').value;
+    const comment = document.getElementById('comment').value;
+    const rating = document.getElementById('rating').value;
+    
+    if(name.trim() === "" || comment.trim() === "" || rating === ""){
+        alert("الرجاء ملء جميع الحقول!");
+        return;
+    }
+    
+    // إظهار قسم التعليقات عند الإرسال
+    document.querySelector('.comments-section').style.display = 'block';
+    
+    db.collection("Comments").add({
+        name: name,
+        comment: comment,
+        rating: rating,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    })
+    .then(() => {
+        alert("تم إرسال تعليقك بنجاح!");
+        document.getElementById("name").value = "";
+        document.getElementById("comment").value = "";
+        document.getElementById("rating").value = "";
+        
+        // تحميل التعليقات فقط للمستخدم الحالي
+        loadUserComments();
+    })
+    .catch((error) => {
+        console.error("Error:", error);
+    });
+}
+
+function loadUserComments() {
+    // إظهار قسم التعليقات
+    document.querySelector('.comments-section').style.display = 'block';
+    
+    db.collection("Comments")
+      .orderBy("timestamp", "desc")
+      .limit(1) // جلب آخر تعليق فقط
+      .get()
+      .then((querySnapshot) => {
+          let html = '';
+          querySnapshot.forEach((doc) => {
+              const data = doc.data();
+              html += `
+              <div class="comment">
+                  <h3>${data.name}</h3>
+                  <p>${data.comment}</p>
+                  <p style="color: #007bff; font-weight:bold;">التقييم: ${data.rating}</p>
+                  <small>${new Date(data.timestamp?.toDate()).toLocaleString()}</small>
+              </div>
+              `;
+          });
+          document.getElementById('comments-list').innerHTML = html;
+      });
+}
+
+window.onload = function() {
+   
+};
+       
+    </script>
+</body>
+</html>

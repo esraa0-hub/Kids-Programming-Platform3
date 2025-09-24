@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+    <head>
+        <title>تسجيل الدخول - كود كيدز</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@700;900&family=Source+Code+Pro:wght@300;400&display=swap" rel="stylesheet">
+        <style>
+            :root {
+                --primary: #4361ee;
+                --primary-light: #4cc9f0;
+                --accent: #f72585;
+                --yellow: #ffd166;
+                --white: #ffffff;
+                --dark: #2b2d42;
+            }
+            
+            @keyframes float {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-15px); }
+            }
+            
+            @keyframes pulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+            }
+            
+            body {
+                font-family: 'Tajawal', sans-serif;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #83d9f3, #4cc9f0);
+                color: var(--dark);
+                min-height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .code-bg {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                z-index: -1;
+                opacity: 0.25;
+            }
+            
+            .code-snippet {
+                position: absolute;
+                font-family: 'Source Code Pro', monospace;
+                color: rgba(255,255,255,0.8);
+                white-space: pre;
+                pointer-events: none;
+                font-weight: 300;
+                text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            }
+            
+            .bracket {
+                position: absolute;
+                font-family: 'Source Code Pro', monospace;
+                color: rgba(255,255,255,0.9);
+                font-size: 3rem;
+                pointer-events: none;
+                font-weight: 400;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            }
+            
+            .lang-name {
+                position: absolute;
+                font-family: 'Source Code Pro', monospace;
+                color: rgba(255,255,255,0.7);
+                font-size: 1.5rem;
+                pointer-events: none;
+                font-weight: 400;
+                text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            }
+            
+            .floating-icon {
+                position: absolute;
+                font-size: 2rem;
+                opacity: 0.7;
+                animation: float 6s infinite ease-in-out;
+                z-index: -1;
+            }
+            
+            #login-page {
+                width: 100%;
+                max-width: 500px;
+                padding: 40px;
+                background: rgba(255, 255, 255, 0.9);
+                border-radius: 20px;
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+                text-align: center;
+                position: relative;
+                z-index: 1;
+                margin: 20px;
+            }
+            
+            #login-page h3 {
+                font-size: 2rem;
+                color: var(--primary);
+                margin-bottom: 30px;
+                font-weight: 900;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            }
+            
+            #login-form {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .input-group {
+                position: relative;
+                width: 90%;
+            }
+            
+            #login-form input {
+                width: 100%;
+                padding: 15px 20px;
+                border: 2px solid #e0e0e0;
+                border-radius: 50px;
+                font-size: 1rem;
+                font-family: 'Tajawal', sans-serif;
+                transition: all 0.3s;
+                background: rgba(255, 255, 255, 0.8);
+            }
+            
+            #login-form input:focus {
+                border-color: var(--primary);
+                outline: none;
+                box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            }
+            
+            #togglePassword {
+                position: absolute;
+                left: 15px;
+                top: 0%;
+                transform: translateY(-15%);
+                background: none;
+                border: none;
+                cursor: pointer;
+                color: var(--primary);
+                font-size: 1.2rem;
+            }
+            
+            #login-form button {
+                background: var(--primary);
+                color: white;
+                border: none;
+                padding: 15px;
+                border-radius: 50px;
+                font-size: 1.1rem;
+                font-weight: bold;
+                cursor: pointer;
+                transition: all 0.3s;
+                margin-top: 10px;
+                font-family: 'Tajawal', sans-serif;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            }
+            
+            #login-form button:hover {
+                background: #3a56d4;
+                transform: translateY(-3px);
+                box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            }
+            
+            .forgot-password {
+                margin-top: 15px;
+            }
+            
+            .forgot-password a {
+                color: var(--primary);
+                text-decoration: none;
+                font-size: 0.9rem;
+                transition: color 0.3s;
+            }
+            
+            .forgot-password a:hover {
+                color: var(--accent);
+                text-decoration: underline;
+            }
+            
+            .error-message {
+                color: var(--accent);
+                margin-top: 15px;
+                font-size: 0.9rem;
+            }
+            
+            @media (max-width: 768px) {
+                #login-page {
+                    padding: 30px 20px;
+                    margin: 15px;
+                }
+                
+                #login-page h3 {
+                    font-size: 1.5rem;
+                }
+                
+                #login-form input {
+                    padding: 12px 15px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="code-bg" id="codeBackground"></div>
+        
+        <!-- العناصر العائمة -->
+        <div class="floating-icon" style="top:20%;left:10%;">💻</div>
+        <div class="floating-icon" style="top:60%;left:15%;">👾</div>
+        <div class="floating-icon" style="top:30%;right:10%;">🧩</div>
+        <div class="floating-icon" style="top:70%;right:15%;">🎮</div>
+        
+        <div id="login-page">
+            <h3>تسجيل الدخول</h3>
+            <form id="login-form">
+                <div class="input-group">
+                    <input type="text" id="name" placeholder="الاسم" required>
+                </div>
+                
+                <div class="input-group">
+                    <input type="email" id="email" placeholder="البريد الإلكتروني" required>
+                </div>
+                
+                <div class="input-group">
+                    <input type="password" id="password" placeholder="كلمة المرور" required>
+                    <button type="button" id="togglePassword">
+                        <i class="far fa-eye"></i>
+                    </button>
+                </div>
+                
+                <button type="submit">تسجيل الدخول</button>
+                
+                <div class="forgot-password">
+                    <a href="forget.html">هل نسيت كلمة المرور؟</a>
+                </div>
+                
+                <div id="error-message" class="error-message"></div>
+            </form>
+        </div>
+     
+        <script>
+            // إنشاء خلفية الأكواد البرمجية
+            document.addEventListener('DOMContentLoaded', function() {
+                const codeBg = document.getElementById('codeBackground');
+                const languages = ['Python', 'JavaScript', 'HTML', 'CSS', 'Java', 'C++', 'PHP', 'Swift', 'Kotlin'];
+                const brackets = ['{', '}', '[', ']', '(', ')', '<', '>'];
+                const codeSnippets = [
+                    'function hello() {\n  return "مرحبا";\n}',
+                    'for i in range(5):\n    print(i)',
+                    'const x = 5;\nconsole.log(x);',
+                    '<div class="box">\n  <p>محتوى</p>\n</div>',
+                    'public class Main {\n  public static void main() {}\n}',
+                    '#include <iostream>\nusing namespace std;',
+                    'let arr = [1, 2, 3];\narr.map(x => x*2);',
+                    '@IBOutlet weak var label: UILabel!',
+                    'fun main() {\n  println("Hello")\n}'
+                ];
+                
+                // إضافة أسماء لغات البرمجة
+                for (let i = 0; i < 12; i++) {
+                    const langElement = document.createElement('div');
+                    langElement.className = 'lang-name';
+                    langElement.textContent = languages[Math.floor(Math.random() * languages.length)];
+                    langElement.style.fontSize = `${Math.random() * 20 + 16}px`;
+                    langElement.style.left = `${Math.random() * 90}%`;
+                    langElement.style.top = `${Math.random() * 90}%`;
+                    langElement.style.transform = `rotate(${Math.random() * 15 - 7.5}deg)`;
+                    codeBg.appendChild(langElement);
+                }
+                
+                // إضافة الأقواس
+                for (let i = 0; i < 18; i++) {
+                    const bracketElement = document.createElement('div');
+                    bracketElement.className = 'bracket';
+                    bracketElement.textContent = brackets[Math.floor(Math.random() * brackets.length)];
+                    bracketElement.style.fontSize = `${Math.random() * 80 + 40}px`;
+                    bracketElement.style.left = `${Math.random() * 90}%`;
+                    bracketElement.style.top = `${Math.random() * 90}%`;
+                    bracketElement.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    codeBg.appendChild(bracketElement);
+                }
+                
+                // إضافة الأكواد البرمجية
+                for (let i = 0; i < 15; i++) {
+                    const codeElement = document.createElement('div');
+                    codeElement.className = 'code-snippet';
+                    codeElement.textContent = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+                    codeElement.style.fontSize = `${Math.random() * 12 + 10}px`;
+                    codeElement.style.left = `${Math.random() * 85}%`;
+                    codeElement.style.top = `${Math.random() * 85}%`;
+                    codeElement.style.transform = `rotate(${Math.random() * 10 - 5}deg)`;
+                    codeElement.style.opacity = `${Math.random() * 0.4 + 0.6}`;
+                    codeBg.appendChild(codeElement);
+                }
+            });
+
+            // بقية الكود الخاص بتسجيل الدخول (Firebase والوظائف) يبقى كما هو
+            const firebaseConfig = {
+                apiKey: "AIzaSyBSGd2kr71zV0UG2i5IwlMs9UmJB0anH8k",
+                authDomain: "code-kids-800d9.firebaseapp.com",
+                databaseURL: "https://code-kids-800d9-default-rtdb.firebaseio.com",
+                projectId: "code-kids-800d9",
+                storageBucket: "code-kids-800d9.firebasestorage.app",
+                messagingSenderId: "616970170049",
+                appId: "1:616970170049:web:b5b756e5ec642627c4ae40"
+            };
+
+            firebase.initializeApp(firebaseConfig);
+            const auth = firebase.auth();
+            const db = firebase.firestore();
+
+            const togglePassword = document.querySelector('#togglePassword');
+            const password = document.querySelector('#password');
+            const icon = togglePassword.querySelector('i');
+            
+            togglePassword.addEventListener('click', function() {
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                icon.classList.toggle('fa-eye');
+                icon.classList.toggle('fa-eye-slash');
+            });
+
+            const loginForm = document.getElementById('login-form');
+            const errorMessage = document.getElementById('error-message');
+
+            auth.onAuthStateChanged(user => {
+               if(user) {
+                    // إذا كان المستخدم مسجل دخول، توجيهه للصفحة الرئيسية
+                   // window.location.href='f1.html';
+                }
+            });
+            
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                errorMessage.textContent = '';
+
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+
+                try {
+                    // البحث عن المستخدم في قاعدة البيانات
+                    const usersRef = db.collection('users');
+                    const querySnapshot = await usersRef
+                        .where('name', '==', name)
+                        .where('email', '==', email)
+                        .get();
+
+                    if (querySnapshot.empty) {
+                        throw new Error('لا يوجد حساب بهذه البيانات، يرجى التحقق من الاسم والبريد الإلكتروني');
+                    }
+
+                    // تسجيل الدخول باستخدام البريد الإلكتروني وكلمة المرور
+                    await auth.signInWithEmailAndPassword(email, password);
+                    
+                    // توجيه المستخدم للصفحة الرئيسية
+                    window.location.href='f1.html';
+
+                } catch (error) {
+                    console.error('Error:', error);
+                    errorMessage.textContent = error.message || 'حدث خطأ أثناء تسجيل الدخول';
+                }
+            });
+
+            // ضع هذا الكود في صفحة تسجيل الدخول (login.html) وصفحة إنشاء الحساب (signup.html)
+            auth.onAuthStateChanged((user) => {
+                if (user) {
+                    // تحقق مما إذا كان المستخدم قد سجل دخوله للتو
+                    const isNewAuth = !localStorage.getItem('currentUser') || 
+                                     localStorage.getItem('currentUser') !== user.uid;
+                    
+                    if (isNewAuth) {
+                        // مسح بيانات المستخدم السابق (إذا وجدت)
+                        clearPreviousUserData();
+                        
+                        // تحميل بيانات المستخدم الجديد
+                        loadUserData(user);
+                        
+                        // حفظ معرف المستخدم الحالي
+                        localStorage.setItem('currentUser', user.uid);
+                    }
+                } else {
+                    // عند تسجيل الخروج
+                    localStorage.removeItem('currentUser');
+                }
+            });
+
+            // دالة لمسح بيانات المستخدم السابق
+            function clearPreviousUserData() {
+                const keysToRemove = [
+                    'quizScore_page1', 'quizScore_page2', 'quizScore_page3',
+                    'answeredQuestions_page1', 'answeredQuestions_page2', 'answeredQuestions_page3',
+                    'grandTotalScore', 'lastLevel'
+                ];
+                
+                keysToRemove.forEach(key => localStorage.removeItem(key));
+            }
+
+            // دالة لتحميل بيانات المستخدم
+            function loadUserData(user) {
+                const savedScores = localStorage.getItem(`user_scores_${user.uid}`);
+                
+                if (savedScores) {
+                    try {
+                        const scores = JSON.parse(savedScores);
+                        
+                        // تعيين القيم مع وجود قيم افتراضية
+                        localStorage.setItem('quizScore_page1', scores.page1 || 0);
+                        localStorage.setItem('quizScore_page2', scores.page2 || 0);
+                        localStorage.setItem('quizScore_page3', scores.page3 || 0);
+                        localStorage.setItem('answeredQuestions_page1', JSON.stringify(scores.page1Score || []));
+                        localStorage.setItem('answeredQuestions_page2', JSON.stringify(scores.page2Score || []));
+                        localStorage.setItem('answeredQuestions_page3', JSON.stringify(scores.page3Score || []));
+                        localStorage.setItem('grandTotalScore', scores.total || 0);
+                        localStorage.setItem('lastLevel', scores.level || 1);
+                        
+                        console.log('تم استعادة النقاط للمستخدم:', user.uid);
+                    } catch (e) {
+                        console.error('خطأ في تحليل البيانات المحفوظة:', e);
+                        initializeNewUser();
+                    }
+                } else {
+                    initializeNewUser();
+                    console.log('تم تهيئة نقاط جديدة للمستخدم:', user.uid);
+                }
+            }
+
+            // دالة لتهيئة مستخدم جديد
+            function initializeNewUser() {
+                localStorage.setItem('quizScore_page1', 0);
+                localStorage.setItem('quizScore_page2', 0);
+                localStorage.setItem('quizScore_page3', 0);
+                localStorage.setItem('grandTotalScore', 0);
+                localStorage.setItem('lastLevel', 1);
+                localStorage.setItem('answeredQuestions_page1', JSON.stringify([]));
+                localStorage.setItem('answeredQuestions_page2', JSON.stringify([]));
+                localStorage.setItem('answeredQuestions_page3', JSON.stringify([]));
+            }
+        </script>
+    </body>
+</html>

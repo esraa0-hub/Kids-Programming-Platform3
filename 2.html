@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+       <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+
+    
+        <style>
+       body {
+            font-family: 'Tajawal', Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4f1fe 100%);
+        }
+        
+        h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+        
+        .question {
+            background-color: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .question:hover {
+            transform: translateY(-5px);
+        }
+        
+        h3 {
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 20px;
+            margin: 8px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+        
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            font-weight: bold;
+        }
+        
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+            border-left: 5px solid #28a745;
+        }
+        
+        .wrong {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 5px solid #dc3545;
+        }
+        
+        #score-container {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-size: 18px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+        
+        #score {
+            font-weight: bold;
+            font-size: 24px;
+            margin: 0 5px;
+        }
+        
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin: 20px 0;
+            height: 10px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 5px;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            button {
+                padding: 10px 15px;
+                font-size: 14px;
+                min-width: 100px;
+            }
+            
+            #score-container {
+                top: 10px;
+                left: 10px;
+                padding: 10px 15px;
+                font-size: 16px;
+            }
+        }
+
+.feedback.saved {
+  background-color: #f0f8ff;
+  border-left: 3px solid #4682b4;
+  color: #4682b4;
+}
+
+ .back-btn {
+            background-color: #ff8787;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            width: 200px;
+           margin-left:95%  ;
+            margin-right: auto;
+        }
+        
+        .back-btn:hover {
+            background-color: #ff6b6b;
+            transform: scale(1.05);
+        }
+     </style>
+ 
+    </head>
+    <body>
+  <button class="back-btn" onclick="window.location.href='qut.html'">
+                <i class="fas fa-arrow-right"></i>
+                العودة للسابق
+            </button>
+
+        <div id="score-container" style="
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 18px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        z-index: 1000;
+    ">
+        النقاط: <span id="score">0</span>/<span id="total-questions">0</span>
+    </div>
+  
+       
+<button onclick="resetScore()">إعادة النقاط</button>
+            <h2> أسئله متوسطه</h2>
+            <div class="question">
+                <h3> 1/ما العنصر المسؤول عن عرض أكبر عنوان رئيسي في الصفحة؟</h3>
+                <button onclick="checkAnswer('h1',1,this)">h1</button>
+                <button onclick="checkAnswer('h1',1,this)">title</button>
+                <button onclick="checkAnswer('h1',1,this)">heading</button>
+            <div id="feedback1" class="feedback"></div>
+            </div>
+
+
+             <div class="question">
+                <h3> 2/ ؟CSS في margin: 0 auto;  ماذا تفعل خاصية  </h3>
+                <button onclick="checkAnswer('تٌمركز العنصر أفقيًّا',2,this)">تُزيل جميع الهوامش</button>
+                <button onclick="checkAnswer('تٌمركز العنصر أفقيًّا',2,this)">تٌمركز العنصر أفقيًّا</button>
+                <button onclick="checkAnswer('تٌمركز العنصر أفقيًّا',2,this)">تُغير لون الخلفية</button>
+            <div id="feedback2" class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <h3>3/   في البرمجه ؟if  ما الغرض من استخدام </h3>
+                <button onclick="checkAnswer(' اتخاذ قرار بناءً على شرط',3,this)"> اتخاذ قرار بناءً على شرط</button>
+                <button onclick="checkAnswer(' اتخاذ قرار بناءً على شرط',3,this)">طباعة النصوص</button>
+                <button onclick="checkAnswer(' اتخاذ قرار بناءً على شرط',3,this)">تكرار تنفيذ الكود</button>
+            <div id="feedback3" class="feedback"></div>
+            </div>
+
+
+            <div class="question">
+                <h3>4/  ما هي الخاصية التي تتحكم في حجم الخط؟</h3>
+                <button onclick="checkAnswer('font-size',4,this)">font-style</button>
+                <button onclick="checkAnswer('font-size',4,this)">font-size</button>
+                <button onclick="checkAnswer('font-size',4,this)">text-size</button>
+            <div id="feedback4" class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <h3>5/ لانشاء صف ؟table ما هو العنصر الذي يجب وضعه داخل  </h3>
+                <button onclick="checkAnswer('tr',5,this)">td</button>
+                <button onclick="checkAnswer('tr',5,this)">tr</button>
+                <button onclick="checkAnswer('tr',5,this)">th</button>
+            <div id="feedback5" class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <h3>6/ كيف يمكنك جعل العنصر يختفي تمامًا من الصفحة باستخدام  </h3>
+                <button onclick="checkAnswer('جميع الإجابات صحيحة',6,this)">display: none;</button>
+                <button onclick="checkAnswer('جميع الإجابات صحيحة',6,this)">visibility: hidden;</button>
+                <button onclick="checkAnswer('جميع الإجابات صحيحة',6,this)">جميع الإجابات صحيحة</button>
+            <div id="feedback6" class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <h3>7/ ما هو العنصر الصحيح لإدراج مقطع فيديو في صفحة الويب؟</h3>
+                <button onclick="checkAnswer('video',7,this)">movie</button>
+                <button onclick="checkAnswer('video',7,this)">media</button>
+                <button onclick="checkAnswer('video',7,this)">video</button>
+            <div id="feedback7" class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <h3>8/ ما هي الخاصية التي تتحكم في المسافة بين حدود العنصر ومحتواه؟ </h3>
+                <button onclick="checkAnswer('padding',8,this)">spacing</button>
+                <button onclick="checkAnswer('padding',8,this)">padding</button>
+                <button onclick="checkAnswer('padding',8,this)">border</button>
+            <div id="feedback8" class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <h3>9/ ما هي القيمة التي تجعل النص يظهر بخط مائل؟</h3>
+                <button onclick="checkAnswer('font-style: italic;',9,this)">font-style: italic;</button>
+                <button onclick="checkAnswer('font-style: italic;',9,this)">font-style: normal;</button>
+                <button onclick="checkAnswer('font-style: italic;',9,this)">font-weight: bold;</button>
+            <div id="feedback9" class="feedback"></div>
+            </div>
+            
+            <div class="question">
+                <h3>10/ما هو الزر الذي نضغط عليه في لوحة المفاتيح لإضافة مسافة بين الكلمات؟</h3>
+                <button onclick="checkAnswer('Space',10,this)">Enter</button>
+                <button onclick="checkAnswer('Space',10,this)">Space</button>
+                <button onclick="checkAnswer('Space',10,this)">Shift</button>
+            <div id="feedback10" class="feedback"></div>
+            </div>
+
+              <div class="question">
+                <h3>11/ ما هي لغة البرمجة التي تستخدم لإنشاء صفحات الويب التفاعلية؟ </h3>
+                <button onclick="checkAnswer( 'جافا سكربت',11,this)">بايثون</button>
+                <button onclick="checkAnswer('جافا سكربت',11,this)">سكراتش</button>
+                <button onclick="checkAnswer('جافا سكربت',11,this)">جافا سكربت</button>
+            <div id="feedback11" class="feedback"></div>
+            </div>
+
+               <div class="question">
+                <h3>12/ ماذا يسمى الخطأ في الكود البرمجي الذي يمنع البرنامج من العمل بشكل صحيح؟ </h3>
+                <button onclick="checkAnswer( 'Bug (علة)',12,this)">Bug (علة)</button>
+                <button onclick="checkAnswer('Bug (علة)',12,this)">تحذير</button>
+                <button onclick="checkAnswer('Bug (علة)',12,this)">خطأ إملائي</button>
+            <div id="feedback12" class="feedback"></div>
+            </div>
+
+               <div class="question">
+                <h3>13/  اي من هذه الأوامر يستخدم لطباعة جملة في لغة بايثون؟ </h3>
+                <button onclick="checkAnswer( 'print',13,this)">print</button>
+                <button onclick="checkAnswer('print',13,this)">System.out.println</button>
+                <button onclick="checkAnswer('print',13,this)">echo </button>
+            <div id="feedback13" class="feedback"></div>
+            </div>
+
+               <div class="question">
+                <h3>14/  ؟"HTML"ماذا يعني الاختصار </h3>
+                <button onclick="checkAnswer( 'HyperText Markup Language',14,this)">HyperText Markup Language</button>
+                <button onclick="checkAnswer('HyperText Markup Language',14,this)">HighTech Modern Language</button>
+                <button onclick="checkAnswer('HyperText Markup Language',14,this)">Home Tool Management Language</button>
+            <div id="feedback14" class="feedback"></div>
+            </div>
+
+               <div class="question">
+                <h3>15/ ما هي نتيجة print(2+3)</h3>
+                <button onclick="checkAnswer( '5',15,this)">23</button>
+                <button onclick="checkAnswer('5',15,this)">5</button>
+                <button onclick="checkAnswer('5',15,this)">3+2</button>
+            <div id="feedback15" class="feedback"></div>
+            </div>
+
+               <div class="question">
+                <h3>16/  أي من هذه الأوامر ينشئ حلقة تتكرر 5 مرات في بايثون ؟ </h3>
+                <button onclick="checkAnswer( 'for i in range(5):',16,this)">for i in range(6):</button>
+                <button onclick="checkAnswer('for i in range(5):',16,this)">for i in range(5):</button>
+                <button onclick="checkAnswer('for i in range(5):',16,this)">repeat(5):</button>
+            <div id="feedback16" class="feedback"></div>
+            </div>
+
+               <div class="question">
+                <h3>17/  ما هو نوع البيانات الذي يمكنه تخزين القيم "صحيح" أو "خطأ" فقط؟</h3>
+                <button onclick="checkAnswer( 'Boolean',17,this)">String</button>
+                <button onclick="checkAnswer('Boolean',17,this)">Integer</button>
+                <button onclick="checkAnswer('Boolean',17,this)">Boolean</button>
+            <div id="feedback17" class="feedback"></div>
+            </div>
+
+               <div class="question">
+                <h3>18/ ماذا يحدث عندما نضع // أمام سطر في الكود البرمجي؟</h3>
+                <button onclick="checkAnswer( 'يصبح السصر تعليقًا ولا يتم تنفيذه',18,this)">يصبح السصر تعليقًا ولا يتم تنفيذه</button>
+                <button onclick="checkAnswer('يصبح السصر تعليقًا ولا يتم تنفيذه',18,this)">يسبب خطأ في البرنامج</button>
+                <button onclick="checkAnswer('يصبح السصر تعليقًا ولا يتم تنفيذه',18,this)">يصبح السطر جزءًا من التنفيذ</button>
+            <div id="feedback18" class="feedback"></div>
+            </div>
+
+               <div class="question">
+                <h3>19/ ؟ print(3 + 2 * 4) ما هي نتيجة تنفيذ الكود التالي في بايثون </h3>
+                <button onclick="checkAnswer( '11',19,this)">20</button>
+                <button onclick="checkAnswer('11',19,this)">11</button>
+                <button onclick="checkAnswer('11',19,this)">324</button>
+            <div id="feedback19" class="feedback"></div>
+            </div>
+
+               <div class="question">
+                <h3>20/  أي من هذه اللغات تستخدم لتصميم شكل ومظهر صفحات الويب؟</h3>
+                <button onclick="checkAnswer( 'CSS',20,this)">HTML</button>
+                <button onclick="checkAnswer('CSS',20,this)">CSS</button>
+                <button onclick="checkAnswer('CSS',20,this)">بايثون</button>
+            <div id="feedback20" class="feedback"></div>
+            </div>
+      
+             <div class="question">
+                <h3> 21/ما هو الشيء الذي يُستخدم لتخزين البيانات مؤقتًا في البرمجة؟</h3>
+                <button onclick="checkAnswer('متغير',21,this)">حلقة loop</button>
+                <button onclick="checkAnswer('متغير',21,this)">شرط</button>
+                <button onclick="checkAnswer('متغير',21,this)">متغير</button>
+            <div id="feedback21" class="feedback"></div>
+            </div>
+
+
+             <div class="question">
+                <h3> 22/ اي من هذه الأوامر يُستخدم لاختيار مسار مختلف في البرنامج بناءً على شرط؟ </h3>
+                <button onclick="checkAnswer('if',22,this)">if</button>
+                <button onclick="checkAnswer('if',22,this)">for</button>
+                <button onclick="checkAnswer('if',22,this)">print</button>
+            <div id="feedback22" class="feedback"></div>
+            </div>
+
+
+            واقفه هنا 
+
+            <div class="question">
+                <h3>23/ ما هي لغة البرمجة التي تُستخدم لإنشاء تطبيقات الأندرويد؟</h3>
+                <button onclick="checkAnswer('جافا او كوتلن',23,this)">بايثون</button>
+                <button onclick="checkAnswer('جافا او كوتلن',23,this)">جافا او كوتلن</button>
+                <button onclick="checkAnswer('جافا او كوتلن',23,this)">HTML</button>
+            <div id="feedback23" class="feedback"></div>
+            </div>
+
+
+            <div class="question">
+                <h3>24/  ماذا يُسمى الكود الذي يكرر تنفيذ نفسه حتى يتحقق شرط معين؟</h3>
+                <button onclick="checkAnswer('حلقة Loop',24,this)">شرط Condition</button>
+                <button onclick="checkAnswer('حلقة Loop',24,this)">دالة Function</button>
+                <button onclick="checkAnswer('حلقة Loop',24,this)">حلقة Loop</button>
+            <div id="feedback24" class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <h3>25/اذا أردت أن يرسل لك البرنامج رسالة "مرحبًا" عندما يُضغط على زر، فماذا ستستخدم ؟ </h3>
+                <button onclick="checkAnswer('حدث on click',25,this)">حدث on click</button>
+                <button onclick="checkAnswer('حدث on click',25,this)">شرط if</button>
+                <button onclick="checkAnswer('حدث on click',25,this)">حلقة </button>
+            <div id="feedback25" class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <h3>26/  في البرمجه ؟(Functions)هو الهدف الأساسي من استخدام الدوال  </h3>
+                <button onclick="checkAnswer('تنظيم الكود وتكراره بسهولة',26,this)">تخزين البيانات</button>
+                <button onclick="checkAnswer('تنظيم الكود وتكراره بسهولة',26,this)"> إنشاء متغيرات جديدة</button>
+                <button onclick="checkAnswer('تنظيم الكود وتكراره بسهولة',26,this)">تنظيم الكود وتكراره بسهولة</button>
+            <div id="feedback26" class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <h3>27/ اي من هذه اللغات ليست لغة برمجة؟</h3>
+                <button onclick="checkAnswer('css',27,this)">جافا</button>
+                <button onclick="checkAnswer('css',27,this)">css</button>
+                <button onclick="checkAnswer('css',27,this)">بايثون</button>
+            <div id="feedback27" class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <h3>28/ في البرمجه ؟for ما الغرض من الامر </h3>
+                <button onclick="checkAnswer('تنفيذ كود مٌحدد عدد مرات معينة',28,this)">اتخاذ قرار بناءً على شرط</button>
+                <button onclick="checkAnswer('تنفيذ كود مٌحدد عدد مرات معينة',28,this)">طباعة النصوص</button>
+                <button onclick="checkAnswer('تنفيذ كود مٌحدد عدد مرات معينة',28,this)">تنفيذ كود مٌحدد عدد مرات معينة</button>
+            <div id="feedback28" class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <h3>29/  في البرمجه ؟Libraries  ما الوظيفة الأساسية للمكتبات</h3>
+                <button onclick="checkAnswer('توفير أوامر جاهزة لتسريع العمل',29,this)"> زيادة صعوبة البرمجة</button>
+                <button onclick="checkAnswer('توفير أوامر جاهزة لتسريع العمل',29,this)">توفير أوامر جاهزة لتسريع العمل</button>
+                <button onclick="checkAnswer('توفير أوامر جاهزة لتسريع العمل',29,this)">حذف الأكواد القديمة</button>
+            <div id="feedback29" class="feedback"></div>
+            </div>
+            
+            <div class="question">
+                <h3>30/اي نوع من البيانات غير صحيح في البرمجة؟</h3>
+                <button onclick="checkAnswer(' صوره Photo ',30,this)">نص String </button>
+                <button onclick="checkAnswer(' صوره Photo ',30,this)">عدد صحيح Integer </button>
+                <button onclick="checkAnswer(' صوره Photo ',30,this)"> صوره Photo </button>
+            <div id="feedback30" class="feedback"></div>
+            </div>
+
+                 <div class="question">
+                <h3> 31/ ؟if-else ما الغرض الرئيسي من استخدام الجملة الشرطية  </h3>
+                <button onclick="checkAnswer(' اتخاذ قرار بناءً على شرط',31,this)"> اتخاذ قرار بناءً على شرط</button>
+                <button onclick="checkAnswer(' اتخاذ قرار بناءً على شرط',31,this)">تعريف متغير جديد</button>
+                <button onclick="checkAnswer(' اتخاذ قرار بناءً على شرط',31,this)">تكرار تنفيذ الكود</button>
+            <div id="feedback31" class="feedback"></div>
+            </div>
+
+
+             <div class="question"> 
+                <h3>32/ اي من هذه اللغات تُستخدم لتحريك العناصر في صفحة ويب؟</h3>
+                <button onclick="checkAnswer('جافا سكربت',32,this)">جافا سكربت</button>
+                <button onclick="checkAnswer('جافا سكربت',32,this)">HTML</button>
+                <button onclick="checkAnswer('جافا سكربت',32,this)">CSS</button>
+            <div id="feedback32" class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <h3>33/كيف تُعلن عن متغير ثابت (لا يمكن تغييره) في جافا سكربت ؟ </h3>
+                <button onclick="checkAnswer('const x = 5;',33,this)">const x = 5;</button>
+                <button onclick="checkAnswer('const x = 5;',33,this)">let x = 5;</button>
+                <button onclick="checkAnswer('const x = 5;',33,this)">static x = 5;</button>
+            <div id="feedback33" class="feedback"></div>
+            </div>
+
+
+            <div class="question">
+                <h3>34/ ؟CSS اي خاصيه تستخدم لتغيير لون النص في </h3>
+                <button onclick="checkAnswer('color',34,this)">text-color</button>
+                <button onclick="checkAnswer('color',34,this)">text-style</button>
+                <button onclick="checkAnswer('color',34,this)">color</button>
+            <div id="feedback34" class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <h3>35/ ما العنصر المستخدم لإنشاء رابط تشعبي في صفحة الويب؟  </h3>
+                <button onclick="checkAnswer(' a ',35,this)"> href </button>
+                <button onclick="checkAnswer(' a ',35,this)"> a </button>
+                <button onclick="checkAnswer(' a ',35,this)"> url </button>
+            <div id="feedback35" class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <h3>36/ ؟CSS في (Bold)  ما الخاصية التي تُستخدم لجعل النص عريضًا  </h3>
+                <button onclick="checkAnswer('font-weight: bold;',36,this)">font-style: bold;</button>
+                <button onclick="checkAnswer('font-weight: bold;',36,this)">font-weight: bold;</button>
+                <button onclick="checkAnswer('font-weight: bold;',36,this)">text-style: bold;</button>
+            <div id="feedback36" class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <h3>37/ما اسم الدالة المستخدمة لعرض رسالة منبثقة في المتصفح باستخدام لغه جافا سكربت؟</h3>
+                <button onclick="checkAnswer('alert()',37,this)">alert()</button>
+                <button onclick="checkAnswer('alert()',37,this)">message()</button>
+                <button onclick="checkAnswer('alert()',37,this)">show()</button>
+            <div id="feedback37" class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <h3>38/ أي عنصر يُستخدم لإدراج صورة في صفحة الويب؟ </h3>
+                <button onclick="checkAnswer(' img ',38,this)"> picture </button>
+                <button onclick="checkAnswer(' img ',38,this)"> photo </button>
+                <button onclick="checkAnswer(' img ',38,this)"> img </button>
+            <div id="feedback38" class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <h3>39/؟CSSكيف تُغير لون خلفية عنصر إلى  الاحمر في </h3>
+                <button onclick="checkAnswer('background: red;',39,this)">element-color: red;</button>
+                <button onclick="checkAnswer('background: red;',39,this)">color: red;</button>
+                <button onclick="checkAnswer('background: red;',39,this)">background: red;</button>
+            <div id="feedback39" class="feedback"></div>
+            </div>
+            
+            <div class="question">
+                <h3>40/؟HTML ما العنصر الذي يُستخدم لإنشاء قائمة غير مرتبة(مثل نقاط) في لغه </h3>
+                <button onclick="checkAnswer('ol',40,this)">ol</button>
+                <button onclick="checkAnswer('ol',40,this)">li</button>
+                <button onclick="checkAnswer('ol',40,this)">ul</button>
+            <div id="feedback40" class="feedback"></div>
+            </div>
+      
+   
+
+          
+<script>
+// تعريف الأصوات
+const sounds = {
+  correct: new Audio('success.mp3'),
+  wrong: new Audio('wrong.mp3')
+};
+// في الصفحة الأولى (page1.html)
+let score = localStorage.getItem('quizScore_page2') ? parseInt(localStorage.getItem('quizScore_page2')) : 0;
+
+// الحل الآمن لإنشاء Set
+let answeredQuestions;
+try {
+  const storedQuestions = localStorage.getItem('answeredQuestions_page2');
+  answeredQuestions = new Set(
+    storedQuestions ? JSON.parse(storedQuestions) : []
+  );
+} catch (e) {
+  console.error('خطأ في تحويل البيانات إلى Set:', e);
+  answeredQuestions = new Set(); // استخدم Set فارغاً كبديل
+};
+
+
+function updateScoreDisplay() {
+  const scoreElement = document.getElementById('score');
+  const totalQuestionsElement = document.getElementById('total-questions');
+  
+  if (scoreElement && totalQuestionsElement) {
+    scoreElement.textContent = score;
+    totalQuestionsElement.textContent = totalQuestions;
+    localStorage.setItem('quizScore_page2', score.toString());
+    localStorage.setItem('answeredQuestions_page2', JSON.stringify([...answeredQuestions]));
+  }
+}
+
+// دالة حساب الأسئلة مع التحقق من وجود العناصر
+function countTotalQuestions() {
+  try {
+    const questions = document.querySelectorAll('.question');
+    totalQuestions = questions.length;
+    updateScoreDisplay();
+  } catch (error) {
+    console.error('حدث خطأ أثناء عد الأسئلة:', error);
+  }
+}
+
+
+// دالة checkAnswer محسنة مع معالجة الأخطاء
+function checkAnswer(correctAnswer, questionNumber, button) {
+  try {
+    let userAnswer = button.textContent;
+    let feedback = document.getElementById(`feedback${questionNumber}`);
+
+    if (!feedback) {
+      console.error(`عنصر التغذية الراجعة feedback${questionNumber} غير موجود`);
+      return;
+    }
+
+    if (userAnswer == correctAnswer) {
+      feedback.innerHTML = "أحسنت أيها المبرمج الصغير";
+      feedback.className = "feedback correct";
+      sounds.correct.play();
+      
+      if (!answeredQuestions.has(questionNumber)) {
+        score++;
+        answeredQuestions.add(questionNumber);
+        updateScoreDisplay();
+        
+        const scoreElement = document.getElementById('score');
+        if (scoreElement) {
+          scoreElement.classList.add('animate__animated', 'animate__bounce');
+          setTimeout(() => {
+            scoreElement.classList.remove('animate__animated', 'animate__bounce');
+          }, 1000);
+        }
+      }
+    } else {
+      feedback.innerHTML = "الإجابة خاطئة. الإجابة الصحيحة هي: " + correctAnswer;
+      feedback.className = "feedback wrong";
+      sounds.wrong.play();
+    }
+    feedback.style.display = "block";
+  } catch (error) {
+    console.error('حدث خطأ أثناء التحقق من الإجابة:', error);
+  }
+}
+
+
+
+function loadSavedAnswers() {
+  const savedAnswers = JSON.parse(localStorage.getItem('answeredQuestions_page2')) || [];
+  savedAnswers.forEach(questionNum => {
+    const feedback = document.getElementById(`feedback${questionNum}`);
+    if (feedback) {
+      feedback.style.display = "block";
+      feedback.innerHTML = "إجابة محفوظة"; // أو يمكنك استعادة النص الأصلي
+      feedback.className = "feedback saved";
+    }
+  });
+}
+// تهيئة الصفحة عند التحميل
+document.addEventListener('DOMContentLoaded', function() {
+  // تأخير التنفيذ قليلاً لضمان تحميل كل العناصر
+  setTimeout(() => {
+    countTotalQuestions();
+    loadSavedAnswers(); 
+    
+    // اختبار وجود العناصر الأساسية
+    if (!document.getElementById('score') || !document.getElementById('total-questions')) {
+      console.error('عناصر عرض النقاط غير موجودة! تأكد من وجود:');
+      console.error('- عنصر ب id "score" لعرض النقاط');
+      console.error('- عنصر ب id "total-questions" لعرض عدد الأسئلة');
+    }
+  }, 100);
+});
+
+// دالة إعادة التعيين (اختيارية)
+function resetScore() {
+  score = 0;
+  answeredQuestions = new Set();
+  localStorage.removeItem('quizScore');
+  localStorage.removeItem('answeredQuestions');
+  updateScoreDisplay();
+  loadSavedAnswers();
+  alert('تم إعادة النقاط إلى الصفر!');
+  setTimeout(() => {
+  location.reload();
+});
+}
+
+</script>
+  </body>
+
+</html>

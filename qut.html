@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مغامرة الروبوت البرمجية</title>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f0f9ff;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            background-image: linear-gradient(to bottom, #e6f7ff, #f0f9ff);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 830px;
+            height: 470px;
+         margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            margin-top: -50px;
+        }
+        
+        h1 {
+            color: #2b6cb0;
+            margin-bottom: 30px;
+            font-size: 28px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .level-btn {
+            display: block;
+            width: 30%;
+            margin: 30px auto;
+            padding: 15px;
+            font-size: 20px;
+            background-color: #4299e1;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 4px 8px rgba(66, 153, 225, 0.3);
+        }
+        
+        .level-btn:hover {
+            background-color: #3182ce;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(66, 153, 225, 0.4);
+        }
+        
+       .back-btn {
+            background-color: #ff8787;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            width: 200px;
+           margin-right:95%  ;
+            margin-right: auto;
+        }
+        
+        .back-btn:hover {
+            background-color: #ff6b6b;
+            transform: scale(1.05);
+        }
+        
+        
+
+          .robot-container {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .robot {
+              width: 150px;
+            position: absolute;
+       top: 0px;
+            right: -60px;
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: 1;
+              
+        }
+        
+        .btn-container {
+            position: relative;
+            margin-bottom: 40px;
+        
+        }
+        
+        /* حركة الروبوت عند التحويم على الأزرار */
+        #easyBtn:hover ~ .robot {
+            top: calc(25% - 60px); /* أعلى الزر بـ 60px */
+            right: 50%;
+            transform: translateX(50%);
+        }
+        
+        #mediumBtn:hover ~ .robot {
+            top: calc(50% - 60px); /* أعلى الزر بـ 60px */
+            right: 50%;
+            transform: translateX(50%);
+        }
+        
+        #hardBtn:hover ~ .robot {
+            top: calc(75% - 60px); /* أعلى الزر بـ 60px */
+            right: 50%;
+            transform: translateX(50%);
+        }
+        
+        /* تأثير القفز عند التحويم */
+        .level-btn:hover ~ .robot {
+            animation: jump 0.5s ease;
+        }
+        
+        @keyframes jump {
+            0%, 100% { transform: translateY(0) translateX(50%); }
+            50% { transform: translateY(-20px) translateX(50%); }
+        }
+        /* فقاعات الكلام */
+.speech-bubble {
+    position: absolute;
+    right: 110px;
+    top: -40px;
+    width: 120px;
+    padding: 15px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: right;
+    animation: fadeIn 1s ease-in;
+    z-index: 10;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+.speech-bubble.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.speech-bubble:after {
+    content: '';
+    position: absolute;
+    right: -20px;
+    top: 30px;
+    width: 0;
+    height: 0;
+    border: 15px solid transparent;
+    border-left-color: white;
+    border-right: 0;
+    margin-top: -5px;
+    filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.1));
+}
+
+.close-bubble {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+/* فقاعات الكلام الصغيرة */
+#bubblepath {
+    position: absolute;
+    right: 220px;
+    top: 100px;
+    z-index: 9;
+    width: 100px;
+    height: 50px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.bubble {
+    position: absolute;
+    background: #339af0;
+    border-radius: 50%;
+    animation: floatBubble 1.5s ease-in-out infinite;
+    opacity: 0.8;
+    filter: blur(0.8px);
+}
+
+.bubble:nth-child(1) {
+    width: 10px;
+    height: 10px;
+    right: -170px;
+    top: -90px;
+    animation-delay: 0s;
+}
+
+.bubble:nth-child(2) {
+    width: 13px;
+    height: 13px;
+   right: -160px;
+    top: -98px;
+    animation-delay: 0.3s;
+}
+
+.bubble:nth-child(3) {
+    width: 16px;
+    height: 16px;
+     right: -150px;
+    top: -106px;
+    animation-delay: 0.5s;
+}
+
+@keyframes floatBubble {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-10px, -5px); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+ 
+    </style>
+
+
+
+    
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+      <button class="back-btn" onclick="window.location.href='f1.html'">
+          <i class="fas fa-arrow-left"></i> 
+            العودة للصفحة الرئيسية
+        </button>
+    <div class="container">
+        <h1>🚀 اختر مستوى التحدي البرمجي</h1>
+        
+        <div class="btn-container">
+            <button class="level-btn" id="easyBtn" onclick="playAndRedirect('1.html')">
+                مستوى المبتدئين <span class="emoji">😊</span>
+            </button>
+            
+            <button class="level-btn" id="mediumBtn" onclick="playAndRedirect('2.html')" >
+                مستوى المتوسطين <span class="emoji">🤔</span>
+            </button>
+            
+            <button class="level-btn" id="hardBtn" onclick="playAndRedirect('3.html')">
+                مستوى الخبراء <span class="emoji">🧠</span>
+            </button>
+            
+       <div class="robot-container">
+    <img src="6.png" alt="روبوت تعليمي" class="robot" style="cursor: pointer;">
+         
+<!-- الفقاعة الرئيسية -->
+<div class="speech-bubble hidden" id="speechBubble">
+    <button class="close-bubble">×</button>
+    مرحباً صديقي الصغير! 🌟<br><br>
+   
+
+  <strong>أختبر معلوماتك مع ثلاثه مستويات مختلفه</strong> <br><br>
+    هيا  نبدأ التحدي!
+</div>
+
+<!-- مسار الفقاعات (تم نقله من مكانه السابق) -->
+<div class="bubble-path" id="bubblepath">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+</div>
+        
+      
+    </div>
+ <script type="text/javascript">
+let bubbleTimer;
+
+function hideAllBubbleElements() {
+    document.getElementById('speechBubble').classList.add('hidden');
+    document.getElementById('bubblepath').style.opacity = '0';
+    if(bubbleTimer) {
+        clearTimeout(bubbleTimer);
+        bubbleTimer = null;
+    }
+}
+
+function showAllBubbleElements() {
+    document.getElementById('speechBubble').classList.remove('hidden');
+    document.getElementById('bubblepath').style.opacity = '1';
+    if(bubbleTimer) {
+        clearTimeout(bubbleTimer);
+    }
+    bubbleTimer = setTimeout(hideAllBubbleElements, 10000);
+}
+
+// عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', function() {
+    showAllBubbleElements();
+    
+    // حدث النقر على الروبوت
+    document.querySelector('.robot').addEventListener('click', function() {
+        const bubble = document.getElementById('speechBubble');
+        if(bubble.classList.contains('hidden')) {
+            showAllBubbleElements();
+        } else {
+            hideAllBubbleElements();
+        }
+    });
+    
+    // حدث النقر على زر الإغلاق
+    document.querySelector('.close-bubble').addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        hideAllBubbleElements();
+    });
+});
+
+function playAndRedirect(url) {
+    // 1. تشغيل الصوت
+    const sound = new Audio('sounds/watch.mp3');
+    sound.play().catch(e => console.log("تم تعطيل الصوت"));
+    
+    const btn = event.target;
+    btn.disabled = true;
+    
+    // 3. الانتقال بعد 2 ثوان
+    setTimeout(() => {
+        window.location.href = url;
+    }, 2000);
+}
+ </script>
+    
+
+</body>
+</html>
+
+
+
+

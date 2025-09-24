@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+  
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> اساسيات البرمجه</title>
+        <link 
+        rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
+        <link href="as.css" rel="stylesheet">
+       
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"> </script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"> </script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"> </script>
+        <script src="https://www.youtube.com/iframe_api"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+        
+
+
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        <style>
+          .watch-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #573b8a;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+          }
+          
+          .watch-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+          }
+          
+          .watch-btn:active {
+            transform: translateY(1px);
+          }
+          
+          .watch-btn.watched {
+            background-color: #4CAF50;
+            animation: pulse 0.5s;
+          }
+          
+          .watch-btn.watched .plus-icon {
+            display: none;
+          }
+          
+          .watch-btn.watched::after {
+            content: "✓";
+            margin-right: 5px;
+          }
+          
+          .tranding-slide-vid {
+            position: relative;
+          }
+          
+          @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+          }
+          
+          @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+          }
+          
+          .bounce {
+            animation: bounce 0.6s;
+          }
+          
+          .save-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: #573b8a;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+          }
+          
+          .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+          }
+          
+          .save-btn:active {
+            transform: translateY(1px);
+          }
+          
+          .save-btn.favorited {
+            background-color: #f8f9fa !important;
+            color: #dc3545 !important;
+            border: 1px solid #dc3545 !important;
+          }
+          
+          .save-btn i {
+            transition: all 0.3s ease;
+          }
+          button {
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+          }
+          
+          button:active {
+            transform: scale(0.98);
+          }
+  /* أضف هذا النمط للدورات المكتملة */
+        .course-completed {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(76, 175, 80, 0.9);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            z-index: 20;
+            display: none;
+        }
+
+        </style>
+    </head>
+    <body>
+  <button class="back-btn" onclick="window.location.href='ve.html'">
+          <i class="fas fa-arrow-left"></i> 
+            رجوع
+        </button>
+
+<button id="themeToggle" class="theme-toggle">
+  <ion-icon name="moon"></ion-icon> <!-- أيقونة القمر للوضع الليلي -->
+</button>
+
+    <section id="tranding" >
+     <div class="container">
+      <h3 class="text-center section-subheading">-تعلم البرمجه-</h3>
+      <h1 class="text-center section-heading">أساسيات البرمجه</div>
+    <div>
+     <div class="container">
+      <div class="swiper tranding-slider">
+        <div class="swiper-wrapper">
+        
+         
+
+
+        
+          <div class="swiper-slide tranding-slide">
+            <div class="tranding-slide-vid" data-video-id="Lz1Sry6Nnt8">             
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/Lz1Sry6Nnt8?si=8D_FwkuyF5QfRcye  rel=0 & modestbranding=1 & iv_load_policy=3 & controls=0 & disablekb=1&enablejsapi= 1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              <button class="watch-btn">
+                <span class="plus-icon">+</span>
+                مشاهدة
+              </button>  
+
+              <button class="save-btn">إضافه للمفضله</button>
+
+            </div>
+          
+
+<div class="tranding-slide-content">
+  <h1 class="food-price">الدرس الاول</h1>
+  <div class="tranding-slide-content-bottom">
+    <P class="food-name">
+     </p>
+    <p class="food-rating">
+   
+    </p>
+  </div>
+</div>
+
+          </div>
+          
+       
+          
+
+
+
+          
+            <div class="swiper-slide tranding-slide">
+              <div class="tranding-slide-vid" data-video-id="Y4_ez-UWeIc">               
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/Y4_ez-UWeIc?si=or75vAFRa2mkfYBd  rel=0 & modestbranding=1 & iv_load_policy=3 & controls=0 & disablekb=1&enablejsapi= 1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <button class="watch-btn">
+                  <span class="plus-icon">+</span>
+                  مشاهدة
+                </button>  
+
+
+                <button class="save-btn" >إضافه للمفضله</button>
+                 
+    
+              
+              </div>
+  <div class="tranding-slide-content">
+    <h1 class="food-price">الدرس الثاني</h1>
+    <div class="tranding-slide-content-bottom">
+      <P></P>
+      <p></p>
+      <p class="food-name">
+      </p>
+      <p class="food-rating">
+        <span></span>
+      </p>
+    </div>
+  </div>
+            </div>
+            
+           
+            
+
+
+            
+              <div class="swiper-slide tranding-slide">
+                <div class="tranding-slide-vid"  data-video-id="TZzhVwk9CPo">               
+                  <iframe width="560" height="315" src="https://www.youtube.com/embed/TZzhVwk9CPo?si=OpQ8hHVSvHX3Knzq  rel=0 & modestbranding=1 & iv_load_policy=3 & controls=0 & disablekb=1 & enablejsapi= 1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                  <button class="watch-btn">
+                    <span class="plus-icon">+</span>
+                    مشاهدة
+                  </button>  
+
+                  <button class="save-btn">إضافه للمفضله</button>
+                 
+                
+                  </div>
+    <div class="tranding-slide-content">
+      <h3 class="food-price">الدرس الثالث</h3>
+      <div class="tranding-slide-content-bottom">
+      
+        <p class="food-name">
+        
+      </p>
+        <p class="food-rating">
+          <span></span>
+        
+        </p>
+      </div>
+    </div>
+              </div>
+              
+            
+              
+
+
+
+              
+                <div class="swiper-slide tranding-slide">
+                  <div class="tranding-slide-vid"  data-video-id="jR158u0t3GA">
+                  
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/jR158u0t3GA?si=YqT6_7PLP9lzt8AB  rel=0 & modestbranding=1 & iv_load_policy=3 & controls=0 & disablekb=1 & enablejsapi= 1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <button class="watch-btn">
+                      <span class="plus-icon">+</span>
+                      مشاهدة
+                    </button>  
+
+
+                    <button class="save-btn">إضافه للمفضله</button>
+                 
+                   </div>
+      <div class="tranding-slide-content">
+        <h1 class="food-price">الرابع</h1>
+        <div class="tranding-slide-content-bottom">
+         
+          <p class="food-name">
+          </p>
+          <p class="food-rating">
+           <span></span>
+          </p>
+        </div>
+      </div>
+                </div>
+                
+   
+                
+
+
+                
+                  <div class="swiper-slide tranding-slide">
+                    <div class="tranding-slide-vid"  data-video-id="jaKwtl9f--c">
+                      <iframe width="560" height="315" src="https://www.youtube.com/embed/jaKwtl9f--c?si=MN5O76pzAjcKhuqg  rel=0 & modestbranding=1 & iv_load_policy=3 & controls=0 & disablekb=1 & enablejsapi= 1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                      <button class="watch-btn">
+                        <span class="plus-icon">+</span>
+                        مشاهدة
+                      </button>  
+
+                      <button class="save-btn">إضافه للمفضله</button>
+                 
+                      </div>
+
+        <div class="tranding-slide-content">
+          <h1 class="food-price">الدرس الخامس</h1>
+          <div class="tranding-slide-content-bottom">
+         
+            <p class="food-name">
+             </p>
+            <p class="food-rating">
+              <span></span>
+
+            </p>
+          </div>
+        </div>
+                  </div>
+                  
+              
+
+
+                  
+                    <div class="swiper-slide tranding-slide">
+                      <div class="tranding-slide-vid"  data-video-id="7eLJMHdEvj0">
+                     
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/7eLJMHdEvj0?si=EPhcF5iAQ_A1WtkI  rel=0 & modestbranding=1 & iv_load_policy=3 & controls=0 & disablekb=1 & enablejsapi= 1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>     
+                        <button class="watch-btn">
+                          <span class="plus-icon">+</span>
+                          مشاهدة
+                        </button>
+                        
+                        <button class="save-btn">إضافه للمفضله</button>
+                   
+          
+                      </div>
+          <div class="tranding-slide-content">
+            <h2 class="food-price">الدرس السادس</h2>
+            <div class="tranding-slide-content-bottom">
+           
+              <p class="food-name">
+               </p>
+              
+              <p class="food-rating">
+                <span> </span>
+              </p>
+            </div>
+          </div>
+                    </div>
+
+
+
+                    <div class="swiper-slide tranding-slide">
+                      <div class="tranding-slide-vid"  data-video-id="T7giLL-tZTQ">
+                       
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/T7giLL-tZTQ?si=2Cr9uEymPaHi06xq  rel=0 & modestbranding=1 & iv_load_policy=3 & controls=0 & disablekb=1 & enablejsapi= 1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <button class="watch-btn">
+                          <span class="plus-icon">+</span>
+                          مشاهدة
+                        </button>  
+                        
+                        <button class="save-btn">إضافه للمفضله</button>
+                       
+          
+                      </div>
+          <div class="tranding-slide-content">
+            <h2 class="food-price">الدرس السابع</h2>
+            <div class="tranding-slide-content-bottom">
+     
+              <p class="food-name">
+               </p>
+              
+              <p class="food-rating">
+                <span> </span>
+              </p>
+            </div>
+          </div>
+                    </div>
+
+
+                    <div class="swiper-slide tranding-slide">
+                      <div class="tranding-slide-vid"  data-video-id="Yk3MyoOwOss">
+                        
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/Yk3MyoOwOss?si=F4ECt8Q-SWv3qZXb  rel=0 & modestbranding=1 & iv_load_policy=3 & controls=0 & disablekb=1 & enablejsapi= 1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <button class="watch-btn">
+                          <span class="plus-icon">+</span>
+                          مشاهدة
+                        </button>  
+                        
+                        <button class="save-btn">إضافه للمفضله</button>
+                 
+          
+                      </div>
+          <div class="tranding-slide-content">
+            <h2 class="food-price">الدرس الثامن</h2>
+            <div class="tranding-slide-content-bottom">
+            
+              <p class="food-name">
+               </p>
+              
+              <p class="food-rating">
+                <span> </span>
+              </p>
+            </div>
+          </div>
+                    </div>
+
+
+
+                    <div class="swiper-slide tranding-slide">
+                      <div class="tranding-slide-vid"  data-video-id="Wsojeq7P7O0">
+                     
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/Wsojeq7P7O0?si=5fOflCBP46NnSvqf  rel=0 & modestbranding=1 & iv_load_policy=3 & controls=0 & disablekb=1 & enablejsapi= 1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <button class="watch-btn">
+                          <span class="plus-icon">+</span>
+                          مشاهدة
+                        </button>  
+                        
+                        
+                        <button class="save-btn">إضافه للمفضله</button>
+                 
+                      </div>
+          <div class="tranding-slide-content">
+            <h2 class="food-price">الدرس التاسع</h2>
+            <div class="tranding-slide-content-bottom">
+            
+              <p class="food-name">
+               </p>
+              
+              <p class="food-rating">
+                <span> </span>
+              </p>
+            </div>
+          </div>
+                    </div>
+
+
+
+                    <div class="swiper-slide tranding-slide">
+                      <div class="tranding-slide-vid"  data-video-id="TGlB2bOp8xA">
+                        
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/TGlB2bOp8xA?si=zDg9-Qb5l9C39vSl  rel=0 & modestbranding=1 & iv_load_policy=3 & controls=0 & disablekb=1 & enablejsapi= 1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <button class="watch-btn">
+                          <span class="plus-icon">+</span>
+                          مشاهدة
+                        </button>  
+                        
+                        <button class="save-btn">إضافه للمفضله</button>
+                 
+          
+                      </div>
+          <div class="tranding-slide-content">
+            <h2 class="food-price">الدرس العاشر</h2>
+            <div class="tranding-slide-content-bottom">
+              <p></p>
+            <p></p>
+              <p class="food-name">
+               </p>
+              
+              <p class="food-rating">
+                <span> </span>
+              </p>
+            </div>
+          </div>
+                    </div>
+
+
+
+
+                    <div class="swiper-slide tranding-slide">
+                      <div class="tranding-slide-vid"  data-video-id="zNHSVMnuMm0">
+                     
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/zNHSVMnuMm0?si=dpOtblELyPg0PdSN  rel=0 & modestbranding=1 & iv_load_policy=3 & controls=0 & disablekb=1 & enablejsapi= 1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <button class="watch-btn">
+                          <span class="plus-icon">+</span>
+                          مشاهدة
+                        </button>  
+                        
+                        <button class="save-btn">إضافه للمفضله</button>
+                 
+          
+                      </div>
+          <div class="tranding-slide-content">
+            <h2 class="food-price">الدرس الحادي عشر</h2>
+            <div class="tranding-slide-content-bottom">
+              <p class="food-name"></p>
+              
+              <p class="food-rating">
+                <span> </span>
+              </p>
+            </div>
+          </div>
+                    </div>
+
+
+
+                    <div class="swiper-slide tranding-slide">
+                      <div class="tranding-slide-vid"  data-video-id="mJOQ2epFw7U">
+                     <iframe width="560" height="315" src="https://www.youtube.com/embed/mJOQ2epFw7U?si=8Hhade8EZQ-_Tss6  rel=0 & modestbranding=1 & iv_load_policy=3 & controls=0 & disablekb=1 & enablejsapi= 1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                     <button class="watch-btn">
+                      <span class="plus-icon">+</span>
+                      مشاهدة
+                    </button>  
+                     
+                     <button class="save-btn">إضافه للمفضله</button>
+                 
+ 
+          
+                      </div>
+          <div class="tranding-slide-content">
+            <h2 class="food-price">الدرس الثاني عشر</h2>
+            <div class="tranding-slide-content-bottom">
+             
+              <p class="food-name">
+              </p>
+              
+              <p class="food-rating">
+                <span> </span>
+              </p>
+            </div>
+          </div>
+                    </div>
+
+
+
+                    
+                  
+
+       
+        </div>
+
+<div class="tranding-slider-control">
+
+  <div class="swiper-button-prev slider-arrow">
+    <ion-icon name="arrow-back-outline"> </ion-icon>
+  </div>
+  <div class="swiper-button-next slider-arrow">
+    <ion-icon name="arrow-forward-outline"> </ion-icon>
+  </div>
+   <div class="swiper-pagination"></div>
+
+
+</div>
+      </div>
+     </div>
+
+    </section>
+
+
+
+
+
+    <section id="tranding">
+      <div class="container">
+       <h3 class="text-center section-subheading">- تعلم البرمجه  -</h3>
+       <h1 class="text-center section-heading">أساسيات البرمجه </div>
+       </div>
+      <div class="container">
+       <div class="swiper tranding-slider">
+         <div class="swiper-wrapper">
+         
+       
+           
+ 
+ 
+         
+           <div class="swiper-slide tranding-slide">
+             <div class="tranding-slide-vid"  data-video-id="609qLNUJa3U">
+             
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/609qLNUJa3U?si=zQPb6jPyDPBaXubt  rel=0 & modestbranding=1 & iv_load_policy=3 & controls=0 & disablekb=1 & enablejsapi= 1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              <button class="watch-btn">
+                <span class="plus-icon">+</span>
+                مشاهدة
+              </button>  
+            
+              <button class="save-btn" >إضافه للمفضله</button>
+                 
+ 
+             </div>
+ <div class="tranding-slide-content">
+   <h2 class="food-price">الدرس الثالث عشر</h2>
+   <div class="tranding-slide-content-bottom">
+    
+     <p class="food-name">
+     </p>
+     <p class="food-rating">
+      <span> </span>
+     </p>
+   </div>
+ </div>
+           </div>
+           
+        
+           
+ 
+ 
+ 
+           
+             <div class="swiper-slide tranding-slide">
+               <div class="tranding-slide-vid"  data-video-id="bEdNNvvky7M">
+             
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/bEdNNvvky7M?si=dkjTasCoUt7GXYFL  rel=0 & modestbranding=1 & iv_load_policy=3 & controls=0 & disablekb=1 & enablejsapi= 1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <button class="watch-btn">
+                  <span class="plus-icon">+</span>
+                  مشاهدة
+                </button>  
+                
+                <button class="save-btn">إضافه للمفضله</button>
+                       
+   
+               </div>
+   <div class="tranding-slide-content">
+     <h2 class="food-price">الدرس الرابع عشر</h2>
+     <div class="tranding-slide-content-bottom">
+      
+       <p class="food-name">
+ </p>
+       <p class="food-rating">
+        <span> </span>
+       </p>
+     </div>
+   </div>
+             </div>
+             
+            
+             
+ 
+ 
+             
+               <div class="swiper-slide tranding-slide">
+                 <div class="tranding-slide-vid"  data-video-id="XZKUsKQ1D4o">
+              
+                  <iframe width="560" height="315" src="https://www.youtube.com/embed/XZKUsKQ1D4o?si=YNFQttTpLFEeX04E  rel=0 & modestbranding=1 & iv_load_policy=3 & controls=0 & disablekb=1 & enablejsapi= 1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                  <button class="watch-btn">
+                    <span class="plus-icon">+</span>
+                    مشاهدة
+                  </button>  
+                  
+                  <button class="save-btn">إضافه للمفضله</button>
+                       
+     
+                 </div>
+     <div class="tranding-slide-content">
+       <h2 class="food-price">الدرس الخامس عشر</h2>
+       <div class="tranding-slide-content-bottom">
+          
+         <p class="food-name">
+          </p>
+         <p class="food-rating">
+          <span> </span>
+         </p>
+       </div>
+     </div>
+               </div>
+               
+             
+               
+ 
+ 
+ 
+               
+                 <div class="swiper-slide tranding-slide">
+                   <div class="tranding-slide-vid"  data-video-id="sMcLnkZYe5Q">
+                  
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/sMcLnkZYe5Q?si=iAij0cXCEX0snSsF  rel=0 & modestbranding=1 & iv_load_policy=3 & controls=0 & disablekb=1 & enablejsapi= 1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <button class="watch-btn">
+                      <span class="plus-icon">+</span>
+                      مشاهدة
+                    </button>  
+                    
+                    <button class="save-btn">إضافه للمفضله</button>
+                       
+                   </div>
+       <div class="tranding-slide-content">
+         <h2 class="food-price">الدرس السادس عشر</h2>
+         
+           <p class="food-name">
+         </p>
+           <p class="food-rating">
+            <span> </span>
+           </p>
+         </div>
+       </div>
+               
+                 
+    
+                 
+ 
+ 
+                 
+                   <div class="swiper-slide tranding-slide">
+                     <div class="tranding-slide-vid"  data-video-id="Mg_ErbRlxNs">
+                   
+                      <iframe width="560" height="315" src="https://www.youtube.com/embed/Mg_ErbRlxNs?si=QEP7lwzsU6JyIKqb  rel=0 & modestbranding=1 & iv_load_policy=3 & controls=0 & disablekb=1 & enablejsapi= 1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                      <button class="watch-btn">
+                        <span class="plus-icon">+</span>
+                        مشاهدة
+                      </button>  
+                      
+                      <button class="save-btn">إضافه للمفضله</button>
+                       
+                            
+         
+                     </div>
+         <div class="tranding-slide-content">
+           <h2 class="food-price">الدرس السابع عشر</h2>
+           <div class="tranding-slide-content-bottom">
+          
+             <p class="food-name">
+               </p>
+             <p class="food-rating">
+              <span> 
+             </p>
+           </div>
+         </div>
+                   </div>
+                   
+               
+ 
+ 
+                   
+                     <div class="swiper-slide tranding-slide">
+                       <div class="tranding-slide-vid"  data-video-id="9VOKK6S-KYA">
+                        
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/9VOKK6S-KYA?si=0VeLDxY0uyCo0Jam  rel=0 & modestbranding=1 & iv_load_policy=3 & controls=0 & disablekb=1 & enablejsapi= 1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <button class="watch-btn">
+                          <span class="plus-icon">+</span>
+                          مشاهدة
+                        </button>  
+                        
+                        <button class="save-btn">إضافه للمفضله</button>
+                       
+           
+                       </div>
+           <div class="tranding-slide-content">
+             <h2 class="food-price">الدرس الثامن عشر</h2>
+             <div class="tranding-slide-content-bottom">
+             
+               <p class="food-name">
+              </p>
+               
+               <p class="food-rating">
+                <span> </span>
+               </p>
+             </div>
+           </div>
+                     </div>
+
+
+
+                     <div class="swiper-slide tranding-slide">
+                      <div class="tranding-slide-vid"  data-video-id="joth4466G8o">
+                      
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/joth4466G8o?si=Yauwk1du42gvd4Jo  rel=0 & modestbranding=1 & iv_load_policy=3 & controls=0 & disablekb=1 & enablejsapi= 1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <button class="watch-btn">
+                          <span class="plus-icon">+</span>
+                          مشاهدة
+                        </button>  
+                        
+                        <button class="save-btn" >إضافه للمفضله</button>
+                       
+          
+                      </div>
+          <div class="tranding-slide-content">
+            <h2 class="food-price">الدرس التاسع عشر</h2>
+            <div class="tranding-slide-content-bottom">
+              
+              <p class="food-name">
+                </p>
+              
+              <p class="food-rating">
+                <span> </span>
+              </p>
+            </div>
+          </div>
+                    </div>
+
+
+
+                    <div class="swiper-slide tranding-slide">
+                      <div class="tranding-slide-vid"  data-video-id="BBFNDg_kFoU">
+                      
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/BBFNDg_kFoU?si=LBYl15PAhfKU7x7A  rel=0 & modestbranding=1 & iv_load_policy=3 & controls=0 & disablekb=1 & enablejsapi= 1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <button class="watch-btn">
+                          <span class="plus-icon">+</span>
+                          مشاهدة
+                        </button>  
+                        
+                        <button class="save-btn" >إضافه للمفضله</button>
+                       
+          
+                      </div>
+          <div class="tranding-slide-content">
+            <h2 class="food-price">الدرس  العشرون</h2>
+            <div class="tranding-slide-content-bottom">
+               
+              <p class="food-name">
+              </p>
+              
+              <p class="food-rating">
+                <span> </span>
+              </p>
+            </div>
+          </div>
+                    </div>
+
+
+                    <div class="swiper-slide tranding-slide">
+                      <div class="tranding-slide-vid"  data-video-id="VfY1P_86xB4">
+                      
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/VfY1P_86xB4?si=d3u5YxoinLh-OJ3F  rel=0 & modestbranding=1 & iv_load_policy=3 & controls=0 & disablekb=1 & enablejsapi= 1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <button class="watch-btn">
+                          <span class="plus-icon">+</span>
+                          مشاهدة
+                        </button>  
+                        
+                        <button class="save-btn" >إضافه للمفضله</button>
+                       
+                      </div>
+          <div class="tranding-slide-content">
+            <h2 class="food-price">الدرس الواحد والعشرون</h2>
+            <div class="tranding-slide-content-bottom">
+             
+              <p class="food-name">
+               </p>
+              
+              <p class="food-rating">
+                <span> </span>
+              </p>
+            </div>
+          </div>
+                    </div>
+
+
+                    <div class="swiper-slide tranding-slide">
+                      <div class="tranding-slide-vid"  data-video-id="KNwPCNVy6dM">
+                       
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/KNwPCNVy6dM?si=OQVxzLnVIgB_8IAd  rel=0 & modestbranding=1 & iv_load_policy=3 & controls=0 & disablekb=1 & enablejsapi= 1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <button class="watch-btn">
+                          <span class="plus-icon">+</span>
+                          مشاهدة
+                        </button>  
+
+                        <button class="save-btn" >إضافه للمفضله</button>
+                       
+                      </div>
+          <div class="tranding-slide-content">
+            <h2 class="food-price">الدرس الثاني والعشرون</h2>
+            <div class="tranding-slide-content-bottom">
+           
+              <p class="food-name">
+              </p>
+              
+              <p class="food-rating">
+                <span> </span>
+              </p>
+            </div>
+          </div>
+                    </div>
+
+
+                    <div class="swiper-slide tranding-slide">
+                      <div class="tranding-slide-vid"  data-video-id="tjH1jeIKemc">
+                     
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/tjH1jeIKemc?si=JbzkXWtnOcDgnUlk  rel=0 & modestbranding=1 & iv_load_policy=3 & controls=0 & disablekb=1 & enablejsapi= 1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <button class="watch-btn">
+                          <span class="plus-icon">+</span>
+                          مشاهدة
+                        </button>  
+                   
+                        <button class="save-btn">إضافه للمفضله</button>
+                       
+          
+                      </div>
+          <div class="tranding-slide-content">
+            <h2 class="food-price">الدرس الثالث  والعشرون</h2>
+            <div class="tranding-slide-content-bottom">
+             
+              <p class="food-name">
+                 </p>
+              
+              <p class="food-rating">
+                <span> </span>
+              </p>
+            </div>
+          </div>
+                    </div>
+
+
+                    <div class="swiper-slide tranding-slide">
+                      <div class="tranding-slide-vid"  data-video-id="BHvtefalXoU">
+                      
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/BHvtefalXoU?si=PYWsdDuK6DgHvJ2l  rel=0 & modestbranding=1 & iv_load_policy=3 & controls=0 & disablekb=1 & enablejsapi= 1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <button class="watch-btn">
+                          <span class="plus-icon">+</span>
+                          مشاهدة
+                        </button>  
+                        
+                        <button class="save-btn">إضافه للمفضله</button>
+                       
+          
+                      </div>
+          <div class="tranding-slide-content">
+            <h2 class="food-price">الدرس الرابع والعشرون</h2>
+            <div class="tranding-slide-content-bottom">
+           
+              <p class="food-name">
+             </p>
+              
+              <p class="food-rating">
+                <span> </span>
+              </p>
+            </div>
+          </div>
+                    </div>
+
+
+                    <div class="swiper-slide tranding-slide">
+                      <div class="tranding-slide-vid"  data-video-id="cAUfph7U8Qs">
+                      
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/cAUfph7U8Qs?si=DKw37AWJIS8_zaO-  rel=0 & modestbranding=1 & iv_load_policy=3 & controls=0 & disablekb=1 & enablejsapi= 1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <button class="watch-btn">
+                          <span class="plus-icon">+</span>
+                          مشاهدة
+                        </button>  
+
+                        <button class="save-btn"> إضافه للمفضله</button>
+                       
+          
+                      </div>
+          <div class="tranding-slide-content">
+            <h2 class="food-price">الدرس الخامس والعشرون</h2>
+            <div class="tranding-slide-content-bottom">
+              
+              <p class="food-name">
+                </p>
+              
+              <p class="food-rating">
+                <span> </span>
+              </p>
+            </div>
+          </div>
+                    </div>
+                     
+</div>
+        
+ 
+ <div class="tranding-slider-control">
+ 
+   <div class="swiper-button-prev slider-arrow">
+     <ion-icon name="arrow-back-outline"> </ion-icon>
+   </div>
+   <div class="swiper-button-next slider-arrow">
+     <ion-icon name="arrow-forward-outline"> </ion-icon>
+   </div>
+    <div class="swiper-pagination"></div>
+ 
+ </div>
+ </div>
+
+      </div>
+      <h3>برمجه للاطفال * Safaa El-Shafe’y المصدر :قناه </h3>
+     
+  <p> www.youtube.com/@SafaaElShafey: رابط القناه علي اليوتيوب </p> <a href="www.youtube.com/@SafaaElShafey"></a>
+
+  </section>
+ <!-- استبدال روابط المكتبات بهذه -->
+ 
+<!-- استبدل كل روابط المكتبات بهذا: -->
+<!-- CSS -->
+<script
+type="module"
+src="https://unpkg.com/inoicons@5.5.2/dist/inoicons/inoicons.esm.js"></script>
+<script
+nomodule src="https://unpkg.com/inoicons@5.5.2/dist/inoicons/inoicons.esm.js"></script>
+<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+<script>
+    
+// 1. تعريف الدورة (يختلف لكل صفحة)
+const COURSE_INFO = {
+    id: "pasic",
+    name: "اساسيات البرمجه", // يجب أن يتطابق تماماً مع الملف الشخصي
+    defaultVideos: 25 // عدد فيديوهات هذه الدورة
+};
+
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBSGd2kr71zV0UG2i5IwlMs9UmJB0anH8k",
+        authDomain: "code-kids-800d9.firebaseapp.com",
+        databaseURL: "https://code-kids-800d9-default-rtdb.firebaseio.com",
+        projectId: "code-kids-800d9",
+        storageBucket: "code-kids-800d9.firebasestorage.app",
+        messagingSenderId: "616970170049",
+        appId: "1:616970170049:web:b5b756e5ec642627c4ae40"
+      };
+
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+      // دالة للتبديل بين الإضافة والإزالة من المفضلة
+      // دالة لتحديث واجهة الزر
+function updateFavoriteButtonUI(button, isFavorite) {
+  if (isFavorite) {
+    button.innerHTML = '<i class="fas fa-heart" style="color: red; margin-left: 5px;"></i> مفضلة';
+    button.classList.add('favorited');
+    button.style.backgroundColor = '#f8f9fa';
+    button.style.color = '#dc3545';
+    button.style.border = '1px solid #dc3545';
+    
+    button.classList.add('animate__animated', 'animate__heartBeat');
+    setTimeout(() => {
+      button.classList.remove('animate__animated', 'animate__heartBeat');
+    }, 1000);
+  } else {
+    button.innerHTML = '<i class="far fa-heart" style="margin-left: 5px;"></i> إضافة للمفضلة';
+    button.classList.remove('favorited');
+    button.style.backgroundColor = '#573b8a';
+    button.style.color = 'white';
+    button.style.border = 'none';
+    
+    button.classList.add('animate__animated', 'animate__fadeOut');
+    setTimeout(() => {
+      button.classList.remove('animate__animated', 'animate__fadeOut');
+    }, 500);
+  }
+}
+
+// دالة للإضافة إلى المفضلة
+async function addToFavorites(userId, iframeUrl, videoId) {
+  await db.collection('favorites').add({
+    userId: userId,
+    iframeUrl: iframeUrl,
+    videoId: videoId,
+    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+  });
+}
+
+// دالة للإزالة من المفضلة
+async function removeFromFavorites(userId, videoId) {
+  const snapshot = await db.collection('favorites')
+    .where('userId', '==', userId)
+    .where('videoId', '==', videoId)
+    .get();
+
+  const batch = db.batch();
+  snapshot.docs.forEach(doc => {
+    batch.delete(doc.ref);
+  });
+  
+  await batch.commit();
+}
+
+// دالة للتبديل بين الإضافة والإزالة من المفضلة
+async function toggleFavorite(iframeUrl, button) {
+  try {
+    const user = auth.currentUser;
+    if (!user) {
+      alert('يجب تسجيل الدخول أولاً');
+      return;
+    }
+
+    const url = new URL(iframeUrl);
+    const videoId = url.pathname.split('/')[2];
+    
+    if (button.classList.contains('favorited')) {
+      if (confirm('هل تريد إزالة هذا الفيديو من المفضلة؟')) {
+        await removeFromFavorites(user.uid, videoId);
+        updateFavoriteButtonUI(button, false);
+      }
+    } else {
+      await addToFavorites(user.uid, iframeUrl, videoId);
+      updateFavoriteButtonUI(button, true);
+      
+      // إشعار بنجاح الإضافة
+      Toastify({
+        text: "تمت إضافة الفيديو إلى المفضلة",
+        duration: 3000,
+        gravity: "bottom",
+        position: "left",
+        backgroundColor: "#4CAF50",
+      }).showToast();
+    }
+  } catch(error) {
+    console.error('حدث خطأ:', error);
+    alert('فشل العملية: ' + error.message);
+  }
+}
+
+// دالة لتحميل حالة المفضلة عند بدء التشغيل
+async function loadFavoriteStatus() {
+  try {
+    const user = auth.currentUser;
+    if (!user) return;
+    
+    const querySnapshot = await db.collection('favorites')
+      .where('userId', '==', user.uid)
+      .select('videoId')
+      .get();
+    
+    const favoriteVideos = querySnapshot.docs.map(doc => doc.data().videoId);
+    
+    document.querySelectorAll('.tranding-slide-vid').forEach(videoElement => {
+      const videoId = videoElement.dataset.videoId;
+      const button = videoElement.querySelector('.save-btn');
+      
+      if (button && favoriteVideos.includes(videoId)) {
+        updateFavoriteButtonUI(button, true);
+      }
+    });
+    
+  } catch(error) {
+    console.error('حدث خطأ في تحميل حالة المفضلة:', error);
+  }
+}
+
+// إعداد التحديث الفوري لحالة المفضلة
+function setupFavoriteRealtimeUpdates() {
+  const user = auth.currentUser;
+  if (!user) return;
+  
+  db.collection('favorites')
+    .where('userId', '==', user.uid)
+    .onSnapshot((querySnapshot) => {
+      const favoriteVideos = querySnapshot.docs.map(doc => doc.data().videoId);
+      
+      document.querySelectorAll('.tranding-slide-vid').forEach(videoElement => {
+        const videoId = videoElement.dataset.videoId;
+        const button = videoElement.querySelector('.save-btn');
+        
+        if (button) {
+          updateFavoriteButtonUI(button, favoriteVideos.includes(videoId));
+        }
+      });
+    });
+}
+
+// إعداد مستمع الأحداث لأزرار المفضلة
+function setupFavoriteButtons() {
+  document.addEventListener('click', async (e) => {
+    if (e.target.classList.contains('save-btn') || e.target.closest('.save-btn')) {
+      e.preventDefault();
+      
+      const button = e.target.classList.contains('save-btn') ? e.target : e.target.closest('.save-btn');
+      const videoContainer = button.closest('.tranding-slide-vid');
+      
+      if (!videoContainer) {
+        console.error('لم يتم العثور على حاوية الفيديو');
+        return;
+      }
+      
+      const iframe = videoContainer.querySelector('iframe');
+      if (!iframe || !iframe.src) {
+        console.error('لم يتم العثور على رابط الفيديو');
+        return;
+      }
+      
+      await toggleFavorite(iframe.src, button);
+    }
+  });
+}
+
+// تهيئة كل شيء عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', () => {
+  setupFavoriteButtons();
+  loadFontAwesome();
+});
+
+// تحميل Font Awesome ديناميكياً إذا لم يكن محملاً
+function loadFontAwesome() {
+  if (!document.querySelector('#font-awesome')) {
+    const link = document.createElement('link');
+    link.id = 'font-awesome';
+    link.rel = 'stylesheet';
+    link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
+    document.head.appendChild(link);
+  }
+}
+
+// مراقبة حالة المصادقة
+auth.onAuthStateChanged(user => {
+  if (user) {
+    loadFavoriteStatus();
+    setupFavoriteRealtimeUpdates();
+  }
+});
+var TrandingSlider = new Swiper('.tranding-slider', {
+  effect:'coverflow',
+  grabCursor:true,
+  centeredSlides:true,
+  loop:true,
+  slidesPerView:'auto',
+  coverflowEffect: {
+    rotate:0,
+    stretch:0,
+    depth:100,
+    modifier:2.5,
+  },
+  pagination: {
+    el:'.swiper-pagination',
+    clickable:true,
+  },
+  navigation: {
+    nextEl:'.swiper-button-next',
+    prevEl:'.swiper-button-prev',
+  }
+});
+
+
+// أضف هذا في أعلى ملف JavaScript الخاص بصفحة الدورة
+const COURSE_NAME = "أساسيات البرمجة"; // يجب أن يكون نفس الاسم في كل الصفحات
+    const totalVideosInCourse = 25; 
+// دالة معدلة لحفظ حالة المشاهدة
+async function saveWatchStatus(videoId, button) {
+    try {
+        const user = auth.currentUser;
+        if (!user) {
+            alert('يجب تسجيل الدخول أولاً');
+            return;
+        }
+
+        // 1. تحديث واجهة المستخدم فوراً
+        button.classList.add('watched');
+        button.textContent = 'تمت المشاهدة';
+
+        // 2. حفظ في watchedVideos
+        await db.collection('watchedVideos').doc(user.uid).set({
+            [videoId]: true
+        }, { merge: true });
+
+        // 3. حساب التقدم المحدث
+        const videosInCourse = document.querySelectorAll('.tranding-slide-vid');
+        const watchedVideos = await db.collection('watchedVideos').doc(user.uid).get();
+        const watchedData = watchedVideos.data() || {};
+        
+        let watchedCount = 0;
+        videosInCourse.forEach(video => {
+            if (watchedData[video.dataset.videoId]) watchedCount++;
+        });
+
+        // 4. تحديث userCourses
+        await db.collection('userCourses').doc(user.uid).set({
+            [COURSE_NAME]: {
+                completed: watchedCount === videosInCourse.length,
+                progress: Math.round((watchedCount / videosInCourse.length) * 100),
+                watchedCount: watchedCount,
+                totalVideos: videosInCourse.length ,
+                halfwayShown: false,
+                lastUpdated: firebase.firestore.FieldValue.serverTimestamp(),
+
+                
+            }
+        }, { merge: true });
+
+        console.log('تم التحديث بنجاح:', {
+            course: COURSE_NAME,
+            watchedCount,
+            totalVideos: videosInCourse.length 
+        });
+
+    } catch (error) {
+        console.error('حدث خطأ:', error);
+        button.classList.remove('watched');
+        button.textContent = 'مشاهدة';
+    }
+}
+
+// تعديل استدعاء الدالة في الأزرار
+document.querySelectorAll('.watch-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const videoId = this.closest('.tranding-slide-vid').dataset.videoId;
+        saveWatchStatus(videoId, this);
+    
+    });
+});
+
+
+
+
+
+  
+  // تحميل حالة المشاهدة
+  async function loadWatchStatus() {
+    try {
+      const user = auth.currentUser;
+      if (!user) return;
+      
+      const doc = await db.collection('watchedVideos').doc(user.uid).get();
+      if (doc.exists) {
+        const watchedVideos = doc.data();
+        
+        document.querySelectorAll('.tranding-slide-vid').forEach(videoElement => {
+          const videoId = videoElement.dataset.videoId;
+          const watchBtn = videoElement.querySelector('.watch-btn');
+          
+          if (watchedVideos[videoId] && watchBtn) {
+            watchBtn.classList.add('watched');
+            watchBtn.innerHTML = 'تمت المشاهدة';
+          }
+        });
+      }
+    } catch (error) {
+      console.error('حدث خطأ أثناء تحميل حالة المشاهدة:', error);
+    }
+  }
+ 
+  // إعداد أزرار المشاهدة
+  function setupWatchButtons() {
+    document.querySelectorAll('.watch-btn').forEach(btn => {
+      btn.addEventListener('click', async function() {
+        const container = this.closest('.tranding-slide-vid');
+        const videoId = container.dataset.videoId;
+        
+        // إضافة تأثيرات
+        this.classList.add('watched', 'animate__animated', 'animate__pulse');
+        this.innerHTML = 'تمت المشاهدة';
+        
+        // إزالة classes بعد انتهاء التحريك لتجنب التكرار
+        setTimeout(() => {
+          this.classList.remove('animate__animated', 'animate__pulse');
+        }, 1000);
+        
+        // حفظ الحالة في Firebase
+        await saveWatchStatus(videoId);
+      });
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+
+        // مراقبة حالة المصادقة
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                loadWatchStatus();
+                loadFavoriteStatus();
+                setupFavoriteRealtimeUpdates();
+            }
+            setupWatchButtons();
+            setupSaveButtons();
+        });
+
+        // تهيئة الصفحة عند التحميل
+        document.addEventListener('DOMContentLoaded', () => {
+            setupWatchButtons();
+            setupSaveButtons();
+        });
+
+  
+  
+         //الاصوات
+  
+      // تعريف الأصوات
+  const sounds = {
+    favorite: new Howl({
+      src: ['favorite.mp3'],
+      volume: 0.6
+    }),
+    watch: new Howl({
+      src: ['watch.mp3'],
+      volume: 0.5
+    }),
+  
+    click: new Howl({
+      src: ['click.mp3'],
+      volume: 0.4
+    })
+  };
+  
+  // دالة لتشغيل الصوت مع التحكم
+  function playSound(soundName) {
+    // إيقاف الصوت إذا كان يعمل بالفعل
+    sounds[soundName].stop();
+    // تشغيل الصوت من البداية
+    sounds[soundName].play();
+  }
+  
+  document.querySelectorAll('.save-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      playSound('click'); // صوت النقر العام
+      
+      if (this.classList.contains('favorited')) {
+        playSound('click'); // صوت الإزالة من المفضلة
+      } else {
+        playSound('favorite'); // صوت الإضافة للمفضلة
+      }
+    });
+  });
+  
+  document.querySelectorAll('.watch-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      playSound('click'); // صوت النقر العام
+      
+      if (this.classList.contains('watched')) {
+        playSound('watch'); // صوت إلغاء المشاهدة
+      } else {
+        playSound('watch'); // صوت تأكيد المشاهدة
+      }
+    });
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  document.addEventListener('DOMContentLoaded', function() {
+  const themeToggle = document.getElementById('themeToggle');
+  
+  // تحقق من التفضيل المحفوظ
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    themeToggle.innerHTML = '<ion-icon name="sunny"></ion-icon>'; // أيقونة الشمس للوضع النهاري
+  }
+
+  // حدث النقر على الزر
+  themeToggle.addEventListener('click', function() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    
+    if (currentTheme === 'dark') {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('theme', 'light');
+      themeToggle.innerHTML = '<ion-icon name="moon"></ion-icon>';
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem('theme', 'dark');
+      themeToggle.innerHTML = '<ion-icon name="sunny"></ion-icon>';
+    }
+  });
+});
+</script>
+
+
+
+
+    
+    </body>
+</html>

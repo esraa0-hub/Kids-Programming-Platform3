@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة المتصدرين</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .leaderboard {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .leaderboard h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .leaderboard-users {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .leaderboard-user {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            position: relative;
+        }
+
+        .leaderboard-user:hover {
+            transform: translateY(-2px);
+        }
+
+        .leaderboard-user.current-user {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196f3;
+        }
+
+        .user-rank {
+            font-weight: bold;
+            font-size: 18px;
+            width: 40px; /* زيادة العرض لاستيعاب الميدالية */
+            text-align: center;
+            color: #555;
+            position: relative;
+        }
+
+        /* أنماط الميداليات */
+        .medal {
+            position: absolute;
+            right: 700px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+        }
+
+        .gold {
+            color: gold;
+            text-shadow: 0 0 3px rgba(0,0,0,0.3);
+        }
+
+        .silver {
+            color: silver;
+            text-shadow: 0 0 3px rgba(0,0,0,0.3);
+        }
+
+        .bronze {
+            color: #cd7f32; /* لون برونزي */
+            text-shadow: 0 0 3px rgba(0,0,0,0.3);
+        }
+
+        .user-image {
+            width: 50px;
+            height: 50px;
+            margin: 0 15px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .user-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .user-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .loading-text, .no-data, .error-text {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .error-text {
+            color: #d32f2f;
+        }
+
+        .no-data {
+            font-style: italic;
+        }
+
+        .back-btn {
+            background-color: #ff8787;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            width: 200px;
+            margin-right: auto;
+        }
+        
+        .back-btn:hover {
+            background-color: #ff6b6b;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="leaderboard">
+        <button class="back-btn" onclick="window.location.href='profile.html'">
+            العودة للملف الشخصي <i class="fas fa-arrow-left"></i> 
+        </button>
+        <h2>قائمة المتصدرين</h2>
+        <div id="leaderboard-container" class="leaderboard-users">
+            <p>جاري تحميل البيانات...</p>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script>
+        // تهيئة Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBSGd2kr71zV0UG2i5IwlMs9UmJB0anH8k",
+            authDomain: "code-kids-800d9.firebaseapp.com",
+            databaseURL: "https://code-kids-800d9-default-rtdb.firebaseio.com",
+            projectId: "code-kids-800d9",
+            storageBucket: "code-kids-800d9.firebasestorage.app",
+            messagingSenderId: "616970170049",
+            appId: "1:616970170049:web:b5b756e5ec642627c4ae40"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // دالة لجمع النقاط من جميع الصفحات وحساب المستوى
+        async function calculateTotalScores() {
+            try {
+                const grandTotal = (parseInt(localStorage.getItem('quizScore_page1')) || 0) +
+                                 (parseInt(localStorage.getItem('quizScore_page2')) || 0) +
+                                 (parseInt(localStorage.getItem('quizScore_page3')) || 0);
+                
+                localStorage.setItem('grandTotalScore', grandTotal);
+                updateLevel(grandTotal);
+                
+                const saved = await saveUserData();
+                if (!saved) {
+                    console.log("Failed to save user data");
+                }
+                
+                await loadLeaderboard();
+            } catch (error) {
+                console.error("Error calculating scores:", error);
+            }
+        }
+
+        // دالة لتحديث المستوى
+        function updateLevel(totalPoints) {
+            const level = Math.floor(totalPoints / 10) + 1;
+            localStorage.setItem('lastLevel', level);
+        }
+
+        // دالة لتحميل وعرض قائمة المتصدرين
+        async function loadLeaderboard() {
+            const leaderboardContainer = document.getElementById('leaderboard-container');
+            if (!leaderboardContainer) {
+                console.error("Leaderboard container not found");
+                return;
+            }
+
+            try {
+                leaderboardContainer.innerHTML = '<p class="loading-text">جاري تحميل البيانات...</p>';
+
+                const currentUser = auth.currentUser;
+                if (!currentUser) {
+                    leaderboardContainer.innerHTML = '<p class="no-data">يجب تسجيل الدخول لعرض النتائج</p>';
+                    return;
+                }
+
+                // جلب بيانات جميع المستخدمين مرتبة حسب النقاط
+                const querySnapshot = await db.collection('users')
+                    .orderBy('points', 'desc')
+                    .limit(50)
+                    .get();
+
+                console.log("Found", querySnapshot.size, "users"); // Debug log
+
+                if (querySnapshot.empty) {
+                    // إذا لم يوجد مستخدمين، نضيف المستخدم الحالي فقط
+                    const userDoc = await db.collection('users').doc(currentUser.uid).get();
+                    if (userDoc.exists) {
+                        const user = userDoc.data();
+                        leaderboardContainer.innerHTML = '';
+                        leaderboardContainer.appendChild(createLeaderboardItem(1, user, true));
+                    } else {
+                        leaderboardContainer.innerHTML = '<p class="no-data">لا يوجد متصدرين بعد</p>';
+                    }
+                    return;
+                }
+
+                leaderboardContainer.innerHTML = '';
+                let rank = 1;
+                
+                querySnapshot.forEach(doc => {
+                    const user = doc.data();
+                    leaderboardContainer.appendChild(createLeaderboardItem(
+                        rank, 
+                        user,
+                        doc.id === currentUser.uid
+                    ));
+                    rank++;
+                });
+
+            } catch (error) {
+                console.error("Error loading leaderboard:", error);
+                leaderboardContainer.innerHTML = '<p class="error-text">حدث خطأ في تحميل البيانات</p>';
+            }
+        }
+
+        // دالة إنشاء عنصر في قائمة المتصدرين مع إضافة الميداليات
+        function createLeaderboardItem(rank, user, isCurrentUser = false) {
+            const userElement = document.createElement('div');
+            userElement.className = `leaderboard-user ${isCurrentUser ? 'current-user' : ''}`;
+            
+            // تحديد الميدالية بناء على الترتيب
+            let medal = '';
+            if (rank === 1) {
+                medal = '<i class="fas fa-medal medal gold"></i>';
+            } else if (rank === 2) {
+                medal = '<i class="fas fa-medal medal silver"></i>';
+            } else if (rank === 3) {
+                medal = '<i class="fas fa-medal medal bronze"></i>';
+            }
+            
+            userElement.innerHTML = `
+                <div class="user-rank">
+                    ${medal}
+                    <span>${rank}</span>
+                </div>
+                <div class="user-image">
+                    <img src="${user.profileImage || 'default.png'}" alt="${user.name}" onerror="this.src='default.png'">
+                </div>
+                <div class="user-info">
+                    <div class="user-name">${user.name || 'مستخدم بدون اسم'}</div>
+                    <div class="user-stats">
+                        <span>النقاط: ${user.points || 0}</span>
+                        <span>المستوى: ${user.level || 1}</span>
+                    </div>
+                </div>
+            `;
+            
+            return userElement;
+        }
+
+        async function saveUserData() {
+            try {
+                const user = auth.currentUser;
+                if (!user) return false;
+
+                let userName = user.displayName;
+                
+                if (!userName) {
+                    const userDoc = await db.collection('users').doc(user.uid).get();
+                    userName = userDoc.exists ? userDoc.data().name : null;
+                }
+                
+                if (!userName) {
+                    userName = "مستخدم جديد";
+                    const newName = prompt("الرجاء إدخال اسمك:", "");
+                    if (newName && newName.trim() !== "") {
+                        userName = newName.trim();
+                        await user.updateProfile({
+                            displayName: userName
+                        });
+                    }
+                }
+
+                const userData = {
+                    name: userName,
+                    points: parseInt(localStorage.getItem('grandTotalScore')) || 0,
+                    level: parseInt(localStorage.getItem('lastLevel')) || 1,
+                    profileImage: localStorage.getItem('selectedProfileImage') || 'avatar/default.png',
+                    lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+                };
+
+                await db.collection('users').doc(user.uid).set(userData, { merge: true });
+                return true;
+            } catch (error) {
+                console.error("Error saving user data:", error);
+                return false;
+            }
+        }
+
+        // دالة تحميل الصفحة الرئيسية
+        window.addEventListener('DOMContentLoaded', async () => {
+            await new Promise(resolve => {
+                const interval = setInterval(() => {
+                    if (firebase.apps.length) {
+                        clearInterval(interval);
+                        resolve();
+                    }
+                }, 100);
+            });
+            
+            auth.onAuthStateChanged(async (user) => {
+                if (user) {
+                    console.log("User is signed in:", user.uid);
+                    await calculateTotalScores();
+                } else {
+                    console.log("No user signed in");
+                    const container = document.getElementById('leaderboard-container');
+                    if (container) {
+                        container.innerHTML = '<p class="no-data">يجب تسجيل الدخول لعرض النتائج</p>';
+                    }
+                }
+            });
+        });
+
+        window.addEventListener('error', (event) => {
+            console.error("Global error:", event.error);
+        });
+
+        window.addEventListener('unhandledrejection', (event) => {
+            console.error('Unhandled rejection:', event.reason);
+        });
+    </script>
+</body>
+</html>
