@@ -501,18 +501,187 @@
             z-index: 10;
         }
 
-        @media (max-width: 768px) {
-            .bg-selector {
-                margin-right: 20px;
-                width: 90%;
-                max-width: none;
-            }
-            
-            #comments-list {
-                margin-right: 20px;
-                max-width: 90%;
-            }
-        }
+      @media (max-width: 768px) {
+    /* تحسين عام للهواتف */
+    body {
+        font-size: 14px;
+        overflow-x: hidden;
+    }
+    
+    /* تحسين الهيدر */
+    header {
+        height: auto !important;
+        padding: 10px 5px !important;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .i11, .i22, .i33 {
+        width: 40px !important;
+        margin: 5px !important;
+    }
+    
+    /* تحسين زر اختيار الخلفية */
+    .bg-selector {
+        margin-right: 0 !important;
+        margin-top: 10px !important;
+        width: 95% !important;
+        max-width: none !important;
+        order: 3;
+        flex-basis: 100%;
+    }
+    
+    /* تحسين الأزرار العلوية */
+    .profile-section {
+        gap: 10px !important;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .header-btn {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.8rem !important;
+        margin-top: 5px !important;
+    }
+    
+    /* تحسين المحتوى الرئيسي */
+    .main-content {
+        padding: 1rem !important;
+    }
+    
+    .main-buttons {
+        width: 95% !important;
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+        margin: 1rem auto !important;
+    }
+    
+    .main-btn {
+        height: 200px !important;
+        margin: 5px 0 !important;
+    }
+    
+    .main-btn:hover {
+        transform: translateY(-5px) scale(1.02) !important;
+    }
+    
+    .main-btn img {
+        width: 70px !important;
+        height: 70px !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .main-btn h2 {
+        font-size: 1.2rem !important;
+    }
+    
+    .main-btn p {
+        font-size: 0.8rem !important;
+    }
+    
+    /* تحسين قسم التعليقات */
+    #comments-list {
+        margin-right: 0 !important;
+        max-width: 95% !important;
+        max-height: 250px !important;
+        margin: 10px auto !important;
+    }
+    
+    .comment-form {
+        max-width: 95% !important;
+        height: auto !important;
+        margin: 10px auto !important;
+        padding: 15px !important;
+    }
+    
+    #name, #comment {
+        width: 90% !important;
+        margin: 5px auto !important;
+        display: block;
+    }
+    
+    /* تحسين الفوتر */
+    footer {
+        padding: 15px 10px !important;
+    }
+    
+    footer button {
+        width: 90% !important;
+        margin: 10px auto !important;
+        display: block;
+    }
+    
+    footer #rating {
+        width: 90% !important;
+        margin: 5px auto !important;
+        display: block;
+    }
+    
+    /* تحسين زر الشات بوت */
+    .chatbot-btn {
+        width: 60px !important;
+        height: 60px !important;
+        bottom: 20px !important;
+        left: 20px !important;
+        font-size: 1.2rem !important;
+        margin-left: 80% !important;
+    }
+    
+    /* تحسين العناصر العائمة في الخلفية */
+    .code-snippet, .bracket, .lang-name, .floating-icon,
+    .pixel, .robot, .ai-icon, .neural-path, .game-controller,
+    .pixel-grid, .maze-path, .code-character, .game-token, .game-portal {
+        display: none !important;
+    }
+    
+    /* تحسين زر التحميل */
+    .download-app {
+        grid-column: 1 !important;
+        margin-top: 1rem !important;
+    }
+    
+    .download-btn {
+        padding: 0.8rem 1.5rem !important;
+        font-size: 0.9rem !important;
+        margin-top: 10px !important;
+    }
+}
+
+/* تحسين إضافي للهواتف الصغيرة جداً */
+@media (max-width: 480px) {
+    .main-btn {
+        height: 180px !important;
+    }
+    
+    .main-btn img {
+        width: 60px !important;
+        height: 60px !important;
+    }
+    
+    .main-btn h2 {
+        font-size: 1.1rem !important;
+    }
+    
+    .header-btn {
+        padding: 0.4rem 0.8rem !important;
+        font-size: 0.7rem !important;
+    }
+    
+    .chatbot-btn {
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 1rem !important;
+    }
+}
+
+/* منع التكبير عند التركيز على الحقول في iOS */
+@media (max-width: 768px) {
+    input, select, textarea {
+        font-size: 16px !important;
+    }
+}
 
         
 
@@ -930,4 +1099,5 @@ window.onload = function() {
        
     </script>
 </body>
+
 </html>
