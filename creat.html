@@ -266,8 +266,8 @@
             
             <!-- قسم التحقق -->
             <div class="verification-section" id="verification-section">
-                <p>لقد أرسلنا رابط التحقق إلى بريدك الإلكتروني. يرجى التحقق لتتمكن من الدخول.</p>
-                <button id="resend-verification">إعادة إرسال رابط التحقق</button>
+              
+                <button id="resend-verification"> </button>
                 <p id="email-verified-message">✓ تم التحقق من البريد الإلكتروني بنجاح!</p>
             </div>
         </div>
@@ -369,67 +369,123 @@
                 }
             });
 
+
+
+
             // تسجيل المستخدم الجديد
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
+// ✅ الكود الجديد - تفعيل تلقائي
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-                const name = document.getElementById('name').value.trim();
-                const age = document.getElementById('age').value;
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
-                
-                if (!name || name === "") {
-                    alert("الرجاء إدخال اسم صحيح");
-                    return;
-                }
+    const name = document.getElementById('name').value.trim();
+    const age = document.getElementById('age').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    
+    if (!name) {
+        alert("الرجاء إدخال اسم صحيح");
+        return;
+    }
 
-                try {
-                    // 1. إنشاء المستخدم في المصادقة
-                    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-                    const user = userCredential.user;
+    // تحقق من صحة البريد الإلكتروني
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+    
+    if (!isValidEmail(email)) {
+        alert('صيغة البريد الإلكتروني غير صحيحة');
+        return;
+    }
 
-                    // 2. تحديث الاسم في ملف تعريف المصادقة أولاً
-                    await user.updateProfile({
-                        displayName: name
-                    });
+    try {
+        // 1. إنشاء المستخدم
+        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+        const user = userCredential.user;
 
-                    // 3. إرسال رسالة التحقق
-                    await user.sendEmailVerification();
+        // 2. تحديث الاسم
+        await user.updateProfile({ displayName: name });
+
+        // 3. ✅ تفعيل تلقائي فوري (بدون انتظار البريد)
+        console.log("🎯 تفعيل الحساب تلقائياً");
+
+        // 4. حفظ البيانات مع التفعيل الفوري
+        await db.collection('users').doc(user.uid).set({
+            userId: user.uid,
+            name: name,
+            age: age,
+            email: email,
+            emailVerified: true, // ✅ تفعيل فوري
+            stats: [],
+            profileImage: 'avatar/default.png',
+            points: 0,
+            level: 1,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        // 5. إظهار رسالة نجاح
+        form.style.display = 'none';
+        verificationSection.style.display = 'block';
+        verifiedMessage.style.display = 'block';
+        verifiedMessage.innerHTML = '✅ تم إنشاء حسابك بنجاح وتفعيله تلقائياً!<br>سيتم تحويلك إلى الصفحة الرئيسية خلال 3 ثوانٍ...';
+
+        // 6. الانتقال الفوري للصفحة الرئيسية
+        setTimeout(() => {
+            window.location.href = 'f1.html';
+        }, 3000);
+
+    } catch (error) {
+        console.error('❌ Error:', error);
+        
+        if (error.code === 'auth/email-already-in-use') {
+            alert('هذا البريد الإلكتروني مستخدم بالفعل');
+        } else if (error.code === 'auth/weak-password') {
+            alert('كلمة المرور ضعيفة، يجب أن تكون 6 أحرف على الأقل');
+        } else if (error.code === 'auth/invalid-email') {
+            alert('صيغة البريد الإلكتروني غير صحيحة');
+        } else {
+            alert('حدث خطأ: ' + error.message);
+        }
+        
+        if (auth.currentUser) {
+            await auth.currentUser.delete();
+        }
+    }
+});
+
+
+
+
+
+
+// دالة بدء فحص التحقق
+function startVerificationCheck() {
+    const checkInterval = setInterval(() => {
+        const user = auth.currentUser;
+        if (user) {
+            user.reload().then(() => {
+                if (user.emailVerified) {
+                    clearInterval(checkInterval);
+                    verifiedMessage.style.display = 'block';
                     
-                    // 4. حفظ بيانات المستخدم في Firestore
-                    await db.collection('users').doc(user.uid).set({
-                        userId: user.uid,
-                        name: name,
-                        age: age,
-                        email: email,
-                        stats: [],
-                        profileImage: 'avatar/default.png',
-                        points: 0,
-                        level: 1,
-                        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    // تحديث الحقل في Firestore
+                    db.collection('users').doc(user.uid).update({
+                        emailVerified: true,
                         lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
                     });
-
-                    // 5. إظهار قسم التحقق وإخفاء النموذج
-                    form.style.display = 'none';
-                    verificationSection.style.display = 'block';
-
-                    console.log("تم تسجيل المستخدم بنجاح:", {
-                        uid: user.uid,
-                        name: name,
-                        email: email
-                    });
-               
-                } catch (error) {
-                    console.error('Error:', error);
-                    alert('حدث خطأ: ' + error.message);
                     
-                    // في حالة الخطأ، حاول حذف المستخدم إذا تم إنشاؤه
-                    if (auth.currentUser) {
-                        await auth.currentUser.delete();
-                    }
+                    setTimeout(() => {
+                        window.location.href = 'f1.html';
+                    }, 3000);
                 }
+            }).catch(error => {
+                console.error('خطأ في إعادة تحميل المستخدم:', error);
             });
+        } else {
+            clearInterval(checkInterval);
+        }
+    }, 2000);
+}
 
 // دالة لمسح بيانات المستخدم السابق
 function clearPreviousUserData() {
