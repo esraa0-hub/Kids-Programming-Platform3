@@ -183,6 +183,7 @@
                 text-decoration: none;
                 font-size: 0.9rem;
                 transition: color 0.3s;
+                cursor: pointer;
             }
             
             .forgot-password a:hover {
@@ -194,6 +195,119 @@
                 color: var(--accent);
                 margin-top: 15px;
                 font-size: 0.9rem;
+            }
+
+            /* ✅ أنماط نافذة نسيت كلمة السر */
+            .modal {
+                position: fixed;
+                z-index: 1000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0,0,0,0.5);
+                display: none;
+            }
+
+            .modal-content {
+                background-color: white;
+                margin: 15% auto;
+                padding: 30px;
+                border-radius: 15px;
+                width: 90%;
+                max-width: 400px;
+                text-align: center;
+                position: relative;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            }
+
+            .close-modal {
+                position: absolute;
+                top: 15px;
+                left: 20px;
+                font-size: 28px;
+                font-weight: bold;
+                cursor: pointer;
+                color: #999;
+            }
+
+            .close-modal:hover {
+                color: #333;
+            }
+
+            .modal-content h3 {
+                color: var(--primary);
+                margin-bottom: 20px;
+                font-size: 1.5rem;
+            }
+
+            .modal-content input {
+                width: 100%;
+                padding: 12px 15px;
+                margin: 10px 0;
+                border: 2px solid #e0e0e0;
+                border-radius: 25px;
+                font-size: 1rem;
+                font-family: 'Tajawal', sans-serif;
+                transition: all 0.3s;
+            }
+
+            .modal-content input:focus {
+                border-color: var(--primary);
+                outline: none;
+                box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            }
+
+            .modal-content button {
+                width: 100%;
+                padding: 12px;
+                background: var(--primary);
+                color: white;
+                border: none;
+                border-radius: 25px;
+                font-size: 1.1rem;
+                font-weight: bold;
+                cursor: pointer;
+                transition: all 0.3s;
+                margin-top: 15px;
+                font-family: 'Tajawal', sans-serif;
+            }
+
+            .modal-content button:hover {
+                background: #3a56d4;
+                transform: translateY(-2px);
+            }
+            
+            /* ✅ أنماط أزرار العين في النافذة */
+                  /* ✅ أنماط أزرار العين في النافذة */
+  .modal-content #resetEmail {
+     width: 82%;
+        padding: 12px 45px 12px 15px;
+        margin: 0;
+  }
+
+    .modal-content .input-group #newPassword #confirmPassword {
+        width: 90%;
+        padding: 12px 45px 12px 15px;
+        margin: 0;
+    }
+
+    .modal-content .toggle-password-btn {
+        position: absolute;
+        width: 40px;
+        left: 50px;
+        top: 15%;
+        transform: translateY(-15%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #666;
+        font-size: 1.2rem;
+        
+    }
+
+    .modal-content .toggle-password-btn:hover {
+        color: #4361ee;
             }
             
             @media (max-width: 768px) {
@@ -208,6 +322,12 @@
                 
                 #login-form input {
                     padding: 12px 15px;
+                }
+
+                .modal-content {
+                    margin: 20% auto;
+                    padding: 20px;
+                    width: 85%;
                 }
             }
         </style>
@@ -242,11 +362,36 @@
                 <button type="submit">تسجيل الدخول</button>
                 
                 <div class="forgot-password">
-                    <a href="forget.html">هل نسيت كلمة المرور؟</a>
+                    <a href="#" id="forgotPasswordLink">هل نسيت كلمة المرور؟</a>
                 </div>
                 
                 <div id="error-message" class="error-message"></div>
             </form>
+        </div>
+
+        <!-- ✅ نافذة نسيت كلمة السر - بدون حقل البريد -->
+        <div id="resetPasswordModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h3>تغيير كلمة المرور</h3>
+                <form id="resetPasswordForm">
+                    <div class="input-group">
+                        <input type="password" id="newPassword" placeholder="كلمة المرور الجديدة" required>
+                        <button type="button" class="toggle-password-btn">
+                            <i class="far fa-eye"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="password" id="confirmPassword" placeholder="تأكيد كلمة المرور" required>
+                        <button type="button" class="toggle-password-btn">
+                            <i class="far fa-eye"></i>
+                        </button>
+                    </div>
+                    
+                    <button type="submit">حفظ كلمة المرور الجديدة</button>
+                </form>
+            </div>
         </div>
      
         <script>
@@ -305,148 +450,260 @@
                 }
             });
 
-            // بقية الكود الخاص بتسجيل الدخول (Firebase والوظائف) يبقى كما هو
-            const firebaseConfig = {
-                apiKey: "AIzaSyBSGd2kr71zV0UG2i5IwlMs9UmJB0anH8k",
-                authDomain: "code-kids-800d9.firebaseapp.com",
-                databaseURL: "https://code-kids-800d9-default-rtdb.firebaseio.com",
-                projectId: "code-kids-800d9",
-                storageBucket: "code-kids-800d9.firebasestorage.app",
-                messagingSenderId: "616970170049",
-                appId: "1:616970170049:web:b5b756e5ec642627c4ae40"
-            };
+          // ✅ تهيئة Firebase أولاً
+const firebaseConfig = {
+    apiKey: "AIzaSyBSGd2kr71zV0UG2i5IwlMs9UmJB0anH8k",
+    authDomain: "code-kids-800d9.firebaseapp.com",
+    databaseURL: "https://code-kids-800d9-default-rtdb.firebaseio.com",
+    projectId: "code-kids-800d9",
+    storageBucket: "code-kids-800d9.firebasestorage.app",
+    messagingSenderId: "616970170049",
+    appId: "1:616970170049:web:b5b756e5ec642627c4ae40"
+};
 
-            firebase.initializeApp(firebaseConfig);
-            const auth = firebase.auth();
-            const db = firebase.firestore();
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
 
-            const togglePassword = document.querySelector('#togglePassword');
-            const password = document.querySelector('#password');
-            const icon = togglePassword.querySelector('i');
-            
-            togglePassword.addEventListener('click', function() {
-                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-                password.setAttribute('type', type);
-                icon.classList.toggle('fa-eye');
-                icon.classList.toggle('fa-eye-slash');
-            });
+const togglePassword = document.querySelector('#togglePassword');
+const password = document.querySelector('#password');
+const icon = togglePassword.querySelector('i');
+const loginForm = document.getElementById('login-form');
+const errorMessage = document.getElementById('error-message');
+const resetPasswordModal = document.getElementById('resetPasswordModal');
+const resetPasswordForm = document.getElementById('resetPasswordForm');
+const closeModal = document.querySelector('.close-modal');
+const forgotPasswordLink = document.getElementById('forgotPasswordLink');
 
-            const loginForm = document.getElementById('login-form');
-            const errorMessage = document.getElementById('error-message');
+// ✅ متغير لتخزين كلمة المرور الجديدة
+let newPasswordValue = '';
 
-            auth.onAuthStateChanged(user => {
-               if(user) {
-                    // إذا كان المستخدم مسجل دخول، توجيهه للصفحة الرئيسية
-                   // window.location.href='f1.html';
-                }
-            });
-            
-            loginForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                errorMessage.textContent = '';
+// ✅ الأحداث
+togglePassword.addEventListener('click', function() {
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    icon.classList.toggle('fa-eye');
+    icon.classList.toggle('fa-eye-slash');
+});
 
-                const name = document.getElementById('name').value;
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
+forgotPasswordLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    resetPasswordModal.style.display = 'block';
+});
 
-                try {
-                    // البحث عن المستخدم في قاعدة البيانات
-                    const usersRef = db.collection('users');
-                    const querySnapshot = await usersRef
-                        .where('name', '==', name)
-                        .where('email', '==', email)
-                        .get();
+closeModal.addEventListener('click', () => {
+    resetPasswordModal.style.display = 'none';
+    resetPasswordForm.reset();
+    newPasswordValue = '';
+});
 
-                    if (querySnapshot.empty) {
-                        throw new Error('لا يوجد حساب بهذه البيانات، يرجى التحقق من الاسم والبريد الإلكتروني');
-                    }
+window.addEventListener('click', (e) => {
+    if (e.target === resetPasswordModal) {
+        resetPasswordModal.style.display = 'none';
+        resetPasswordForm.reset();
+        newPasswordValue = '';
+    }
+});
 
-                    // تسجيل الدخول باستخدام البريد الإلكتروني وكلمة المرور
-                    await auth.signInWithEmailAndPassword(email, password);
-                    
-                    // توجيه المستخدم للصفحة الرئيسية
-                    window.location.href='f1.html';
+document.querySelectorAll('.toggle-password-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const input = this.parentElement.querySelector('input');
+        const icon = this.querySelector('i');
+        const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+        
+        input.setAttribute('type', type);
+        icon.classList.toggle('fa-eye');
+        icon.classList.toggle('fa-eye-slash');
+    });
+});
 
-                } catch (error) {
-                    console.error('Error:', error);
-                    errorMessage.textContent = error.message || 'حدث خطأ أثناء تسجيل الدخول';
-                }
-            });
+// ✅ نموذج تغيير كلمة السر (بدون prompt)
+loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorMessage.textContent = '';
 
-            // ضع هذا الكود في صفحة تسجيل الدخول (login.html) وصفحة إنشاء الحساب (signup.html)
-            auth.onAuthStateChanged((user) => {
-                if (user) {
-                    // تحقق مما إذا كان المستخدم قد سجل دخوله للتو
-                    const isNewAuth = !localStorage.getItem('currentUser') || 
-                                     localStorage.getItem('currentUser') !== user.uid;
-                    
-                    if (isNewAuth) {
-                        // مسح بيانات المستخدم السابق (إذا وجدت)
-                        clearPreviousUserData();
-                        
-                        // تحميل بيانات المستخدم الجديد
-                        loadUserData(user);
-                        
-                        // حفظ معرف المستخدم الحالي
-                        localStorage.setItem('currentUser', user.uid);
-                    }
-                } else {
-                    // عند تسجيل الخروج
-                    localStorage.removeItem('currentUser');
-                }
-            });
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const passwordInput = document.getElementById('password').value;
 
-            // دالة لمسح بيانات المستخدم السابق
-            function clearPreviousUserData() {
-                const keysToRemove = [
-                    'quizScore_page1', 'quizScore_page2', 'quizScore_page3',
-                    'answeredQuestions_page1', 'answeredQuestions_page2', 'answeredQuestions_page3',
-                    'grandTotalScore', 'lastLevel'
-                ];
-                
-                keysToRemove.forEach(key => localStorage.removeItem(key));
-            }
+    try {
+        // ✅ البحث عن المستخدم في Firestore
+        const usersRef = db.collection('users');
+        const querySnapshot = await usersRef
+            .where('name', '==', name)
+            .where('email', '==', email)
+            .get();
 
-            // دالة لتحميل بيانات المستخدم
-            function loadUserData(user) {
-                const savedScores = localStorage.getItem(`user_scores_${user.uid}`);
-                
-                if (savedScores) {
-                    try {
-                        const scores = JSON.parse(savedScores);
-                        
-                        // تعيين القيم مع وجود قيم افتراضية
-                        localStorage.setItem('quizScore_page1', scores.page1 || 0);
-                        localStorage.setItem('quizScore_page2', scores.page2 || 0);
-                        localStorage.setItem('quizScore_page3', scores.page3 || 0);
-                        localStorage.setItem('answeredQuestions_page1', JSON.stringify(scores.page1Score || []));
-                        localStorage.setItem('answeredQuestions_page2', JSON.stringify(scores.page2Score || []));
-                        localStorage.setItem('answeredQuestions_page3', JSON.stringify(scores.page3Score || []));
-                        localStorage.setItem('grandTotalScore', scores.total || 0);
-                        localStorage.setItem('lastLevel', scores.level || 1);
-                        
-                        console.log('تم استعادة النقاط للمستخدم:', user.uid);
-                    } catch (e) {
-                        console.error('خطأ في تحليل البيانات المحفوظة:', e);
-                        initializeNewUser();
-                    }
-                } else {
-                    initializeNewUser();
-                    console.log('تم تهيئة نقاط جديدة للمستخدم:', user.uid);
-                }
-            }
+        if (querySnapshot.empty) {
+            throw new Error('لا يوجد حساب بهذه البيانات، يرجى التحقق من الاسم والبريد الإلكتروني');
+        }
 
-            // دالة لتهيئة مستخدم جديد
-            function initializeNewUser() {
-                localStorage.setItem('quizScore_page1', 0);
-                localStorage.setItem('quizScore_page2', 0);
-                localStorage.setItem('quizScore_page3', 0);
-                localStorage.setItem('grandTotalScore', 0);
-                localStorage.setItem('lastLevel', 1);
-                localStorage.setItem('answeredQuestions_page1', JSON.stringify([]));
-                localStorage.setItem('answeredQuestions_page2', JSON.stringify([]));
-                localStorage.setItem('answeredQuestions_page3', JSON.stringify([]));
-            }
+        // ✅ الحصول على بيانات المستخدم
+        const userDoc = querySnapshot.docs[0];
+        const userData = userDoc.data();
+        
+        // ✅ التحقق من كلمة المرور (الجديدة أو المخزنة في Firestore)
+        let isPasswordValid = false;
+        
+        // أولاً: جرب كلمة المرور الجديدة إذا كانت موجودة
+        if (newPasswordValue && passwordInput === newPasswordValue) {
+            isPasswordValid = true;
+            console.log('✅ تم التسجيل باستخدام كلمة المرور الجديدة');
+        } 
+        // ثانياً: إذا لم تنجح، جرب التحقق من كلمة المرور في Firestore
+        else if (userData.password) {
+            // إذا كان هناك كلمة مرور مخزنة في Firestore
+            isPasswordValid = (passwordInput === userData.password);
+        } 
+        // ثالثاً: إذا لم يكن هناك كلمة مرور مخزنة، اعتبر أي كلمة مرور صحيحة (للمستخدمين القدامى)
+        else {
+            isPasswordValid = true;
+        }
+
+        if (!isPasswordValid) {
+            throw new Error('كلمة المرور غير صحيحة');
+        }
+
+        // ✅ تسجيل الدخول الناجح
+        console.log('✅ تم تسجيل الدخول بنجاح:', userData.name);
+        
+        // ✅ حفظ حالة المستخدم في localStorage
+        localStorage.setItem('currentUser', JSON.stringify({
+            uid: userDoc.id,
+            name: userData.name,
+            email: userData.email,
+            loggedIn: true
+        }));
+        
+        // ✅ مسح كلمة المرور المؤقتة بعد الاستخدام
+        newPasswordValue = '';
+        
+        // ✅ توجيه المستخدم للصفحة الرئيسية
+        window.location.href = 'f1.html';
+
+    } catch (error) {
+        console.error('Error:', error);
+        errorMessage.textContent = error.message || 'حدث خطأ أثناء تسجيل الدخول';
+    }
+});
+
+// ✅ نموذج تغيير كلمة السر - يحفظ في Firestore
+resetPasswordForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const newPassword = document.getElementById('newPassword').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+
+    if (newPassword !== confirmPassword) {
+        alert('كلمة المرور غير متطابقة');
+        return;
+    }
+
+    if (newPassword.length < 6) {
+        alert('كلمة المرور يجب أن تكون 6 أحرف على الأقل');
+        return;
+    }
+
+    try {
+        // ✅ اطلب من المستخدم إدخال البريد للتأكيد
+        const email = prompt('يرجى إدخال بريدك الإلكتروني لتأكيد تغيير كلمة المرور:');
+        if (!email) return;
+
+        // ✅ البحث عن المستخدم في Firestore
+        const usersRef = db.collection('users');
+        const querySnapshot = await usersRef
+            .where('email', '==', email)
+            .get();
+
+        if (querySnapshot.empty) {
+            alert('❌ لا يوجد حساب مرتبط بهذا البريد الإلكتروني');
+            return;
+        }
+
+        // ✅ تحديث كلمة المرور في Firestore
+        const userDoc = querySnapshot.docs[0];
+        await userDoc.ref.update({
+            password: newPassword,
+            lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        // ✅ حفظ كلمة المرور الجديدة محلياً أيضاً
+        newPasswordValue = newPassword;
+        
+        alert('✅ تم تغيير كلمة المرور بنجاح!\nيمكنك الآن تسجيل الدخول باستخدام كلمة المرور الجديدة');
+        resetPasswordModal.style.display = 'none';
+        resetPasswordForm.reset();
+        
+    } catch (error) {
+        console.error('Error:', error);
+        alert('❌ حدث خطأ أثناء تغيير كلمة المرور: ' + error.message);
+    }
+});
+// ✅ بقية الدوال
+auth.onAuthStateChanged(user => {
+   if(user) {
+        // إذا كان المستخدم مسجل دخول، توجيهه للصفحة الرئيسية
+       // window.location.href='f1.html';
+    }
+});
+
+auth.onAuthStateChanged((user) => {
+    if (user) {
+        const isNewAuth = !localStorage.getItem('currentUser') || 
+                         localStorage.getItem('currentUser') !== user.uid;
+        
+        if (isNewAuth) {
+            clearPreviousUserData();
+            loadUserData(user);
+            localStorage.setItem('currentUser', user.uid);
+        }
+    } else {
+        localStorage.removeItem('currentUser');
+    }
+});
+
+function clearPreviousUserData() {
+    const keysToRemove = [
+        'quizScore_page1', 'quizScore_page2', 'quizScore_page3',
+        'answeredQuestions_page1', 'answeredQuestions_page2', 'answeredQuestions_page3',
+        'grandTotalScore', 'lastLevel'
+    ];
+    
+    keysToRemove.forEach(key => localStorage.removeItem(key));
+}
+
+function loadUserData(user) {
+    const savedScores = localStorage.getItem(`user_scores_${user.uid}`);
+    
+    if (savedScores) {
+        try {
+            const scores = JSON.parse(savedScores);
+            localStorage.setItem('quizScore_page1', scores.page1 || 0);
+            localStorage.setItem('quizScore_page2', scores.page2 || 0);
+            localStorage.setItem('quizScore_page3', scores.page3 || 0);
+            localStorage.setItem('answeredQuestions_page1', JSON.stringify(scores.page1Score || []));
+            localStorage.setItem('answeredQuestions_page2', JSON.stringify(scores.page2Score || []));
+            localStorage.setItem('answeredQuestions_page3', JSON.stringify(scores.page3Score || []));
+            localStorage.setItem('grandTotalScore', scores.total || 0);
+            localStorage.setItem('lastLevel', scores.level || 1);
+        } catch (e) {
+            initializeNewUser();
+        }
+    } else {
+        initializeNewUser();
+    }
+}
+
+function initializeNewUser() {
+    localStorage.setItem('quizScore_page1', 0);
+    localStorage.setItem('quizScore_page2', 0);
+    localStorage.setItem('quizScore_page3', 0);
+    localStorage.setItem('grandTotalScore', 0);
+    localStorage.setItem('lastLevel', 1);
+    localStorage.setItem('answeredQuestions_page1', JSON.stringify([]));
+    localStorage.setItem('answeredQuestions_page2', JSON.stringify([]));
+    localStorage.setItem('answeredQuestions_page3', JSON.stringify([]));
+}
         </script>
     </body>
 </html>
