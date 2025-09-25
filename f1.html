@@ -502,18 +502,25 @@
         }
 
       @media (max-width: 768px) {
-    /* تحسين عام للهواتف */
-    body {
-         width: 100%
-            padding: 0;
+     body {
+        width: 100%;
+        max-width: 100vw;
         margin: 0;
-        font-size: 14px;
+        padding: 0;
         overflow-x: hidden;
+        font-size: 14px;
     }
+    
+    /* منع التمرير الأفقي */
+    html, body {
+        overflow-x: hidden;
+        position: relative;
+    }
+}
     
     /* تحسين الهيدر */
     header {
-        width:140%;
+        width:100%;
          height: 55px;
         padding: 10px 5px !important;
         display: flex;
@@ -529,6 +536,7 @@
     
     /* تحسين زر اختيار الخلفية */
     .bg-selector {
+     margin-left: 30px;
         margin-right: 0 !important;
         margin-top: 10px !important;
         width: 95% !important;
@@ -631,6 +639,7 @@
         left: 20px !important;
         font-size: 1.2rem !important;
         margin-left: 80% !important;
+        margin-bottom: 70% ;
     }
     
     /* تحسين العناصر العائمة في الخلفية */
@@ -657,6 +666,7 @@
 @media (max-width: 480px) {
     .main-btn {
         height: 180px !important;
+        margin:0;
     }
     
     .main-btn img {
@@ -709,7 +719,7 @@
     animation: pulse 2s infinite;
     margin-left: 90%;
     margin-right:auto;
-    margin-bottom:70%;
+ 
 
 }
 
@@ -1106,5 +1116,6 @@ window.onload = function() {
 </body>
 
 </html>
+
 
 
