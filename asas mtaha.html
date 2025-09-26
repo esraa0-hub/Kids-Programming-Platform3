@@ -6,14 +6,19 @@
         <style>
 .game-container {
     width: 100%;
-    height: 100vh; /* ارتفاع كامل للشاشة */
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
 .game-container iframe {
     width: 100%;
     height: 100%;
     border: none;
-}        </style>
+    transform: scale(1.1); /* تكبير المحتوى */
+    transform-origin: center center;
+}     </style>
     </head>
     <body>
         <div class="game-container">
@@ -21,6 +26,7 @@
         </div>
     </body>
 </html>
+
 
 
 
