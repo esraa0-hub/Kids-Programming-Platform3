@@ -1305,7 +1305,7 @@ async function displayCourses(coursesData) {
 // دالة مساعدة للحصول على رابط الدورة
 function getCourseLink(courseName) {
     const coursesLinks = {
-        "أساسيات البرمجة": "bb.html",
+        "أساسيات البرمجة": "as.html",
         "CSS لغه": "cs.html",
              "HTML لغه": "ht.html",
                   "لغه سكراتش": "scratch.html",
@@ -1323,7 +1323,7 @@ async function loadProfileData() {
         
         const user = auth.currentUser;
         if (!user) {
-            window.location.href = 'as copy.html';
+            window.location.href = 'index.html';
             return;
         }
         
@@ -1404,4 +1404,5 @@ function searchCourses() {
 
     </script>
 </body>
+
 </html>
