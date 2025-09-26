@@ -7,18 +7,27 @@
 .game-container {
     width: 100%;
     height: 100vh;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
 }
 
 .game-container iframe {
     width: 100%;
     height: 100%;
     border: none;
-    transform: scale(1.1); /* تكبير المحتوى */
-    transform-origin: center center;
-}     </style>
+}
+
+/* للهواتف فقط */
+@media (max-width: 768px) {
+    .game-container {
+        width: 120%; /* زيادة العرض */
+        margin-left: -10%; /* تعويض الزيادة */
+    }
+    
+    .game-container iframe {
+        width: 100%;
+        height: 100%;
+    }
+}
+        </style>
     </head>
     <body>
         <div class="game-container">
@@ -26,6 +35,7 @@
         </div>
     </body>
 </html>
+
 
 
 
