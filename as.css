@@ -100,7 +100,7 @@
     position: absolute;
     top: 2rem;
     right: 2rem;
-    color:#f9f9f9;
+    color:brown;
   }
   .tranding-slide-content .tranding-slide-content-bottom{
     position: absolute;
@@ -269,4 +269,5 @@ body {
         .back-btn:hover {
             background-color: #ff6b6b;
             transform: scale(1.05);
+
         }
