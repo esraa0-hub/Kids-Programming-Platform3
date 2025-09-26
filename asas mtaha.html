@@ -1,28 +1,44 @@
 <!DOCTYPE html>
 <html lang="ar">
     <head>
-        <title> اساسيات البرمجه </title>
+        <title> الشروط </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
-body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
-
-.game-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-}
-
-.game-container iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-}
+            body {
+                margin: 0;
+                padding: 0;
+                overflow-x: hidden;
+            }
+            
+            .game-container {
+                width: 100%;
+                height: 100vh;
+                overflow: hidden;
+            }
+            
+            .game-container iframe {
+                width: 150%; /* زيادة العرض بنسبة 50% */
+                height: 100%;
+                border: none;
+                transform: scale(1.2); /* تكبير المحتوى */
+                transform-origin: center center;
+            }
+            
+            /* للهواتف الصغيرة */
+            @media (max-width: 480px) {
+                .game-container iframe {
+                    width: 180%; /* زيادة أكبر للهواتف الصغيرة */
+                    transform: scale(1.3);
+                }
+            }
+            
+            /* للأجهزة اللوحية */
+            @media (max-width: 768px) and (min-width: 481px) {
+                .game-container iframe {
+                    width: 160%;
+                    transform: scale(1.25);
+                }
+            }
         </style>
     </head>
     <body>
