@@ -2,54 +2,33 @@
 <html lang="ar">
     <head>
         <title> الشروط </title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=1200, initial-scale=1.0"> <!-- إجبار العرض -->
         <style>
             body {
                 margin: 0;
                 padding: 0;
-                overflow-x: hidden;
-            }
-            
-            .game-container {
-                width: 100%;
+                width: 100vw;
                 height: 100vh;
                 overflow: hidden;
             }
             
-            .game-container iframe {
-                width: 150%; /* زيادة العرض بنسبة 50% */
+            iframe {
+                width: 1200px; /* عرض ثابت كبير */
                 height: 100%;
                 border: none;
-                transform: scale(1.2); /* تكبير المحتوى */
-                transform-origin: center center;
+                transform: scale(1.5);
+                transform-origin: top left;
             }
             
-            /* للهواتف الصغيرة */
             @media (max-width: 480px) {
-                .game-container iframe {
-                    width: 180%; /* زيادة أكبر للهواتف الصغيرة */
-                    transform: scale(1.3);
-                }
-            }
-            
-            /* للأجهزة اللوحية */
-            @media (max-width: 768px) and (min-width: 481px) {
-                .game-container iframe {
-                    width: 160%;
-                    transform: scale(1.25);
+                iframe {
+                    transform: scale(1.8);
                 }
             }
         </style>
     </head>
     <body>
-        <div class="game-container">
-            <iframe src="https://blockly.games/maze?lang=ar" allowfullscreen></iframe>
-        </div>
+        <iframe src="https://blockly.games/maze?lang=ar" allowfullscreen></iframe>
     </body>
 </html>
-
-
-
-
-
 
